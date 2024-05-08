@@ -5,10 +5,10 @@
 ---
 
 ![Demon Slayer](https://tinyurl.com/cmxf5sz4)
-| ID | TOPIC |
-|--- |---    |
-|01  | Emmet |
-|02  | Html  |
-|03  | Css   |
+| ID | TOPIC | DESCRIPTION                           |
+|--- |---    | ---                                   |
+|01  | Emmet | Work Flow - Markup & stylish          |
+|02  | Html  |Structure - HyperTextet Markup Language|
+|03  | Css   |Look & Fell - Cascading Style Sheets   |
 
 [ADSO Files DRIVE](https://tinyurl.com/wnkk334u)
