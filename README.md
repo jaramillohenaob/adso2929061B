@@ -7,7 +7,7 @@
 ![Demon Slayer](https://tinyurl.com/cmxf5sz4)
 | ID | TOPIC | DESCRIPTION                           |
 |--- |---    | ---                                   |
-|01  | Emmet | Work Flow - Markup & stylish          |
+|01  | Emmet | Work Flow - Markup & Stylish          |
 |02  | Html  |Structure - HyperTextet Markup Language|
 |03  | Css   |Look & Fell - Cascading Style Sheets   |
 
