@@ -224,6 +224,7 @@ body {
             border-radius: 4px;
             margin-block: 1rem;
             min-height: 25vh;
+            min-width: 400px;
             width: 400px;
         }
     }
