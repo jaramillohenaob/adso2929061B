@@ -5,6 +5,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>09 - Tables</title>
     <link rel="stylesheet" href="../css/styles.css">
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            thead,
+            tfoot {
+                th, td {
+                    background: rgba(23, 143, 2, 0.8);
+                    border: 1px solid rgba(0, 1, 0, 0.6);
+                    text-align: center;
+                    padding: 4px;
+                }
+            }
+            tbody{
+                td {
+                    background-color: rgba(122, 247, 108, 0.317);
+                    border: 1px solid rgba(0, 0, 0, 0.6);
+                    font-size: 0.8rem;
+                    padding: 4px;
+                }
+                tr:nth-of-type(even) {
+                    td {
+                        background: rgba(40, 215, 60, 0.435);
+                    }
+                } 
+            }
+        }
+    </style>
 </head>
 <body class="html">
     <nav>
@@ -16,11 +44,56 @@
         <header>
             <h1>09 - Tables</h1>
             <p>
-                xxxxx
+                This tag allows you to create a table.
             </p>
         </header>
         <section>
-          xxxxxx
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>FullName</th>
+                        <th>Phone</th>
+                        <th>Email</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Homer Simpson</td>
+                        <td>01123001</td>
+                        <td>homer@gmail.com</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Marge Simpson</td>
+                        <td>01123002</td>
+                        <td>marge@gmail.com</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Marge Simpson</td>
+                        <td>01123003</td>
+                        <td>marge@gmail.com</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>Marge Simpson</td>
+                        <td>01123004</td>
+                        <td>marge@gmail.com</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>Magie Simpson</td>
+                        <td>01123005</td>
+                        <td>magie@gmail.com</td>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="4">Simpson Family</td>
+                    </tr>
+                </tfoot>
+            </table>
         </section>
     </main>
     
