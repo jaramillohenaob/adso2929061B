@@ -16,7 +16,7 @@ div.colors {
             display: flex;
         }
         div.colors div.row div {
-            font-size: 0.75rem;
+            font-size: 0.65rem;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -56,16 +56,16 @@ div.colors {
         div.colors div.row div:last-child {
             color: white;
         }
-div.decimal {
+div.hexadecimal {
             display: flex;
             flex-direction: column;
             align-items: center;
             margin: 2rem auto;
         }
-        div.decimal div.row {
+        div.hexadecimal div.row {
             display: flex;
         }
-        div.decimal div.row div {
+        div.hexadecimal div.row div {
             font-size: 0.75rem;
             display: flex;
             justify-content: center;
@@ -73,37 +73,37 @@ div.decimal {
             height: 76px;
             width: 76px;
         }
-        div.decimal div.row div.maroon {background-color: #800000;}
-        div.decimal div.row div.red {background-color: #ff0000;}
-        div.decimal div.row div.orange {background-color: #ffA500;}
-        div.decimal div.row div.yellow {background-color: #ffff00;}
-        div.decimal div.row div.olive {background-color: #808000;}
-        div.decimal div.row div:first-child,
-        div.decimal div.row div:last-child {
+        div.hexadecimal div.row div.maroon {background-color: #800000;}
+        div.hexadecimal div.row div.red {background-color: #ff0000;}
+        div.hexadecimal div.row div.orange {background-color: #ffA500;}
+        div.hexadecimal div.row div.yellow {background-color: #ffff00;}
+        div.hexadecimal div.row div.olive {background-color: #808000;}
+        div.hexadecimal div.row div:first-child,
+        div.hexadecimal div.row div:last-child {
             color: white;
         }
-        div.decimal div.row div.purple {background-color: #800000;}
-        div.decimal div.row div.fuchsia {background-color: #ff00ff;}
-        div.decimal div.row div.white {background-color: #ffffff;}
-        div.decimal div.row div.lime {background-color: #00ff00;}
-        div.decimal div.row div.green {background-color: #008000;}
-        div.decimal div.row div:first-child,
-        div.decimal div.row div:last-child {
+        div.hexadecimal div.row div.purple {background-color: #800080;}
+        div.hexadecimal div.row div.fuchsia {background-color: #ff00ff;}
+        div.hexadecimal div.row div.white {background-color: #ffffff;}
+        div.hexadecimal div.row div.lime {background-color: #00ff00;}
+        div.hexadecimal div.row div.green {background-color: #008000;}
+        div.hexadecimal div.row div:first-child,
+        div.hexadecimal div.row div:last-child {
             color: white;
         }
-        div.decimal div.row div.navy {background-color: #000080;}
-        div.decimal div.row div.blue {background-color: #0000ff;}
-        div.decimal div.row div.aqua {background-color: #00ffff;}
-        div.decimal div.row div.teal {background-color: #008080;}
-        div.decimal div.row div:first-child,
-        div.decimal div.row div:last-child {
+        div.hexadecimal div.row div.navy {background-color: #000080;}
+        div.hexadecimal div.row div.blue {background-color: #0000ff;}
+        div.hexadecimal div.row div.aqua {background-color: #00ffff;}
+        div.hexadecimal div.row div.teal {background-color: #008080;}
+        div.hexadecimal div.row div:first-child,
+        div.hexadecimal div.row div:last-child {
             color: white;
         }
-        div.decimal div.row div.black {background-color: #000000;}
-        div.decimal div.row div.silver {background-color: #c0c0c0;}
-        div.decimal div.row div.gray {background-color: #808080;}
-        div.decimal div.row div:first-child,
-        div.decimal div.row div:last-child {
+        div.hexadecimal div.row div.black {background-color: #000000;}
+        div.hexadecimal div.row div.silver {background-color: #c0c0c0;}
+        div.hexadecimal div.row div.gray {background-color: #808080;}
+        div.hexadecimal div.row div:first-child,
+        div.hexadecimal div.row div:last-child {
             color: white;
         }
     </style>
@@ -151,36 +151,88 @@ div.decimal {
             </div>
             <br>
 <h3>RGB Decimal:</h3>
-            <div class="decimal">
-                <div class="row row1">
-                    <div class="maroon">#800000</div>
-                    <div class="red">#ff0000</div>
-                    <div class="orange">#ffA500</div>
-                    <div class="yellow">#ffff00</div>
-                    <div class="olive">#808000</div>
-                </div>
-                <div class="row row2">
-                    <div class="purple">#800080</div>
-                    <div class="fuchsia">#ff00ff</div>
-                    <div class="white">#ffffff</div>
-                    <div class="lime">#00ff00</div>
-                    <div class="green">#008000</div>
-                </div>
-                <div class="row row3">
-                    <div class="navy">#000080</div>
-                    <div class="blue">#0000ff</div>
-                    <div class="aqua">#00ffff</div>
-                    <div class="teal">#008080</div>
-                </div>
-                <div class="row row4">
-                    <div class="black">#000000</div>
-                    <div class="silver">#c0c0c0</div>
-                    <div class="gray">#808080</div>
-                </div>
-            <h3>RGB Hexadecimal:</h3>
-
-            <h3>HSL:</h3>
-          </div>
+<div class="colors">
+    <div class="row row1">
+        <div class="maroon">rgb(128,0,0)</div>
+        <div class="red">rgb(255,0,0)</div>
+        <div class="orange">rgb(255,165,0)</div>
+        <div class="yellow">rgb(255,255,0)</div>
+        <div class="olive">rgb(128,128,0)</div>
+    </div>
+    <div class="row row2">
+        <div class="purple">rgb(128,0,128)</div>
+        <div class="fuchsia">rgb(255,0,255)</div>
+        <div class="white">rgb(255,255,255)</div>
+        <div class="lime">rgb(0,255,0)</div>
+        <div class="green">rgb(0,128,0)</div>
+    </div>
+    <div class="row row3">
+        <div class="navy">rgb(0,0,128)</div>
+        <div class="blue">rgb(0,0,255)</div>
+        <div class="aqua">rgb(0,255,255)</div>
+        <div class="teal">rgb(0,128,128)</div>
+    </div>
+    <div class="row row4">
+        <div class="black">rgb(0,0,0)</div>
+        <div class="silver">rgb(192,192,192)</div>
+        <div class="gray">rgb(128,128,128)</div>
+    </div>
+</div>
+<h3>RGB Hexadecimal:</h3>
+<div class="hexadecimal">
+    <div class="row row1">
+        <div class="maroon">#800000</div>
+        <div class="red">#ff0000</div>
+        <div class="orange">#ffA500</div>
+        <div class="yellow">#ffff00</div>
+        <div class="olive">#808000</div>
+    </div>
+    <div class="row row2">
+        <div class="purple">#800080</div>
+        <div class="fuchsia">#ff00ff</div>
+        <div class="white">#ffffff</div>
+        <div class="lime">#00ff00</div>
+        <div class="green">#008000</div>
+    </div>
+    <div class="row row3">
+        <div class="navy">#000080</div>
+        <div class="blue">#0000ff</div>
+        <div class="aqua">#00ffff</div>
+        <div class="teal">#008080</div>
+    </div>
+    <div class="row row4">
+        <div class="black">#000000</div>
+        <div class="silver">#c0c0c0</div>
+        <div class="gray">#808080</div>
+    </div>
+<h3>HSL:</h3>
+<div class="colors">
+    <div class="row row1">
+        <div class="maroon">hsl(0, 100%, 25%)</div>
+        <div class="red" >hsl(0, 100%, 50%)</div>
+        <div class="orange" >hsl(39, 100%, 50%)</div>
+        <div class="yellow">hsl(60, 100%, 50%)</div>
+        <div class="olive">hsl(60, 100%, 25%)</div>
+    </div>
+    <div class="row row2">
+        <div class="purple">hsl(300, 100%, 25%)</div>
+        <div class="fuchsia">hsl(300, 100%, 50%)</div>
+        <div class="white">hsl(0, 0%, 100%)</div>
+        <div class="lime">hsl(120, 100%, 50%)</div>
+        <div class="green">hsl(120, 100%, 25%)</div>
+    </div>
+   <div class="row row3">
+    <div class="navy">hsl(240, 100%, 25%)</div>
+    <div class="blue">hsl(240, 100%, 50%)</div>
+    <div class="aqua">hsl(180, 100%, 50%)</div>
+    <div class="teal">hsl(180, 100%, 25%)</div>
+   </div>
+   <div class="row row4">
+    <div class="black">hsl(0, 0%, 0%)</div>
+    <div class="silver">hsl(0, 0%, 75%)</div>
+    <div class="gray">hsl(0, 0%, 50%)</div>
+   </div>
+</div>
         </section>
     </main>
     
