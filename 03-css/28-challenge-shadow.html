@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>28 - challenge shadow</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <style>
+        figure.frame {
+            height: calc(42 * 20px);
+            margin: 2rem auto;
+            width: calc(32 * 20px);
+            zoom: 0.5;
+        }
+        div.squares {
+            background: url(images/square.png);
+            opacity: 0.4;
+            z-index: 2;
+            margin-top: -20px;
+            height: calc(42 * 20px);
+        }
+        div.mewtwo {
+            background-color: #fff;
+            height: 20px;
+            width: 20px;
+            box-shadow: 20px 0 0 0 #fff,
+                        40px 0 0 0 #fff,
+                        60px 0 0 0 #fff,
+                        80px 0 0 0 #fff,
+                        100px 0 0 0 #fff,
+                        120px 0 0 0 #fff,
+                        140px 0 0 0 #fff,
+                        160px 0 0 0 #000,
+                        180px 0 0 0 #fff,
+                        200px 0 0 0 #fff,
+                        220px 0 0 0 #fff,
+                        240px 0 0 0 #fff,
+                        260px 0 0 0 #fff,
+                        280px 0 0 0 #fff,
+                        300px 0 0 0 #fff,
+                        320px 0 0 0 #fff,
+                        340px 0 0 0 #fff,
+                        360px 0 0 0 #fff,
+                        380px 0 0 0 #fff,
+                        400px 0 0 0 #fff,
+                        420px 0 0 0 #fff,
+                        440px 0 0 0 #fff,
+                        460px 0 0 0 #fff,
+                        480px 0 0 0 #fff,
+                        500px 0 0 0 #fff,
+                        520px 0 0 0 #fff,
+                        540px 0 0 0 #fff,
+                        560px 0 0 0 #fff,
+                        580px 0 0 0 #fff,
+                        600px 0 0 0 #fff,
+                        620px 0 0 0 #fff,
+                        
+                        /* 2 linea*/
+                        0px 20px 0 0 #fff,                        
+                        20px 20px 0 0 #fff,
+                        40px 20px 0 0 #fff,
+                        60px 20px 0 0 #fff,
+                        80px 20px 0 0 #fff,
+                        100px 20px 0 0 #fff,
+                        120px 20px 0 0 #fff,
+                        140px 20px 0 0 #000,
+                        160px 20px 0 0 #dfd6e6,
+                        180px 20px 0 0 #000,
+                        200px 20px 0 0 #fff,
+                        220px 20px 0 0 #fff,
+                        240px 20px 0 0 #fff,
+                        260px 20px 0 0 #fff,
+                        280px 20px 0 0 #fff,
+                        300px 20px 0 0 #fff,
+                        320px 20px 0 0 #fff,
+                        340px 20px 0 0 #fff,
+                        360px 20px 0 0 #fff,
+                        380px 20px 0 0 #fff,
+                        400px 20px 0 0 #fff,
+                        420px 20px 0 0 #fff,
+                        440px 20px 0 0 #fff,
+                        460px 20px 0 0 #fff,
+                        480px 20px 0 0 #fff,
+                        500px 20px 0 0 #fff,
+                        520px 20px 0 0 #fff,
+                        540px 20px 0 0 #fff,
+                        560px 20px 0 0 #fff,
+                        580px 20px 0 0 #fff,
+                        600px 20px 0 0 #fff,
+                        620px 20px 0 0 #fff,
+
+/*3 linea*/
+0px 40px 0 0 #fff, /*1*/
+20px 40px 0 0 #fff, /*2*/
+40px 40px 0 0 #fff,/*3*/
+60px 40px 0 0 #fff,/*4*/
+80px 40px 0 0 #fff,/*5*/
+100px 40px 0 0 #fff,/*6*/
+120px 40px 0 0 #000,/*7*/
+140px 40px 0 0 #dfd6e6,/*8*/
+160px 40px 0 0 #dfd6e6,/*9*/
+180px 40px 0 0 #000,/*10*/
+200px 40px 0 0 #fff,/*11*/
+220px 40px 0 0 #fff,/*12*/
+240px 40px 0 0 #fff,/*13*/
+260px 40px 0 0 #fff,/*14*/
+280px 40px 0 0 #fff,/*15*/
+300px 40px 0 0 #000,/*16*/
+320px 40px 0 0 #000,/*17*/
+340px 40px 0 0 #fff,/*18*/
+360px 40px 0 0 #fff,/*19*/
+380px 40px 0 0 #fff,/*20*/
+400px 40px 0 0 #fff,/*21*/
+420px 40px 0 0 #fff,/*22*/
+440px 40px 0 0 #fff,/*23*/
+460px 40px 0 0 #fff,/*24*/
+480px 40px 0 0 #fff,/*25*/
+500px 40px 0 0 #fff,/*26*/
+520px 40px 0 0 #fff,/*27*/
+540px 40px 0 0 #fff,/*28*/
+560px 40px 0 0 #fff,/*29*/
+580px 40px 0 0 #fff,/*30*/
+600px 40px 0 0 #fff,/*31*/
+620px 40px 0 0 #fff,/*32*/
+
+/*4 linea*/
+0px 60px 0 0 #fff, /*1*/
+20px 60px 0 0 #fff, /*2*/
+40px 60px 0 0 #fff,/*3*/
+60px 60px 0 0 #fff,/*4*/
+80px 60px 0 0 #fff,/*5*/
+100px 60px 0 0 #fff,/*6*/
+120px 60px 0 0 #000,/*7*/
+140px 60px 0 0 #dfd6e6,/*8*/
+160px 60px 0 0 #dfd6e6,/*9*/
+180px 60px 0 0 #000,/*10*/
+200px 60px 0 0 #000,/*11*/
+220px 60px 0 0 #fff,/*12*/
+240px 60px 0 0 #fff,/*13*/
+260px 60px 0 0 #fff,/*14*/
+280px 60px 0 0 #000,/*15*/
+300px 60px 0 0 #d8d8d8,/*16*/
+320px 60px 0 0 #d8d8d8,/*17*/
+340px 60px 0 0 #000,/*18*/
+360px 60px 0 0 #fff,/*19*/
+380px 60px 0 0 #fff,/*20*/
+400px 60px 0 0 #fff,/*21*/
+420px 60px 0 0 #fff,/*22*/
+440px 60px 0 0 #fff,/*23*/
+460px 60px 0 0 #fff,/*24*/
+480px 60px 0 0 #fff,/*25*/
+500px 60px 0 0 #fff,/*26*/
+520px 60px 0 0 #fff,/*27*/
+540px 60px 0 0 #fff,/*28*/
+560px 60px 0 0 #fff,/*29*/
+580px 60px 0 0 #fff,/*30*/
+600px 60px 0 0 #fff,/*31*/
+620px 60px 0 0 #fff/*32*/                      ;
+        }
+    </style>
+</head>
+<body class="css">
+    <nav>
+        <a href="index.html">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>
+        </a>
+    </nav>
+    <main>
+        <header>
+            <h1>28 - challenge shadow</h1>
+            <p>
+                Pixel Art (Mewtwo).
+            </p>
+        </header>
+        <section>
+            <figure class="frame">
+                <div class="mewtwo"></div>
+                <div class="squares"></div>
+            </figure>
+        </section>
+    </main>
+    
+</body>
+</html>
