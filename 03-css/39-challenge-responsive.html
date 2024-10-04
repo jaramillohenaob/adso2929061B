@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: linear-gradient(to bottom, #000000, #3d003d, #00008b); 
+    background-size: cover;
+    background-attachment: fixed; 
+    background-position: center; 
+    padding: 20px;
+}
+
+* {
+    transition: all 0.2s ease-in;
+}
+
+main {
+    background-color: #ccc;
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+    margin: 2rem auto;
+    padding: 1rem;
+    max-width: 100%;
+}
+
+main div {
+    background: #0009;
+    height: 300px; 
+    width: 300px;  
+    flex-grow: 1;
+    max-width: 300px; 
+}
+
+@media (max-width: 860px) {
+    main {
+        width: 90%;
+    }
+}
+
+@media (max-width: 480px) {
+    main {
+        width: 100%;
+    }
+}
+
+header {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 2rem; 
+}
+
+figure.logo {
+    width: 80%; 
+    height: auto; 
+    margin: 0 auto; 
+    display: block; 
+}
+
+figure.logo img {
+    width: 80%; 
+    height: auto; 
+    max-height: 400px; 
+}
+
+main div.quasar {
+    background: url(images/quasar.jpg) no-repeat center;
+    background-size: cover;        
+}
+
+main div.agujeronegro {
+    background: url(images/agujero-negro.webp) no-repeat center;
+    background-size: cover;        
+}
+
+main div.pulsar {
+    background: url(images/pulsar.jpg) no-repeat center;
+    background-size: cover;        
+}
+
+main div.galaxia {
+    background: url(images/galaxia.jpg) no-repeat center;
+    background-size: cover;        
+}
+</style>
+<body>
+    <div class="cuadro">
+        <header>
+            <figure class="logo">
+                <img src="images/nasa.webp" alt="NASA logo">
+            </figure>
+        </header>
+        <main>
+            <div class="quasar"></div>
+            <div class="agujeronegro"></div>
+            <div class="pulsar"></div>
+            <div class="galaxia"></div>
+        </main>
+    </div>
+</body>
+</html>
