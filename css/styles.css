@@ -340,3 +340,26 @@ background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/s
         }
     }
 }
+
+/* ----------------------------*/
+/* 08 - SASS MENU */
+/* ----------------------------*/
+
+body.sass {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns:svgjs='http://svgjs.dev/svgjs' width='1440' height='250' preserveAspectRatio='none' viewBox='0 0 1440 250'%3e%3cg mask='url(%26quot%3b%23SvgjsMask1015%26quot%3b)' fill='none'%3e%3crect width='1440' height='250' x='0' y='0' fill='rgba(222%2c 89%2c 233%2c 1)'%3e%3c/rect%3e%3cpath d='M4 250L254 0L521 0L271 250z' fill='url(%26quot%3b%23SvgjsLinearGradient1016%26quot%3b)'%3e%3c/path%3e%3cpath d='M277.6 250L527.6 0L569.6 0L319.6 250z' fill='url(%26quot%3b%23SvgjsLinearGradient1016%26quot%3b)'%3e%3c/path%3e%3cpath d='M477.20000000000005 250L727.2 0L871.2 0L621.2 250z' fill='url(%26quot%3b%23SvgjsLinearGradient1016%26quot%3b)'%3e%3c/path%3e%3cpath d='M754.8000000000001 250L1004.8000000000001 0L1139.8000000000002 0L889.8000000000001 250z' fill='url(%26quot%3b%23SvgjsLinearGradient1016%26quot%3b)'%3e%3c/path%3e%3cpath d='M1435 250L1185 0L856.5 0L1106.5 250z' fill='url(%26quot%3b%23SvgjsLinearGradient1017%26quot%3b)'%3e%3c/path%3e%3cpath d='M1189.4 250L939.4000000000001 0L867.4000000000001 0L1117.4 250z' fill='url(%26quot%3b%23SvgjsLinearGradient1017%26quot%3b)'%3e%3c/path%3e%3cpath d='M927.8 250L677.8 0L586.3 0L836.3 250z' fill='url(%26quot%3b%23SvgjsLinearGradient1017%26quot%3b)'%3e%3c/path%3e%3cpath d='M698.1999999999999 250L448.19999999999993 0L104.69999999999993 0L354.69999999999993 250z' fill='url(%26quot%3b%23SvgjsLinearGradient1017%26quot%3b)'%3e%3c/path%3e%3cpath d='M1248.7011440022059 250L1440 58.70114400220595L1440 250z' fill='url(%26quot%3b%23SvgjsLinearGradient1016%26quot%3b)'%3e%3c/path%3e%3cpath d='M0 250L191.29885599779405 250L 0 58.70114400220595z' fill='url(%26quot%3b%23SvgjsLinearGradient1017%26quot%3b)'%3e%3c/path%3e%3c/g%3e%3cdefs%3e%3cmask id='SvgjsMask1015'%3e%3crect width='1440' height='250' fill='white'%3e%3c/rect%3e%3c/mask%3e%3clinearGradient x1='0%25' y1='100%25' x2='100%25' y2='0%25' id='SvgjsLinearGradient1016'%3e%3cstop stop-color='rgba(0%2c 0%2c 0%2c 0.35)' offset='0'%3e%3c/stop%3e%3cstop stop-opacity='0' stop-color='rgba(0%2c 0%2c 0%2c 0.35)' offset='0.66'%3e%3c/stop%3e%3c/linearGradient%3e%3clinearGradient x1='100%25' y1='100%25' x2='0%25' y2='0%25' id='SvgjsLinearGradient1017'%3e%3cstop stop-color='rgba(0%2c 0%2c 0%2c 0.35)' offset='0'%3e%3c/stop%3e%3cstop stop-opacity='0' stop-color='rgba(0%2c 0%2c 0%2c 0.35)' offset='0.66'%3e%3c/stop%3e%3c/linearGradient%3e%3c/defs%3e%3c/svg%3e");
+
+    main{
+        header{
+            img{
+                border-color: var(--color-1);
+            }
+        }
+        menu{
+            a{
+                span{
+                    background-color: #e029b2;
+                }
+            }
+        }
+    }
+}
