@@ -51,14 +51,22 @@ body, html{
 /* ----------------------------*/
 /* 02 - FONTS */
 /* ----------------------------*/
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;600&display=swap');
+@font-face {
+    font-family: 'Poppins-400';
+    src: url(../fonts/Poppins-400.ttf);
+}
+@font-face {
+    font-family: 'Poppins-600';
+    src: url(../fonts/Poppins-600.ttf);
+}
 /* ----------------------------*/
 /* 03 - VARIABLES */
 /* ----------------------------*/
 :root {
     --color-1: #fff9;
     --color-2: #0009;
-    --font-bd: "Poppins" , sans-serif;
+    --font-400: "Poppins-400" , sans-serif;
+    --font-600: "Poppins-600" , sans-serif;
 }
 /* ----------------------------*/
 /* 04 - GENERAL */
@@ -67,7 +75,7 @@ body {
     align-items: center;
     color: var(--color-2);
     display: flex;
-    font-family: var(--font-bd);
+    font-family: var(--font-400);
     justify-content: center;
     flex-wrap: wrap;
     min-height: 100vh;
@@ -104,7 +112,7 @@ body {
             h1 {
                 font-size: 3rem;
                 color: var(--color-1);
-                font-weight: 400;
+                font-family: var(--font-400);
                 display: flex;
                 align-items: center;
                 gap: 0.6rem;
@@ -123,11 +131,11 @@ body {
             h2 {
                 color: var(--color-1);
                 font-size: 1.4rem;
-                font-weight: 600;
+                font-family: var(--font-600);
             }
             h3 {
                 font-size: 1rem;
-                font-weight: 400;
+                font-family: var(--font-400);
                 border-radius: 50px;
                 background-color: var(--color-2);
                 color: var(--color-1);
@@ -209,7 +217,7 @@ body {
                 border-radius: 20px;
                 border-color: var(--color-1);
                 color: var(--color-2);
-                font-weight: 600;
+                font-family: var(--font-600);
                 height: 28px;
                 display: flex;
                 align-items: center;
@@ -358,6 +366,29 @@ body.sass {
             a{
                 span{
                     background-color: #e029b2;
+                }
+            }
+        }
+    }
+}
+/* ----------------------------*/
+/* 08 - BOOTSTRAP MENU */
+/* ----------------------------*/
+
+body.bootstrap {
+    
+background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns:svgjs='http://svgjs.dev/svgjs' width='1440' height='560' preserveAspectRatio='none' viewBox='0 0 1440 560'%3e%3cg clip-path='url(%26quot%3b%23SvgjsClipPath1160%26quot%3b)' fill='none'%3e%3crect width='1440' height='560' x='0' y='0' fill='url(%26quot%3b%23SvgjsLinearGradient1161%26quot%3b)'%3e%3c/rect%3e%3ccircle r='53.1' cx='605.33' cy='298.28' fill='url(%26quot%3b%23SvgjsLinearGradient1162%26quot%3b)'%3e%3c/circle%3e%3ccircle r='35.58' cx='4.34' cy='6.03' fill='url(%26quot%3b%23SvgjsLinearGradient1163%26quot%3b)'%3e%3c/circle%3e%3ccircle r='15.86' cx='13.42' cy='332.53' fill='url(%26quot%3b%23SvgjsLinearGradient1164%26quot%3b)'%3e%3c/circle%3e%3ccircle r='22.92' cx='222.3' cy='532.49' fill='url(%26quot%3b%23SvgjsRadialGradient1165%26quot%3b)'%3e%3c/circle%3e%3ccircle r='20.675' cx='327.36' cy='212.07' fill='url(%26quot%3b%23SvgjsLinearGradient1166%26quot%3b)'%3e%3c/circle%3e%3ccircle r='15.99' cx='1123.29' cy='354.71' fill='url(%26quot%3b%23SvgjsLinearGradient1167%26quot%3b)'%3e%3c/circle%3e%3ccircle r='35.77' cx='1393.29' cy='206.16' fill='url(%26quot%3b%23SvgjsLinearGradient1168%26quot%3b)'%3e%3c/circle%3e%3ccircle r='17.64' cx='50.9' cy='133.67' fill='%2343468b'%3e%3c/circle%3e%3c/g%3e%3cdefs%3e%3cclipPath id='SvgjsClipPath1160'%3e%3crect width='1440' height='560' x='0' y='0'%3e%3c/rect%3e%3c/clipPath%3e%3clinearGradient x1='50%25' y1='0%25' x2='50%25' y2='100%25' gradientUnits='userSpaceOnUse' id='SvgjsLinearGradient1161'%3e%3cstop stop-color='rgba(41%2c 23%2c 48%2c 1)' offset='0'%3e%3c/stop%3e%3cstop stop-color='rgba(119%2c 16%2c 246%2c 1)' offset='1'%3e%3c/stop%3e%3c/linearGradient%3e%3clinearGradient x1='499.13000000000005' y1='298.28' x2='711.5300000000001' y2='298.28' gradientUnits='userSpaceOnUse' id='SvgjsLinearGradient1162'%3e%3cstop stop-color='%2332325d' offset='0.1'%3e%3c/stop%3e%3cstop stop-color='%23424488' offset='0.9'%3e%3c/stop%3e%3c/linearGradient%3e%3clinearGradient x1='-66.82' y1='6.030000000000001' x2='75.5' y2='6.030000000000001' gradientUnits='userSpaceOnUse' id='SvgjsLinearGradient1163'%3e%3cstop stop-color='%2332325d' offset='0.1'%3e%3c/stop%3e%3cstop stop-color='%23424488' offset='0.9'%3e%3c/stop%3e%3c/linearGradient%3e%3clinearGradient x1='-18.299999999999997' y1='332.53' x2='45.14' y2='332.53' gradientUnits='userSpaceOnUse' id='SvgjsLinearGradient1164'%3e%3cstop stop-color='%2332325d' offset='0.1'%3e%3c/stop%3e%3cstop stop-color='%23424488' offset='0.9'%3e%3c/stop%3e%3c/linearGradient%3e%3cradialGradient cx='222.3' cy='532.49' r='64.83' gradientUnits='userSpaceOnUse' id='SvgjsRadialGradient1165'%3e%3cstop stop-color='rgba(226%2c 152%2c 222%2c 1)' offset='0'%3e%3c/stop%3e%3cstop stop-color='rgba(46%2c 104%2c 185%2c 0.44)' offset='0.9'%3e%3c/stop%3e%3c/radialGradient%3e%3clinearGradient x1='286.01' y1='212.07' x2='368.71' y2='212.07' gradientUnits='userSpaceOnUse' id='SvgjsLinearGradient1166'%3e%3cstop stop-color='%2332325d' offset='0.1'%3e%3c/stop%3e%3cstop stop-color='%23424488' offset='0.9'%3e%3c/stop%3e%3c/linearGradient%3e%3clinearGradient x1='1091.31' y1='354.71' x2='1155.27' y2='354.71' gradientUnits='userSpaceOnUse' id='SvgjsLinearGradient1167'%3e%3cstop stop-color='%23f29b7c' offset='0.1'%3e%3c/stop%3e%3cstop stop-color='%237e6286' offset='0.9'%3e%3c/stop%3e%3c/linearGradient%3e%3clinearGradient x1='1321.75' y1='206.16000000000003' x2='1464.83' y2='206.16000000000003' gradientUnits='userSpaceOnUse' id='SvgjsLinearGradient1168'%3e%3cstop stop-color='%2384b6e0' offset='0.1'%3e%3c/stop%3e%3cstop stop-color='rgba(35%2c 172%2c 182%2c 1)' offset='0.9'%3e%3c/stop%3e%3c/linearGradient%3e%3c/defs%3e%3c/svg%3e");
+
+    main{
+        header{
+            img{
+                border-color: var(--color-1);
+            }
+        }
+        menu{
+            a{
+                span{
+                    background-color: #7710f6;
                 }
             }
         }
