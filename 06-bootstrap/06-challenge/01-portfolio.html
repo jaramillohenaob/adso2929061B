@@ -11,102 +11,117 @@
 
        <!-- parte 1 -->   
 
-<header class="text-dark position-relative" style="background: linear-gradient(60deg, #5e6061 60%, #78d1e7 40%);">
-    <div class="container">
-      <div class="d-flex justify-content-between align-items-center py-2">
-        <div class="d-flex align-items-center">
-            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-person-circle me-2 text-dark" viewBox="0 0 16 16">
-              <path d="M13.468 12.37C12.758 11.226 11.482 10.5 10 10.5s-2.758.726-3.468 1.87A6.986 6.986 0 0 0 8 15a6.986 6.986 0 0 0 1.468-.63z"/>
-              <path fill-rule="evenodd" d="M8 1a7 7 0 1 1 0 14A7 7 0 0 1 8 1zm0 1a6 6 0 1 0 0 12A6 6 0 0 0 8 2zm0 1a3 3 0 1 1 0 6 3 3 0 0 1 0-6z"/>
-            </svg>
-            <span class="fw-bold fs-5 text-dark">Brayan <span class="text-info">Jaramillo</span></span>
-          </div>          
-        <nav>
-          <ul class="nav">
-            <li class="nav-item"><a href="#" class="nav-link text-dark"><h5>Home</h5></a></li>
-            <li class="nav-item"><a href="#" class="nav-link text-dark"><h5>About</h5></a></li>
-            <li class="nav-item"><a href="#" class="nav-link text-dark"><h5>Services</h5></a></li>
-            <li class="nav-item"><a href="#" class="nav-link text-dark"><h5>Portfolio</h5></a></li>
-          </ul>
-        </nav>
-      </div>
-      <div class="row align-items-center py-2"> 
-        <div class="col-md-6 text-start">
-          <h1 class="display-4 text-dark">Hello, I am</h1>
-          <h2 class="fw-bold text-dark">Brayan Jaramillo</h2>
-          <p class="lead text-dark">Professional Freelance Web Designer</p>
-          <p class="text-dark">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-          <a href="#" class="btn btn-secondary   btn-d">Hire Me</a>
+       <header class="position-relative" style="background: linear-gradient(60deg, #A5D6A7 60%, #C8E6C9 40%);">
+        <div class="container-fluid position-absolute">
+          <nav class="navbar navbar-expand-lg fixed-top" style="background-color: #2E7D32;">
+            <a class="navbar-brand d-flex align-items-center text-dark" href="#">
+              <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-person-circle me-2 text-dark" viewBox="0 0 16 16">
+                <path d="M13.468 12.37C12.758 11.226 11.482 10.5 10 10.5s-2.758.726-3.468 1.87A6.986 6.986 0 0 0 8 15a6.986 6.986 0 0 0 1.468-.63z"/>
+                <path fill-rule="evenodd" d="M8 1a7 7 0 1 1 0 14A7 7 0 0 1 8 1zm0 1a6 6 0 1 0 0 12A6 6 0 0 0 8 2zm0 1a3 3 0 1 1 0 6 3 3 0 0 1 0-6z"/>
+              </svg>
+              <span class="fw-bold">Brayan <span class="text-danger opacity-60">Jaramillo</span></span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+              <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a href="#home" class="nav-link"><h5>Home</h5></a></li>
+                <li class="nav-item"><a href="#about" class="nav-link"><h5>About</h5></a></li>
+                <li class="nav-item"><a href="#services" class="nav-link"><h5>Services</h5></a></li>
+                <li class="nav-item"><a href="#portfolio" class="nav-link"><h5>Portfolio</h5></a></li>
+              </ul>
+            </div>
+          </nav>
+        </div>    
+        <div class="container" style="margin-top: 60px;"> <!-- Agregado margin-top aquí -->
+          <div class="row align-items-center py-2">
+            <div class="col-md-6 text-start">
+              <h1 class="display-4 text-dark">Hello, I am</h1>
+              <h2 class="fw-bold text-dark">Brayan Jaramillo</h2>
+              <p class="lead text-dark">Professional Freelance Web Designer</p>
+              <p class="text-dark">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+              <a href="#" class="btn btn-success btn-d" >Hire Me</a>
+            </div>
+            <div class="col-md-6">
+              <img src="../images/photo1.png" class="img-fluid">
+            </div>
+          </div>
         </div>
-        <div class="col-md-6">
-          <img src="../images/imagen1.webp" alt="Header Image" class="img-fluid">
-        </div>
-      </div>
-    </div>
-</header>
+      </header>
+      
+<script>
+  document.getElementById("navbarNav").onclick = function () {
+      const navbarToggler = document.querySelector(".navbar-toggler");
+      const navLinks = document.getElementById("navbarNav");
+      navbarToggler.classList.toggle("show"); 
+      if (navbarToggler.classList.contains("show")) {
+          navLinks.style.backgroundImage = 'url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 384 512%22%3E%3Cpath fill=%22%23ff4081%22 d=%22M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z%22/%3E%3C/svg%3E")';
+      } else {
+          navLinks.style.backgroundImage = 'url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 448 512%22%3E%3Cpath fill=%22%23ff4081%22 d=%22M0 96C0 78.3 14.3 64 32 64l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 128C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 288c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32L32 448c-17.7 0-32-14.3-32-32s14.3-32 32-32l384 0c17.7 0 32 14.3 32 32z%22/%3E%3C/svg%3E")';
+      }
+  };
+</script>
 
       <!-- parte 2 -->
 
-<section class="container py-5">
+<section class="container py-5" id="about">
     <div class="row align-items-center">
-      <!-- Imagen About -->
       <div class="col-md-6">
-        <img src="../images/imagen2.png" alt="About Image" class="img-fluid rounded-circle">
+        <img src="../images/photo2.png" class="img-fluid rounded-circle">
       </div>
-      <!-- Texto About y Barras -->
-      <div class="col-md-6">
-        <h5 class="fw-bold text-secondary">About</h5>
-        <h2 class="fw-bold">Why You Hire Me?</h2>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam aperiam corporis dolor modi, sunt nulla atque nisi quos velit nobis impedit vel quisquam asperiores perspiciatis id enim quo esse sequi?</p>
-<ul class="list-group list-group-flush">
-  <li class="list-group-item">
-    <div class="d-flex flex-column">
-      <h5 class="fw-bold text-secondary">UI/UX Design</h5>
-      <div class="progress">
-        <div class="progress-bar bg-success-subtle" style="width: 85%;"></div>
+<div class="col-md-6">
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">
+      <h5 class="fw-bold text-secondary">About</h5>
+      <h2 class="fw-bold">Why You Hire Me?</h2>
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam aperiam corporis dolor modi, sunt nulla atque nisi quos velit nobis impedit vel quisquam asperiores perspiciatis id enim quo esse sequi?</p>
+      <div class="d-flex flex-column">
+        <h5 class="fw-bold text-secondary">UI/UX Design</h5>
+        <div class="progress">
+          <div class="progress-bar" style="width: 85%; background-color: #43A047;"></div>
+        </div>
       </div>
-    </div>
-  </li>
-  <li class="list-group-item">
-    <div class="d-flex flex-column">
-      <h5 class="fw-bold text-secondary">Web Design</h5>
-      <div class="progress">
-        <div class="progress-bar bg-success-subtle" style="width: 90%;"></div>
+    </li>
+    <li class="list-group-item">
+      <div class="d-flex flex-column">
+        <h5 class="fw-bold text-secondary">Web Design</h5>
+        <div class="progress">
+          <div class="progress-bar" style="width: 90%; background-color: #43A047;"></div>
+        </div>
       </div>
-    </div>
-  </li>
-  <li class="list-group-item">
-    <div class="d-flex flex-column">
-      <h5 class="fw-bold text-secondary">HTML/CSS</h5>
-      <div class="progress">
-        <div class="progress-bar bg-success-subtle" style="width: 95%;"></div>
+    </li>
+    <li class="list-group-item">
+      <div class="d-flex flex-column">
+        <h5 class="fw-bold text-secondary">H    TML/CSS</h5>
+        <div class="progress">
+          <div class="progress-bar" style="width: 95%; background-color: #43A047;"></div>
+        </div>
       </div>
-    </div>
-  </li>
-  <li class="list-group-item">
-    <div class="d-flex flex-column">
-      <h5 class="fw-bold text-secondary">Sketch</h5>
-      <div class="progress">
-        <div class="progress-bar bg-success-subtle" style="width: 80%;"></div>
+    </li>
+    <li class="list-group-item">
+      <div class="d-flex flex-column">
+        <h5 class="fw-bold text-secondary">Sketch</h5>
+        <div class="progress">
+          <div class="progress-bar" style="width: 80%; background-color: #43A047;"></div>
+        </div>
       </div>
-    </div>
-  </li>
-</ul>
-      </div>
-    </div>
+    </li>
+  </ul>
+</div>
   </section>
   
       <!-- parte 3 -->
 
-      <section class="py-5 bg-success-subtle bg-opacity-50">
+      <section class="py-5" id="services" style="background-color: #C8E6C9";>
         <div class="container">
           <h5 class="fw-bold text-secondary text-center">Services</h5>
           <h2 class="text-center fw-bold mb-4">Services | What I Provide</h2>
           <div class="row">
             <div class="col-md-4 mb-4">
-              <div class="card shadow-sm">
+              <div class="card shadow-sm" >
                 <div class="card-body d-flex flex-column align-items-start">
-                  <div class="icon-container bg-success-subtle p-2 mb-3" style="width: 70px; height: 70px; border-radius: 10px; display: flex; justify-content: center; align-items: center;">
+                  <div class="icon-container p-2 mb-3" style="width: 70px; height: 70px; border-radius: 10px; display: flex; justify-content: center; align-items: center; background-color: #43A047;">
                     <i class="bi bi-code text-dark" style="font-size: 1.5rem;"></i>
                   </div>
                   <h5 class="fw-bold text-secondary">Web Development</h5>
@@ -117,7 +132,7 @@
             <div class="col-md-4 mb-4">
               <div class="card shadow-sm">
                 <div class="card-body d-flex flex-column align-items-start">
-                  <div class="icon-container bg-success-subtle p-2 mb-3" style="width: 70px; height: 70px; border-radius: 10px; display: flex; justify-content: center; align-items: center;">
+                  <div class="icon-container p-2 mb-3" style="width: 70px; height: 70px; border-radius: 10px; display: flex; justify-content: center; align-items: center; background-color: #43A047;">
                     <i class="bi bi-terminal text-dark" style="font-size: 1.5rem;"></i>
                   </div>
                   <h5 class="fw-bold text-secondary">Backend Development</h5>
@@ -128,7 +143,7 @@
             <div class="col-md-4 mb-4">
               <div class="card shadow-sm">
                 <div class="card-body d-flex flex-column align-items-start">
-                  <div class="icon-container bg-success-subtle p-2 mb-3" style="width: 70px; height: 70px; border-radius: 10px; display: flex; justify-content: center; align-items: center;">
+                  <div class="icon-container p-2 mb-3" style="width: 70px; height: 70px; border-radius: 10px; display: flex; justify-content: center; align-items: center; background-color: #43A047;">
                     <i class="bi bi-laptop text-dark" style="font-size: 1.5rem;"></i>
                   </div>
                   <h5 class="fw-bold text-secondary">UI/UX Design</h5>
@@ -139,7 +154,7 @@
             <div class="col-md-4 mb-4">
               <div class="card shadow-sm">
                 <div class="card-body d-flex flex-column align-items-start">
-                  <div class="icon-container bg-success-subtle p-2 mb-3" style="width: 70px; height: 70px; border-radius: 10px; display: flex; justify-content: center; align-items: center;">
+                  <div class="icon-container p-2 mb-3" style="width: 70px; height: 70px; border-radius: 10px; display: flex; justify-content: center; align-items: center; background-color: #43A047;">
                     <i class="bi bi-cloud-upload text-dark" style="font-size: 1.5rem;"></i>
                   </div>
                   <h5 class="fw-bold text-secondary">Cloud Services</h5>
@@ -150,7 +165,7 @@
             <div class="col-md-4 mb-4">
               <div class="card shadow-sm">
                 <div class="card-body d-flex flex-column align-items-start">
-                  <div class="icon-container bg-success-subtle p-2 mb-3" style="width: 70px; height: 70px; border-radius: 10px; display: flex; justify-content: center; align-items: center;">
+                  <div class="icon-container p-2 mb-3" style="width: 70px; height: 70px; border-radius: 10px; display: flex; justify-content: center; align-items: center; background-color: #43A047;">
                     <i class="bi bi-shield-lock text-dark" style="font-size: 1.5rem;"></i>
                   </div>
                   <h5 class="fw-bold text-secondary">Cybersecurity</h5>
@@ -161,7 +176,7 @@
             <div class="col-md-4 mb-4">
               <div class="card shadow-sm">
                 <div class="card-body d-flex flex-column align-items-start">
-                  <div class="icon-container bg-success-subtle p-2 mb-3" style="width: 70px; height: 70px; border-radius: 10px; display: flex; justify-content: center; align-items: center;">
+                  <div class="icon-container p-2 mb-3" style="width: 70px; height: 70px; border-radius: 10px; display: flex; justify-content: center; align-items: center; background-color: #43A047;">
                     <i class="bi bi-bar-chart text-dark" style="font-size: 1.5rem;"></i>
                   </div>
                   <h5 class="fw-bold text-secondary">Data Analysis</h5>
@@ -176,7 +191,7 @@
   
   <!-- Parte 4 -->
 
-  <section class="container py-5">
+  <section class="container py-5" id="portfolio" >
     <h5 class="fw-bold text-secondary text-start">Portfolio</h5>
     <h2 class="text-start fw-bold mb-4">Latest Projects</h2>
     <div id="projectCarousel" class="carousel slide" data-bs-ride="carousel">
@@ -233,17 +248,17 @@
   
   <!-- Parte 5 -->
 
-  <footer class="bg-success-subtle bg-opacity-50 text-dark text-center py-4">
+  <footer class= "text-dark text-center py-4" style="background-color: #A5D6A7;">
     <div class="container">
-      <div class="d-flex justify-content-center align-items-center mt-3 mb-4"> <!-- Añadido mb-4 para separar más los iconos -->
+      <div class="d-flex justify-content-center align-items-center mt-3 mb-4"> 
         <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-person-circle me-4 text-dark" viewBox="0 0 16 16">
           <path d="M13.468 12.37C12.758 11.226 11.482 10.5 10 10.5s-2.758.726-3.468 1.87A6.986 6.986 0 0 0 8 15a6.986 6.986 0 0 0 1.468-.63z"/>
           <path fill-rule="evenodd" d="M8 1a7 7 0 1 1 0 14A7 7 0 0 1 8 1zm0 1a6 6 0 1 0 0 12A6 6 0 0 0 8 2zm0 1a3 3 0 1 1 0 6 3 3 0 0 1 0-6z"/>
         </svg>
-        <span class="fw-bold fs-2 text-dark">Brayan <span class="text-info">Jaramillo</span></span>
+        <span class="fw-bold fs-2 text-dark">Brayan <span class="text-danger opacity-60">Jaramillo</span></span>
       </div>
       <div class="mb-3">
-        <a href="#" class="btn btn-dark btn-circle me-3">
+        <a href="#" class="btn btn-dark btn-circle me-3" >
           <i class="fab fa-facebook"></i>
         </a>
         <a href="#" class="btn btn-dark btn-circle me-3">
@@ -258,31 +273,10 @@
       </div>
       <p class="mb-3 fs-4 text-decoration-underline">bray123@outlook.com</p>
       <ul class="nav justify-content-center mb-3">
-        <li class="nav-item"><a href="#" class="nav-link text-dark"><h5>Home</h5></a></li>
-<li class="nav-item">
-    <a href="#" class="nav-link text-dark" data-bs-toggle="modal" data-bs-target="#aboutModal">
-      <h5>About</h5>
-    </a>
-  </li>
-  <div class="modal fade" id="aboutModal" tabindex="-1" aria-labelledby="aboutModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="aboutModalLabel">Secreto</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <p>Felicidades! hallaste un boton que funciona xd. by Brayan</p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-        <li class="nav-item"><a href="#" class="nav-link text-dark"><h5>Services</h5></a></li>
-        <li class="nav-item"><a href="#" class="nav-link text-dark"><h5>Portfolio</h5></a></li>
+        <li class="nav-item"><a href="#home" class="nav-link"><h5>Home</h5></a></li>
+        <li class="nav-item"><a href="#about" class="nav-link"><h5>About</h5></a></li>
+        <li class="nav-item"><a href="#services" class="nav-link"><h5>Services</h5></a></li>
+        <li class="nav-item"><a href="#portfolio" class="nav-link"><h5>Portfolio</h5></a></li>
       </ul>
       <p class="mb-0">&copy; 2024 All rights reserved.</p>
     </div>
