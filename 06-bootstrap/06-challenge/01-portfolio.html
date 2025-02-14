@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Challenge</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
   <link rel="stylesheet" href="../css/bootstrap.min.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 </head>
@@ -11,37 +13,55 @@
 
        <!-- parte 1 -->   
 
-       <header class="position-relative" style="background: linear-gradient(60deg, #A5D6A7 60%, #C8E6C9 40%);">
+       <header class="position-relative" style="background: linear-gradient(60deg, #A5D6A7 60%, #C8E6C9 40%);" id="home">
         <div class="container-fluid position-absolute">
           <nav class="navbar navbar-expand-lg fixed-top" style="background-color: #2E7D32;">
-            <a class="navbar-brand d-flex align-items-center text-dark" href="#">
-              <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-person-circle me-2 text-dark" viewBox="0 0 16 16">
-                <path d="M13.468 12.37C12.758 11.226 11.482 10.5 10 10.5s-2.758.726-3.468 1.87A6.986 6.986 0 0 0 8 15a6.986 6.986 0 0 0 1.468-.63z"/>
-                <path fill-rule="evenodd" d="M8 1a7 7 0 1 1 0 14A7 7 0 0 1 8 1zm0 1a6 6 0 1 0 0 12A6 6 0 0 0 8 2zm0 1a3 3 0 1 1 0 6 3 3 0 0 1 0-6z"/>
-              </svg>
-              <span class="fw-bold">Brayan <span class="text-danger opacity-60">Jaramillo</span></span>
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-              <ul class="navbar-nav ms-auto">
-                <li class="nav-item"><a href="#home" class="nav-link"><h5>Home</h5></a></li>
-                <li class="nav-item"><a href="#about" class="nav-link"><h5>About</h5></a></li>
-                <li class="nav-item"><a href="#services" class="nav-link"><h5>Services</h5></a></li>
-                <li class="nav-item"><a href="#portfolio" class="nav-link"><h5>Portfolio</h5></a></li>
-              </ul>
+            <div class="container-fluid">
+              <a class="navbar-brand d-flex align-items-center" href="#home">
+                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-person-circle me-2 text-dark" viewBox="0 0 16 16">
+                  <path d="M13.468 12.37C12.758 11.226 11.482 10.5 10 10.5s-2.758.726-3.468 1.87A6.986 6.986 0 0 0 8 15a6.986 6.986 0 0 0 1.468-.63z"/>
+                  <path fill-rule="evenodd" d="M8 1a7 7 0 1 1 0 14A7 7 0 0 1 8 1zm0 1a6 6 0 1 0 0 12A6 6 0 0 0 8 2zm0 1a3 3 0 1 1 0 6 3 3 0 0 1 0-6z"/>
+                </svg>
+                <span class="fw-bold">Brayan <span class="text-danger opacity-60">Jaramillo</span></span>
+              </a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                  <li class="nav-item">
+                    <a href="#home" class="nav-link">
+                      <h5>Home</h5>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="#about" class="nav-link">
+                      <h5>About</h5>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="#services" class="nav-link">
+                      <h5>Services</h5>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="#portfolio" class="nav-link">
+                      <h5>Portfolio</h5>
+                    </a>
+                  </li>
+                </ul>
+              </div>
             </div>
           </nav>
-        </div>    
-        <div class="container" style="margin-top: 60px;"> <!-- Agregado margin-top aquí -->
+        </div>
+        <div class="container" style="margin-top: 60px;">
           <div class="row align-items-center py-2">
             <div class="col-md-6 text-start">
               <h1 class="display-4 text-dark">Hello, I am</h1>
               <h2 class="fw-bold text-dark">Brayan Jaramillo</h2>
               <p class="lead text-dark">Professional Freelance Web Designer</p>
               <p class="text-dark">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-              <a href="#" class="btn btn-success btn-d" >Hire Me</a>
+              <a href="#" class="btn btn-success btn-d">Hire Me</a>
             </div>
             <div class="col-md-6">
               <img src="../images/photo1.png" class="img-fluid">
@@ -49,20 +69,6 @@
           </div>
         </div>
       </header>
-      
-<script>
-  document.getElementById("navbarNav").onclick = function () {
-      const navbarToggler = document.querySelector(".navbar-toggler");
-      const navLinks = document.getElementById("navbarNav");
-      navbarToggler.classList.toggle("show"); 
-      if (navbarToggler.classList.contains("show")) {
-          navLinks.style.backgroundImage = 'url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 384 512%22%3E%3Cpath fill=%22%23ff4081%22 d=%22M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z%22/%3E%3C/svg%3E")';
-      } else {
-          navLinks.style.backgroundImage = 'url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 448 512%22%3E%3Cpath fill=%22%23ff4081%22 d=%22M0 96C0 78.3 14.3 64 32 64l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 128C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 288c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32L32 448c-17.7 0-32-14.3-32-32s14.3-32 32-32l384 0c17.7 0 32 14.3 32 32z%22/%3E%3C/svg%3E")';
-      }
-  };
-</script>
-
       <!-- parte 2 -->
 
 <section class="container py-5" id="about">
