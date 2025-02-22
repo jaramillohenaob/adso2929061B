@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>12 - Challenge</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<style>
+    .phone-frame {
+        width: 300px;
+        height: 600px;
+        border: 10px solid black;
+        border-radius: 30px;
+        overflow: hidden;
+        background: white;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    }
+    .phone-screen {
+        width: 100%;
+        height: 100%;
+        padding: 20px;
+        box-sizing: border-box;
+    }
+    .carousel {
+        width: 100%;
+        height: 50%;
+        position: relative;
+        overflow: hidden;
+        border-radius: 10px;
+    }
+    .carousel .slide {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background-size: cover;
+        background-position: center;
+        opacity: 0;
+        transition: opacity 1s ease-in-out;
+    }
+    .carousel .slide.active{
+        opacity: 1;
+    }
+</style>
+<body class="tailwind">
+    <nav>
+        <a href="index.html">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#ffffff" d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>
+        </a>
+    </nav>
+    <main>
+        <header>
+            <h1>12 - Challenge</h1>
+            <p>
+                Practical exercise to apply tailwind concept.
+            </p>
+        </header>
+        <section class="flex justify-center">
+            <div class="phone-frame">
+                <div id="phone-screen" class="phone-screen">
+                    <div class="carousel">
+                        <div class="slide active" style="background-image: url(https://placehold.co/200x200/2c90bf/white);"></div>
+                        <div class="slide" style="background-image: url(https://placehold.co/200x200/2c90bf/white);"></div>
+                        <div class="slide" style="background-image: url(https://placehold.co/200x200/2c90bf/white);"></div>
+                    </div>
+                    <div id="index">
+                        <h2 class="text-xl font-bold text-center">Index</h2>
+                        <p class="text-center mt-4">Lorem ipsum dolor sit amet.</p>
+                        <div class="mt-6 space-y-4">
+                            <button onclick="showPage('menu')" class="w-full bg-blue-500 text-white py-2 rounded-lg">Boton</button>
+                        </div>
+                    </div>
+
+                    <div id="menu" class="hidden">
+                        <button onclick="showPage('index')" class=" bg-slate-700 text-white py-2 rounded-lg">Boton</button>
+                        <h2 class="text-xl font-bold text-center">Menú</h2>
+                        <p class="text-center mt-4">Lorem ipsum dolor sit amet.</p>
+                        <div class="mt-6 space-y-4">
+                            <button onclick="showPage('confirmar')" class="w-full bg-blue-500 text-white py-2 rounded-lg">Boton</button>
+                        </div>
+                    </div>
+
+                    <div id="confirmar" class="hidden">
+                        <button onclick="showPage('menu')" class=" bg-slate-700 text-white py-2 rounded-lg">Boton</button>
+                        <h2 class="text-xl font-bold text-center">Confirmar</h2>
+                        <p class="text-center mt-4">Lorem ipsum dolor sit amet.</p>
+                        <div class="mt-6 space-y-4">
+                            <button onclick="showPage('menu')" class="w-full bg-blue-500 text-white py-2 rounded-lg">Boton</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <script>
+            function showPage(pageId){
+                document.querySelectorAll('#phone-screen > div').forEach(page => {
+                    page.classList.add('hidden');
+                });
+                document.getElementById(pageId).classList.remove('hidden');
+            }
+        </script>
+    </main>
+    <script src="js/tailwind.js"></script>
+</body>
+</html>
