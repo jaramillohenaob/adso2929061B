@@ -5,102 +5,158 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>07 - Class Vehicle</title>
     <link rel="stylesheet" href="../../css/styles.css">
-    <style>
-        figure.vehicle {
-            background: url(images/vehicle/bglight.svg) no-repeat center;
-            border-radius: 40px;
-            padding: 0;
-            position: relative;
-            margin: 0;
-            transition: all 0.4s ease-in;
-            height: 680px;
-            width: 368px;
+<style>
+    figure.vehicle {
+    background: url(images/vehicle/bglight.svg) no-repeat center;
+    border-radius: 40px;
+    padding: 0;
+    position: relative;
+    margin: 0;
+    transition: all 0.4s ease-in;
+    height: 680px;
+    width: 368px;
+}
 
-            button.btn-mode{
-            background: url(images/vehicle/btn-mode-light.svg) no-repeat;
-            cursor: pointer;
-            border: none;
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            width: 40px;
-            transition: all 0.4s ease-in;
-            height: 40px;
-        }
-        }
-        h4 {
-            padding: 0.5rem 1rem;
-            text-align: center;
-            color: #f7f7f7;
-            font-weight: 600;
-            font-size: 16px;
-            position: absolute;
-        }
-        h4.title-brand {
-            color: #1e1e1e;
-            left: 50%;
-            transform:  translateX(-50%);
-            top: 97px;
-        }
-        h4.title-model {
-            top: 220px;
-            left: 14px;
-            width: 110px;
-        }
-        h4.title-refer {
-            left: 50%;
-            transform: translateX(-50%);
-            top: 220px;
-            width: 110px;
-        }
-        h4.title-color {
-            top: 220px;
-            left: 254px;
-            width: 90px;
-        }
-        button.btn-prev,
-        button.btn-next {
-            cursor: pointer;
-            border: none;
-            position: absolute;
-            height: 40px;
-            top: 118px;
-            width: 40px;
-            transition: transform 0.4s ease-in;
-        }
-        button.btn-prev {
-            background: url(images/vehicle/btn-prev.svg) no-repeat;
-            left: 15px;
-            &:hover {
-                transform: scale(1.1) translateX(-5px);
-            }
-        }
-        button.btn-next {
-            background: url(images/vehicle/btn-next.svg) no-repeat;
-            right: 15px;
-            &:hover {
-                transform: scale(1.1) translateX(5px);
-            }
-        }
-        .show-data {
-            animation: showData 1s
-            ease-in forwards;
-        }
-        @keyframes showData {
-            0% {
-                opacity: 0;
-            }
-            80% {
-                opacity: 1;
-            }
-            90% {
-                opacity: 0.8;
-            }
-            100% {
-                opacity: 1;
-            }
-        }
-    </style>
+figure.vehicle button.btn-mode {
+    background: url(images/vehicle/btn-mode-light.svg) no-repeat;
+    cursor: pointer;
+    border: none;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 40px;
+    transition: all 0.4s ease-in;
+    height: 40px;
+}
+
+figure.vehicle h4 {
+    padding: 0.5rem 1rem;
+    text-align: center;
+    color: #f7f7f7;
+    font-weight: 600;
+    font-size: 16px;
+    position: absolute;
+}
+
+figure.vehicle h4.title-brand {
+    color: #1e1e1e;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 97px;
+}
+
+figure.vehicle h4.title-model {
+    top: 220px;
+    left: 14px;
+    width: 110px;
+}
+
+figure.vehicle h4.title-refer {
+    left: 50%;
+    transform: translateX(-50%);
+    top: 220px;
+    width: 110px;
+}
+
+figure.vehicle h4.title-color {
+    top: 220px;
+    left: 254px;
+    width: 90px;
+}
+
+figure.vehicle button.btn-prev,
+figure.vehicle button.btn-next {
+    cursor: pointer;
+    border: none;
+    position: absolute;
+    height: 40px;
+    top: 118px;
+    width: 40px;
+    transition: transform 0.4s ease-in;
+}
+
+figure.vehicle button.btn-prev {
+    background: url(images/vehicle/btn-prev.svg) no-repeat center;
+    left: 15px;
+}
+
+figure.vehicle button.btn-prev:hover {
+    transform: scale(1.1) translateX(-5px);
+}
+
+figure.vehicle button.btn-next {
+    background: url(images/vehicle/btn-next.svg) no-repeat center;
+    right: 15px;
+}
+
+figure.vehicle button.btn-next:hover {
+    transform: scale(1.1) translateX(5px);
+}
+
+/* DARK MODE */
+figure.vehicle.dark {
+    background: url(images/vehicle/bgdark.svg) no-repeat center;
+}
+
+figure.vehicle.dark button.btn-mode {
+    background: url(images/vehicle/btn-mode-dark.svg) no-repeat;
+}
+
+figure.vehicle.dark h4 {
+    color: #1e1e1e;
+}
+
+figure.vehicle.dark h4.title-brand {
+    color: #f7f7f7;
+}
+figure.vehicle.dark button.btn-prev,
+figure.vehicle.dark button.btn-next {
+    cursor: pointer;
+    border: none;
+    position: absolute;
+    height: 40px;
+    top: 118px;
+    width: 40px;
+    transition: transform 0.4s ease-in;
+}
+
+figure.vehicle.dark button.btn-prev {
+    background: url(images/vehicle/btn-prev-dark.svg) no-repeat center;
+    left: 15px;
+}
+
+figure.vehicle.dark button.btn-prev:hover {
+    transform: scale(1.1) translateX(-5px);
+}
+
+figure.vehicle.dark button.btn-next {
+    background: url(images/vehicle/btn-next-dark.svg) no-repeat center;
+    right: 15px;
+}
+
+figure.vehicle.dark button.btn-next:hover {
+    transform: scale(1.1) translateX(5px);
+}
+
+.show-data {
+    animation: showData 1s ease-in forwards;
+}
+
+@keyframes showData {
+    0% {
+        opacity: 0;
+    }
+    80% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 0.8;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+</style>
 </head>
 <body class="javascript">
     <nav>
@@ -141,110 +197,119 @@
         // Object
         const vehicles = {
             Attrs: [
-            {brand: 'Apollo 21', refer: 'NASA',   model: '2024', color: 'Black'},
-            {brand: 'Voyager Jr',refer: 'SpaceX', model: '2032', color: 'Gray'},
-            {brand: 'Mazda',     refer: 'SpaceY', model: '2028', color: 'White'},
+                { brand: 'Apollo 21',  refer: 'NASA',   model: '2024', color: 'Black' },
+                { brand: 'Voyager Jr', refer: 'SpaceX', model: '2032', color: 'Gray' },
+                { brand: 'Mazda',      refer: 'SpaceY', model: '2028', color: 'White' },
             ]
-        }
+        };
 
-        //Elements
-        const tBrand = document.querySelector('.title-brand')
-        const tRefer = document.querySelector('.title-refer')
-        const tModel = document.querySelector('.title-model')
-        const tColor = document.querySelector('.title-color')
+        // Elements
+        const tBrand = document.querySelector('.title-brand');
+        const tRefer = document.querySelector('.title-refer');
+        const tModel = document.querySelector('.title-model');
+        const tColor = document.querySelector('.title-color');
 
-        //Buttons
-        const btnPrev = document.querySelector('.btn-prev')
-        const btnNext = document.querySelector('.btn-next')
-        const btnMode = document.querySelector('.btn-mode')
+        // Buttons
+        const btnPrev = document.querySelector('.btn-prev');
+        const btnNext = document.querySelector('.btn-next');
+        const btnMode = document.querySelector('.btn-mode');
+        const vFigure = document.querySelector('.vehicle');
 
-        //Variables
-        let inx = 0
-        btnPrev.style.opacity='0.2'
-        btnPrev.style.pointerEvents = 'none'
+        // Variables
+        let inx = 0;
+        btnPrev.style.opacity = '0.2';
+        btnPrev.style.pointerEvents = 'none';
 
         // Events
+        btnMode.addEventListener('click', () => {
+            vFigure.classList.toggle('dark');
+        });
+
         btnNext.addEventListener('click', () => {
-            if(inx < (vehicles.Attrs.length)-1){
-            ++inx
-            btnPrev.style.opacity = '1'
-            btnPrev.style.pointerEvents = 'all';
-            car.brand = vehicles.Attrs[inx].brand
-            car.refer = vehicles.Attrs[inx].refer
-            car.model = vehicles.Attrs[inx].model
-            car.color = vehicles.Attrs[inx].color
-            car.displayData()
-            if(inx == (vehicles.Attrs.length)-1){
-                btnNext.style.opacity = '0.2'
-                btnNext.style.pointerEvents = 'none';
+            if (inx < (vehicles.Attrs.length) - 1) {
+                inx++;
+                btnPrev.style.opacity = '1';
+                btnPrev.style.pointerEvents = 'all';
+                car.brand = vehicles.Attrs[inx].brand;
+                car.refer = vehicles.Attrs[inx].refer;
+                car.model = vehicles.Attrs[inx].model;
+                car.color = vehicles.Attrs[inx].color;
+                car.displayData();
+                if (inx == (vehicles.Attrs.length) - 1) {
+                    btnNext.style.opacity = '0.2';
+                    btnNext.style.pointerEvents = 'none';
+                }
             }
-            }
-        })
+        });
 
         btnPrev.addEventListener('click', () => {
-            if(inx > 0){
-            --inx
-            btnNext.style.opacity = '1'
-            btnNext.style.pointerEvents = 'all';
-            car.brand = vehicles.Attrs[inx].brand
-            car.refer = vehicles.Attrs[inx].refer
-            car.model = vehicles.Attrs[inx].model
-            car.color = vehicles.Attrs[inx].color
-            car.displayData()
-            if(inx == 0){
-                btnPrev.style.opacity = '0.2'
-                btnPrev.style.pointerEvents = 'none';
+            if (inx > 0) {
+                inx--;
+                btnNext.style.opacity = '1';
+                btnNext.style.pointerEvents = 'all';
+                car.brand = vehicles.Attrs[inx].brand;
+                car.refer = vehicles.Attrs[inx].refer;
+                car.model = vehicles.Attrs[inx].model;
+                car.color = vehicles.Attrs[inx].color;
+                car.displayData();
+                if (inx == 0) {
+                    btnPrev.style.opacity = '0.2';
+                    btnPrev.style.pointerEvents = 'none';
+                }
             }
-            }
-        })
+        });
 
-        class vehicle {
-            constructor(brand, refer, model, color){
-                this.brand = brand
-                this.refer = refer
-                this.model = model
-                this.color = color
-                this.isOn = false
+        class Vehicle {
+            constructor(brand, refer, model, color) {
+                this.brand = brand;
+                this.refer = refer;
+                this.model = model;
+                this.color = color;
+                this.isOn = false;
             }
 
             displayData() {
-                tBrand.textContent = this.brand
-                tBrand.classList.add('show-data')
-                tRefer.textContent = this.refer
-                tRefer.classList.add('show-data')
-                tModel.textContent = this.model
-                tModel.classList.add('show-data')
-                tColor.textContent = this.color
-                tColor.classList.add('show-data')
-                setTimeout(function() {
-                    tBrand.classList.remove('show-data')
-                    tRefer.classList.remove('show-data')
-                    tModel.classList.remove('show-data')
-                    tColor.classList.remove('show-data')
-                }, 1000)
+                tBrand.textContent = this.brand;
+                tBrand.classList.add('show-data');
+                tRefer.textContent = this.refer;
+                tRefer.classList.add('show-data');
+                tModel.textContent = this.model;
+                tModel.classList.add('show-data');
+                tColor.textContent = this.color;
+                tColor.classList.add('show-data');
+                setTimeout(() => {
+                    tBrand.classList.remove('show-data');
+                    tRefer.classList.remove('show-data');
+                    tModel.classList.remove('show-data');
+                    tColor.classList.remove('show-data');
+                }, 1000);
             }
+
             powerOn() {
                 if (!this.isOn) {
-                    console.log('Ist On')
-                }else {
-                    console.log('Already On')
+                    this.isOn = true;
+                    console.log('Is On');
+                } else {
+                    console.log('Already On');
                 }
             }
+
             powerOff() {
-                if(this.isOn) {
-                    this.isOn = false
-                    console.log('Ist Off')
+                if (this.isOn) {
+                    this.isOn = false;
+                    console.log('Is Off');
                 }
             }
         }
 
-        car = new vehicle(vehicles.Attrs[inx].brand,
-                          vehicles.Attrs[inx].refer,  
-                          vehicles.Attrs[inx].model, 
-                          vehicles.Attrs[inx].color)
-        
-        car.displayData()
+        const car = new Vehicle(
+            vehicles.Attrs[inx].brand,
+            vehicles.Attrs[inx].refer,
+            vehicles.Attrs[inx].model,
+            vehicles.Attrs[inx].color
+        );
 
+        car.displayData();
     </script>
 </body>
 </html>
