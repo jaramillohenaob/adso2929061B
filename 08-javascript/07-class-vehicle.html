@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>07 - Class Vehicle</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+    <style>
+        figure.vehicle {
+            background: url(images/vehicle/bglight.svg) no-repeat center;
+            border-radius: 40px;
+            padding: 0;
+            position: relative;
+            margin: 0;
+            transition: all 0.4s ease-in;
+            height: 680px;
+            width: 368px;
+
+            button.btn-mode{
+            background: url(images/vehicle/btn-mode-light.svg) no-repeat;
+            cursor: pointer;
+            border: none;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 40px;
+            transition: all 0.4s ease-in;
+            height: 40px;
+        }
+        }
+        h4 {
+            padding: 0.5rem 1rem;
+            text-align: center;
+            color: #f7f7f7;
+            font-weight: 600;
+            font-size: 16px;
+            position: absolute;
+        }
+        h4.title-brand {
+            color: #1e1e1e;
+            left: 50%;
+            transform:  translateX(-50%);
+            top: 97px;
+        }
+        h4.title-model {
+            top: 220px;
+            left: 14px;
+            width: 110px;
+        }
+        h4.title-refer {
+            left: 50%;
+            transform: translateX(-50%);
+            top: 220px;
+            width: 110px;
+        }
+        h4.title-color {
+            top: 220px;
+            left: 254px;
+            width: 90px;
+        }
+        button.btn-prev,
+        button.btn-next {
+            cursor: pointer;
+            border: none;
+            position: absolute;
+            height: 40px;
+            top: 118px;
+            width: 40px;
+            transition: transform 0.4s ease-in;
+        }
+        button.btn-prev {
+            background: url(images/vehicle/btn-prev.svg) no-repeat;
+            left: 15px;
+            &:hover {
+                transform: scale(1.1) translateX(-5px);
+            }
+        }
+        button.btn-next {
+            background: url(images/vehicle/btn-next.svg) no-repeat;
+            right: 15px;
+            &:hover {
+                transform: scale(1.1) translateX(5px);
+            }
+        }
+        .show-data {
+            animation: showData 1s
+            ease-in forwards;
+        }
+        @keyframes showData {
+            0% {
+                opacity: 0;
+            }
+            80% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 0.8;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body class="javascript">
+    <nav>
+        <a href="index.html">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#ffffff" d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>
+        </a>
+    </nav>
+    <main>
+        <header>
+            <h1>07 - Class Vehicle</h1>
+            <p>
+                Create and manipulate a vehicle object with properties.
+            </p>
+        </header>
+        <section>
+            <figure class="vehicle">
+                <button class="btn-mode"></button>
+                <h4 class="title-brand"></h4>
+                <h4 class="title-model"></h4>
+                <h4 class="title-refer"></h4>
+                <h4 class="title-color"></h4>
+                <button class="btn-prev"></button>
+                <button class="btn-next"></button>
+                <div class="landscape">
+                    <img class="car" src="">
+                </div>
+                <div class="methods">
+                    <button class="btn-power-on"></button>
+                    <button class="btn-forward"></button>
+                    <button class="btn-stop"></button>
+                    <button class="btn-backward"></button>
+                    <button class="btn-power-off"></button>
+                </div>
+            </figure>
+        </section>
+    </main>
+    <script>
+        // Object
+        const vehicles = {
+            Attrs: [
+            {brand: 'Apollo 21', refer: 'NASA',   model: '2024', color: 'Black'},
+            {brand: 'Voyager Jr',refer: 'SpaceX', model: '2032', color: 'Gray'},
+            {brand: 'Mazda',     refer: 'SpaceY', model: '2028', color: 'White'},
+            ]
+        }
+
+        //Elements
+        const tBrand = document.querySelector('.title-brand')
+        const tRefer = document.querySelector('.title-refer')
+        const tModel = document.querySelector('.title-model')
+        const tColor = document.querySelector('.title-color')
+
+        //Buttons
+        const btnPrev = document.querySelector('.btn-prev')
+        const btnNext = document.querySelector('.btn-next')
+        const btnMode = document.querySelector('.btn-mode')
+
+        //Variables
+        let inx = 0
+        btnPrev.style.opacity='0.2'
+        btnPrev.style.pointerEvents = 'none'
+
+        // Events
+        btnNext.addEventListener('click', () => {
+            if(inx < (vehicles.Attrs.length)-1){
+            ++inx
+            btnPrev.style.opacity = '1'
+            btnPrev.style.pointerEvents = 'all';
+            car.brand = vehicles.Attrs[inx].brand
+            car.refer = vehicles.Attrs[inx].refer
+            car.model = vehicles.Attrs[inx].model
+            car.color = vehicles.Attrs[inx].color
+            car.displayData()
+            if(inx == (vehicles.Attrs.length)-1){
+                btnNext.style.opacity = '0.2'
+                btnNext.style.pointerEvents = 'none';
+            }
+            }
+        })
+
+        btnPrev.addEventListener('click', () => {
+            if(inx > 0){
+            --inx
+            btnNext.style.opacity = '1'
+            btnNext.style.pointerEvents = 'all';
+            car.brand = vehicles.Attrs[inx].brand
+            car.refer = vehicles.Attrs[inx].refer
+            car.model = vehicles.Attrs[inx].model
+            car.color = vehicles.Attrs[inx].color
+            car.displayData()
+            if(inx == 0){
+                btnPrev.style.opacity = '0.2'
+                btnPrev.style.pointerEvents = 'none';
+            }
+            }
+        })
+
+        class vehicle {
+            constructor(brand, refer, model, color){
+                this.brand = brand
+                this.refer = refer
+                this.model = model
+                this.color = color
+                this.isOn = false
+            }
+
+            displayData() {
+                tBrand.textContent = this.brand
+                tBrand.classList.add('show-data')
+                tRefer.textContent = this.refer
+                tRefer.classList.add('show-data')
+                tModel.textContent = this.model
+                tModel.classList.add('show-data')
+                tColor.textContent = this.color
+                tColor.classList.add('show-data')
+                setTimeout(function() {
+                    tBrand.classList.remove('show-data')
+                    tRefer.classList.remove('show-data')
+                    tModel.classList.remove('show-data')
+                    tColor.classList.remove('show-data')
+                }, 1000)
+            }
+            powerOn() {
+                if (!this.isOn) {
+                    console.log('Ist On')
+                }else {
+                    console.log('Already On')
+                }
+            }
+            powerOff() {
+                if(this.isOn) {
+                    this.isOn = false
+                    console.log('Ist Off')
+                }
+            }
+        }
+
+        car = new vehicle(vehicles.Attrs[inx].brand,
+                          vehicles.Attrs[inx].refer,  
+                          vehicles.Attrs[inx].model, 
+                          vehicles.Attrs[inx].color)
+        
+        car.displayData()
+
+    </script>
+</body>
+</html>
