@@ -63,6 +63,68 @@ figure.vehicle h4.title-color {
     left: 254px;
     width: 90px;
 }
+/* Contenedor principal del paisaje */
+div.landscape {
+    top: 301px;
+    left: 9px;
+    border-radius: 15px;
+    position: relative;
+    overflow: hidden;
+    height: 265px;
+    width: 350px;
+}
+
+/* Estilos para las capas de fondo */
+div.landscape div {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    bottom: 0;
+}
+
+/* Capa 1: Bosque */
+div.landscape div.layer01 div.bg1 {
+    background: url(images/vehicle/forest.svg) repeat-x 0 bottom;
+    background-size: auto 100%; /* Ajusta el tamaño del fondo */
+    height: 100%;
+    width: 200%; /* Doble ancho para permitir el desplazamiento */
+}
+
+/* Capa 2: Montañas */
+div.landscape div.layer02 div.bg2 {
+    background: url(images/vehicle/mountains.svg) repeat-x 0 bottom;
+    background-size: auto 100%; /* Ajusta el tamaño del fondo */
+    height: 100%;
+    width: 200%; /* Doble ancho para permitir el desplazamiento */
+}
+
+/* Capa 3: Cielo */
+div.landscape div.layer03 div.bg3 {
+    background: url(images/vehicle/sky.svg) repeat-x 0 bottom;
+    background-size: auto 100%; /* Ajusta el tamaño del fondo */
+    height: 100%;
+    width: 200%; /* Doble ancho para permitir el desplazamiento */
+}
+
+img.car {
+    border: 2px solid red;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 10px;
+    height: 80px;
+    width: 160px;
+}
+.car {
+    width: 100px;
+    height: 50px;
+    background-color: red;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
 
 figure.vehicle button.btn-prev,
 figure.vehicle button.btn-next {
@@ -92,6 +154,46 @@ figure.vehicle button.btn-next {
 figure.vehicle button.btn-next:hover {
     transform: scale(1.1) translateX(5px);
 }
+div.methods {
+    position: absolute;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    left: 12px;
+    gap: 0.2rem;
+    width: 346px;
+    bottom: 20px;
+    &:hover button:not(:hover){
+        opacity: 0.2;
+    }
+
+    button {
+        border: none;
+        cursor: pointer;
+        height: 65px;
+        transition: all 0.4s ease-in;
+        width: 60px;
+        &:hover {
+            transform: scale(1.05);
+        }
+        &.btn-power-on {
+            background: url(images/vehicle/btn-on.svg);
+        }
+        &.btn-forward {
+            background: url(images/vehicle/btn-forward.svg);
+        }
+        &.btn-stop {
+            background: url(images/vehicle/btn-stop.svg);
+        }
+        &.btn-backward {
+            background: url(images/vehicle/btn-back.svg);
+        }
+        &.btn-power-off {
+            background: url(images/vehicle/btn-off.svg);
+        }
+    }
+}
+
 
 /* DARK MODE */
 figure.vehicle.dark {
@@ -142,6 +244,32 @@ figure.vehicle.dark button.btn-next:hover {
     animation: showData 1s ease-in forwards;
 }
 
+figure.vehicle.dark button {
+        border: none;
+        cursor: pointer;
+        height: 65px;
+        transition: all 0.4s ease-in;
+        width: 60px;
+        &:hover {
+            transform: scale(1.05);
+        }
+        &.btn-power-on {
+            background: url(images/vehicle/btn-on-dark.svg);
+        }
+        &.btn-forward {
+            background: url(images/vehicle/btn-forward-dark.svg);
+        }
+        &.btn-stop {
+            background: url(images/vehicle/btn-stop-dark.svg);
+        }
+        &.btn-backward {
+            background: url(images/vehicle/btn-back-dark.svg);
+        }
+        &.btn-power-off {
+            background: url(images/vehicle/btn-off-dark.svg);
+        }
+    }
+
 @keyframes showData {
     0% {
         opacity: 0;
@@ -181,7 +309,15 @@ figure.vehicle.dark button.btn-next:hover {
                 <button class="btn-prev"></button>
                 <button class="btn-next"></button>
                 <div class="landscape">
-                    <img class="car" src="">
+                        <div class="layer01">
+                          <div class="layer bg1"></div>
+                        </div>
+                        <div class="layer02">
+                          <div class="layer bg2"></div>
+                        </div>
+                          <div class="layer03">
+                          <div class="layer bg3"></div>
+                          <img class="car" src="">
                 </div>
                 <div class="methods">
                     <button class="btn-power-on"></button>
@@ -214,6 +350,9 @@ figure.vehicle.dark button.btn-next:hover {
         const btnNext = document.querySelector('.btn-next');
         const btnMode = document.querySelector('.btn-mode');
         const vFigure = document.querySelector('.vehicle');
+        const btnPowerOn = document.querySelector('.btn-power-on')
+        const btnPowerOff = document.querySelector('.btn-power-off')
+        const carImg = document.querySelector('.car');
 
         // Variables
         let inx = 0;
@@ -258,7 +397,14 @@ figure.vehicle.dark button.btn-next:hover {
                 }
             }
         });
+        btnPowerOn.addEventListener('click',() => {
+            car.powerOn()
+        })
+        btnPowerOff.addEventListener('click',() => {
+            car.powerOff()
+        })
 
+        // Class
         class Vehicle {
             constructor(brand, refer, model, color) {
                 this.brand = brand;
@@ -288,16 +434,13 @@ figure.vehicle.dark button.btn-next:hover {
             powerOn() {
                 if (!this.isOn) {
                     this.isOn = true;
-                    console.log('Is On');
-                } else {
-                    console.log('Already On');
-                }
+                    startEngine();
             }
+        }
 
             powerOff() {
                 if (this.isOn) {
                     this.isOn = false;
-                    console.log('Is Off');
                 }
             }
         }
@@ -310,6 +453,12 @@ figure.vehicle.dark button.btn-next:hover {
         );
 
         car.displayData();
+
+        function startEngine() {
+            if (!car.isOn) return
+            carImg.style.transform = `translate(-50%, ${2 * Math.sin(Date.now()/ 20)}px)`
+            requestAnimationFrame(startEngine)
+        }
     </script>
 </body>
 </html>
