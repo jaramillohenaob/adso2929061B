@@ -63,18 +63,18 @@ figure.vehicle h4.title-color {
     left: 254px;
     width: 90px;
 }
-/* Contenedor principal del paisaje */
+
 div.landscape {
     top: 301px;
     left: 9px;
     border-radius: 15px;
     position: relative;
     overflow: hidden;
-    height: 265px;
+    height: 270px;
     width: 350px;
+    transition: transform 0.4s ease-in;
 }
 
-/* Estilos para las capas de fondo */
 div.landscape div {
     position: absolute;
     height: 100%;
@@ -82,49 +82,39 @@ div.landscape div {
     bottom: 0;
 }
 
-/* Capa 1: Bosque */
 div.landscape div.layer01 div.bg1 {
     background: url(images/vehicle/forest.svg) repeat-x 0 bottom;
-    background-size: auto 100%; /* Ajusta el tamaño del fondo */
+    background-size: auto 100%;
     height: 100%;
-    width: 200%; /* Doble ancho para permitir el desplazamiento */
+    width: 200%;
+    z-index: 3; 
 }
 
-/* Capa 2: Montañas */
 div.landscape div.layer02 div.bg2 {
     background: url(images/vehicle/mountains.svg) repeat-x 0 bottom;
-    background-size: auto 100%; /* Ajusta el tamaño del fondo */
+    background-size: auto 100%;
     height: 100%;
-    width: 200%; /* Doble ancho para permitir el desplazamiento */
+    width: 200%;
+    z-index: 2; 
 }
 
-/* Capa 3: Cielo */
 div.landscape div.layer03 div.bg3 {
     background: url(images/vehicle/sky.svg) repeat-x 0 bottom;
-    background-size: auto 100%; /* Ajusta el tamaño del fondo */
+    background-size: auto 100%;
     height: 100%;
-    width: 200%; /* Doble ancho para permitir el desplazamiento */
+    width: 200%;
+    z-index: 1; 
 }
 
 img.car {
-    border: 2px solid red;
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    bottom: 10px;
-    height: 80px;
-    width: 160px;
+    position: absolute; 
+    left:  35%; 
+    transform: translateX(-60%); 
+    bottom: 90px; 
+    height: 75px;
+    width: 150px;
+    z-index: 4; 
 }
-.car {
-    width: 100px;
-    height: 50px;
-    background-color: red;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
 
 figure.vehicle button.btn-prev,
 figure.vehicle button.btn-next {
@@ -240,6 +230,31 @@ figure.vehicle.dark button.btn-next:hover {
     transform: scale(1.1) translateX(5px);
 }
 
+
+figure.vehicle.dark div.landscape div.layer01 div.bg1 {
+    background: url(images/vehicle/forest-dark.svg) repeat-x 0 bottom;
+    background-size: auto 100%;
+    height: 100%;
+    width: 200%;
+    z-index: 3; 
+}
+
+figure.vehicle.dark div.landscape div.layer02 div.bg2 {
+    background: url(images/vehicle/mountains-dark.svg) repeat-x 0 bottom;
+    background-size: auto 100%;
+    height: 100%;
+    width: 200%;
+    z-index: 2; 
+}
+
+figure.vehicle.dark div.landscape div.layer03 div.bg3 {
+    background: url(images/vehicle/sky-dark.svg) repeat-x 0 bottom;
+    background-size: auto 100%;
+    height: 100%;
+    width: 200%;
+    z-index: 1; 
+}
+
 .show-data {
     animation: showData 1s ease-in forwards;
 }
@@ -308,17 +323,20 @@ figure.vehicle.dark button {
                 <h4 class="title-color"></h4>
                 <button class="btn-prev"></button>
                 <button class="btn-next"></button>
+                
                 <div class="landscape">
-                        <div class="layer01">
-                          <div class="layer bg1"></div>
-                        </div>
-                        <div class="layer02">
-                          <div class="layer bg2"></div>
-                        </div>
-                          <div class="layer03">
-                          <div class="layer bg3"></div>
-                          <img class="car" src="">
+                    <div class="layer01">
+                        <div class="layer bg1"></div>
+                    </div>
+                    <div class="layer02">
+                        <div class="layer bg2"></div>
+                    </div>
+                    <div class="layer03">
+                        <div class="layer bg3"></div>
+                        <img class="car" src="">
+                    </div>
                 </div>
+
                 <div class="methods">
                     <button class="btn-power-on"></button>
                     <button class="btn-forward"></button>
@@ -332,18 +350,22 @@ figure.vehicle.dark button {
     <script>
         // Object
         const vehicles = {
-            Attrs: [
-                { brand: 'Apollo 21',  refer: 'NASA',   model: '2024', color: 'Black' },
-                { brand: 'Voyager Jr', refer: 'SpaceX', model: '2032', color: 'Gray' },
-                { brand: 'Mazda',      refer: 'SpaceY', model: '2028', color: 'White' },
-            ]
-        };
+    Attrs: [
+        { brand: 'Apollo 21',  refer: 'NASA',   model: '2024', color: 'Gray', image: 'images/vehicle/nave1.png' },
+        { brand: 'Voyager Jr', refer: 'SpaceX', model: '2032', color: 'Orange',  image: 'images/vehicle/nave2.png' },
+        { brand: 'Mazda',      refer: 'SpaceY', model: '2028', color: 'White', image: 'images/vehicle/nave3.png' },
+    ]
+};
 
         // Elements
         const tBrand = document.querySelector('.title-brand');
         const tRefer = document.querySelector('.title-refer');
         const tModel = document.querySelector('.title-model');
         const tColor = document.querySelector('.title-color');
+        const layer1 = document.querySelector('.landscape .layer01 .bg1'); 
+        const layer2 = document.querySelector('.landscape .layer02 .bg2');
+        const layer3 = document.querySelector('.landscape .layer03 .bg3'); 
+        const layers = [layer1, layer2, layer3];
 
         // Buttons
         const btnPrev = document.querySelector('.btn-prev');
@@ -351,6 +373,9 @@ figure.vehicle.dark button {
         const btnMode = document.querySelector('.btn-mode');
         const vFigure = document.querySelector('.vehicle');
         const btnPowerOn = document.querySelector('.btn-power-on')
+        const btnForward = document.querySelector('.btn-forward')
+        const btnStop = document.querySelector('.btn-stop')
+        const btnBackward = document.querySelector('.btn-backward')
         const btnPowerOff = document.querySelector('.btn-power-off')
         const carImg = document.querySelector('.car');
 
@@ -358,6 +383,10 @@ figure.vehicle.dark button {
         let inx = 0;
         btnPrev.style.opacity = '0.2';
         btnPrev.style.pointerEvents = 'none';
+        let isReversed = false; 
+        let isPaused = true; 
+        let lastTimestamp = 0; 
+        const speedFactors = [0.4, 0.06, 0.01]; 
 
         // Events
         btnMode.addEventListener('click', () => {
@@ -374,6 +403,8 @@ figure.vehicle.dark button {
                 car.model = vehicles.Attrs[inx].model;
                 car.color = vehicles.Attrs[inx].color;
                 car.displayData();
+                // Cambiar la imagen de la nave
+                carImg.src = vehicles.Attrs[inx].image;
                 if (inx == (vehicles.Attrs.length) - 1) {
                     btnNext.style.opacity = '0.2';
                     btnNext.style.pointerEvents = 'none';
@@ -391,12 +422,15 @@ figure.vehicle.dark button {
                 car.model = vehicles.Attrs[inx].model;
                 car.color = vehicles.Attrs[inx].color;
                 car.displayData();
+                // Cambiar la imagen de la nave
+                carImg.src = vehicles.Attrs[inx].image;
                 if (inx == 0) {
                     btnPrev.style.opacity = '0.2';
                     btnPrev.style.pointerEvents = 'none';
                 }
             }
         });
+
         btnPowerOn.addEventListener('click',() => {
             car.powerOn()
         })
@@ -451,14 +485,58 @@ figure.vehicle.dark button {
             vehicles.Attrs[inx].model,
             vehicles.Attrs[inx].color
         );
+        carImg.src = vehicles.Attrs[inx].image; 
 
         car.displayData();
 
         function startEngine() {
             if (!car.isOn) return
-            carImg.style.transform = `translate(-50%, ${2 * Math.sin(Date.now()/ 20)}px)`
+            carImg.style.transform = `translate(-60%, ${2 * Math.sin(Date.now()/ 20)}px)`
             requestAnimationFrame(startEngine)
         }
+
+        layers.forEach(layer => {
+        layer.dataset.pos = '0'; 
+        });
+
+        function animate(timestamp) {
+        if (!isPaused) {
+            const delta = timestamp - (lastTimestamp || timestamp); 
+            lastTimestamp = timestamp;
+
+            layers.forEach((layer, index) => {
+            let currentPos = (parseFloat(layer.dataset.pos) || 0) + speedFactors[index] * (isReversed ? delta : -delta);
+            layer.style.backgroundPositionX = `${currentPos}px`; 
+            layer.dataset.pos = currentPos;
+            });
+        }
+        requestAnimationFrame(animate); 
+        }
+
+        btnForward.addEventListener('click', () => {
+        isReversed = false; 
+        if (isPaused) {
+            isPaused = false; 
+            lastTimestamp = 0; 
+        }
+        });
+
+        btnBackward.addEventListener('click', () => {
+        isReversed = true; 
+        if (isPaused) {
+            isPaused = false; 
+            lastTimestamp = 0; 
+        }
+        });
+
+        btnStop.addEventListener('click', () => {
+        isPaused = !isPaused; 
+        if (!isPaused) {
+            lastTimestamp = 0; 
+        }
+        });
+
+        requestAnimationFrame(animate);
     </script>
 </body>
 </html>
