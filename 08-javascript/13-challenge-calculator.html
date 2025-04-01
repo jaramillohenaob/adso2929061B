@@ -45,16 +45,32 @@
                 width: 100%;
                 font-family: 'Lexend', sans-serif;
             }
-            h4.result {
-                font-size: 40px;
-                text-align: right;
-                font-weight: 600;
-                position: absolute;
-                top: 58px;
-                right: 0;
-                font-family: 'Lexend', sans-serif;
 
+            #result-display {
+                font-size: 32px;
+                text-align: right;
+                position: absolute;
+                top: 76px;
+                right: 10px; 
+                height: 54px;
+                overflow: hidden; 
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                transition: all 0.3s ease;
             }
+            #result-display.preview {
+                opacity: 0.5;
+                font-size: 28px; 
+                right: 10px; 
+            }
+            #result-display.final {
+                opacity: 1;
+                font-size: 32px; 
+                right: 10px;
+                transform: none; 
+                animation: pulse 0.5s;
+            }
+
             footer{
                 display: grid;
                 grid-template-columns: repeat(4, 76px);
@@ -246,8 +262,8 @@
             <div class="calculator">
                 <header>
                     <button class="btn-mode"></button>
-                    <input type="text" class="oper" readonly>
-                    <h4 class="result">12.936</h4>
+                    <input type="text" class="oper" >
+                    <h4 class="result" id="result-display"></h4>
                 </header>
                 <footer>
                     <button class="btn-clear"></button>
@@ -284,6 +300,7 @@
         const divCal = document.querySelector('.calculator');
         const btnMode = document.querySelector('.btn-mode');
         const oper = document.querySelector('.oper')
+        const resultDisplay = document.getElementById('result-display');
         const btnsNumber = document.querySelectorAll('button[data-num]')
         const btnsOper = document.querySelectorAll('button[data-opr]')
         const btnClear = document.querySelector('.btn-clear');
@@ -333,11 +350,14 @@
 
         // Botón Clear
         btnClear.addEventListener('click', () => {
+            resultDisplay.textContent = '';
+            resultDisplay.classList.remove('preview', 'final');
             oper.value = '';
             lastCharIsOperator = false;
             operatorCount = 0;
             lastOperator = '';
         });
+
 
         // Botón Del
         btnDel.addEventListener('click', () => {
@@ -350,16 +370,41 @@
             }
         });
 
-        // Botón Igual
-        btnEqual.addEventListener('click', () => {
-            if (!lastCharIsOperator && oper.value !== '') {
-                try {
-                    const safeExpression = oper.value.replace(/(\d+)\*\*(\d+)/g, 'Math.pow($1,$2)');
-                    oper.value = eval(safeExpression);
-                } catch {
-                    oper.value = "Error";
-                }
+        const updatePreview = () => {
+            if (oper.value === '' || /[\+\-\*\/\%\.]$/.test(oper.value)) {
+                resultDisplay.textContent = '';
+                resultDisplay.classList.remove('preview');
+                return;
             }
+            
+            try {
+                const safeExpression = oper.value.replace(/(\d+)\*\*(\d+)/g, 'Math.pow($1,$2)');
+                resultDisplay.textContent = eval(safeExpression);
+                resultDisplay.classList.add('preview');
+            } catch {
+                resultDisplay.textContent = '';
+            }
+        };
+            
+        const handleOperationChange = () => {
+            if (resultDisplay.classList.contains('final')) {
+                resultDisplay.classList.remove('final');
+                resultDisplay.textContent = '';
+            }
+            updatePreview(); 
+        };
+                    document.querySelectorAll('footer button:not(.btn-equal)').forEach(btn => {
+            btn.addEventListener('click', handleOperationChange);
+        });
+
+        //Botón Equal
+        btnEqual.addEventListener('click', () => {
+            if (!resultDisplay.classList.contains('preview')) return;
+            resultDisplay.classList.replace('preview', 'final');
+            resultDisplay.style.animation = 'none';
+            setTimeout(() => {
+                resultDisplay.style.animation = 'pulse 0.5s';
+            }, 10);
         });
 
         // Dark mode
