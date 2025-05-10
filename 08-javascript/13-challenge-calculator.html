@@ -425,6 +425,35 @@
         }
 
         handleDarkModeChange(darkMode);
+
+        // KeyCode
+
+        document.addEventListener('keyup', function(e) {
+            const key = e.key;
+
+            if (/[0-9]/.test(key)) {
+                const numberButton = document.querySelector(`button[data-num="${key}"]`);
+                if (numberButton) {
+                    numberButton.click();
+                }
+            } else if (['+', '-', '*', '/'].includes(key)) {
+                const operatorButton = document.querySelector(`button[data-opr="${key}"]`);
+                if (operatorButton) {
+                    operatorButton.click();
+                }
+            } else if (key === '.') {
+                const decimalButton = document.querySelector('button[data-opr="."]');
+                if (decimalButton) {
+                    decimalButton.click();
+                }
+            } else if (key === 'Enter') {
+                btnEqual.click();
+            } else if (key === 'Backspace') {
+                btnDel.click();
+            } else if (key === 'Escape' || key.toLowerCase() === 'c') {
+                btnClear.click();
+            }
+        });
     </script>
 </body>
 </html>
