@@ -3,60 +3,246 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>15 - Wheater App</title>
+    <title>Weather App</title>
     <link rel="stylesheet" href="../../css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Jersey+25&display=swap" rel="stylesheet">
+    <style>
+        .weather-app,
+        .weather-app *:not(nav):not(main):not(header):not(section) {
+            font-family: "Jersey 25", sans-serif !important;
+        }
+        
+        .weather-app {
+            max-width: 380px;
+            margin: 0 auto;
+        }
+        
+        .weather-inputs {
+            padding: 15px;
+            text-align: center;
+            background: #413f52;
+            border-radius: 10px 10px 0 0;
+        }
+        
+        .weather-inputs input {
+            padding: 8px 12px;
+            width: 200px;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+        }
+        
+        .weather-inputs button {
+            padding: 8px 15px;
+            background: #4CAF50;
+            color: black;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .weather-inputs button:hover {
+            background: #45a049;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+
+        .weather-inputs button:active {
+            transform: translateY(1px);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+        }
+
+        .weather-inputs button::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 5px;
+            height: 5px;
+            background: rgba(255,255,255,0.5);
+            opacity: 0;
+            border-radius: 100%;
+            transform: scale(1, 1) translate(-50%);
+            transform-origin: 50% 50%;
+        }
+
+        .weather-inputs button:focus:not(:active)::after {
+            animation: ripple 0.6s ease-out;
+        }
+
+        @keyframes ripple {
+            0% {
+                transform: scale(0, 0);
+                opacity: 0.5;
+            }
+            100% {
+                transform: scale(20, 20);
+                opacity: 0;
+            }
+        }
+        
+        .weather-display {
+            height: 388px;
+            background: url(images/weather/bg-day.svg) no-repeat center center;
+            background-size: contain;
+            color: black;
+            padding: 30px;
+            box-sizing: border-box;
+            position: relative;
+            border-radius: 0 0 10px 10px;
+        }
+        
+        /* modo noche */
+        .weather-display.night-mode {
+            color: white !important;
+        }
+        .weather-display.night-mode .location,
+        .weather-display.night-mode .date,
+        .weather-display.night-mode .temperature,
+        .weather-display.night-mode .condition,
+        .weather-display.night-mode .details div {
+            text-shadow: 
+                    -1px -1px 0 #000,
+                    1px -1px 0 #000,
+                    -1px 1px 0 #000,
+                    1px 1px 0 #000;
+        }
+                
+        .location {
+            font-size: 30px;
+            margin-bottom: 5px;
+            text-align: center;
+        }
+        
+        .date {
+            font-size: 24px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .temperature {
+            font-size: 72px;
+            text-align: center;
+            margin: 40px 0;
+        }
+        
+        .condition {
+            font-size: 24px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .details {
+            position: absolute;
+            bottom: 30px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-around;
+            font-size: 24px;
+        }
+    </style>
 </head>
 <body class="javascript">
     <nav>
         <a href="index.html">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#ffffff" d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="#ffffff" d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>
         </a>
     </nav>
     <main>
         <header>
-            <h1>15 - Wheater App</h1>
-            <p>
-                Solve problems using conditional logic.
-            </p>
+            <h1>15 - Weather App</h1>
+            <p>Solve problems using conditional logic.</p>
         </header>
-        <section>
-            <figure class="weather">
-                <input type="text" class="q" placeholder="Location">
-                <button class="btn">Show</button>
-                <p class="show"></p>
-            </figure>
+        <section class="weather-section">
+            <div class="weather-app">
+                <div class="weather-inputs">
+                    <input type="text" class="q" placeholder="Location">
+                    <button class="btn">Show</button>
+                </div>
+                <div class="weather-display">
+                    <div class="location"></div>
+                    <div class="date"></div>
+                    <div class="temperature"></div>
+                    <div class="condition"></div>
+                    <div class="details">
+                        <div class="humidity"></div>
+                        <div class="cloud"></div>
+                    </div>
+                </div>
+            </div>
         </section>
     </main>
     <script>
         // Elements
-        const q    = document.querySelector('.q')
-        const btn  = document.querySelector('.btn')
-        const show = document.querySelector('.show')
+        const q = document.querySelector('.q');
+        const btn = document.querySelector('.btn');
+        const locationData = document.querySelector('.location');
+        const dateData = document.querySelector('.date');
+        const temperatureData = document.querySelector('.temperature');
+        const conditionData = document.querySelector('.condition');
+        const humidityData = document.querySelector('.humidity');
+        const cloudData = document.querySelector('.cloud');
+        const weatherDisplay = document.querySelector('.weather-display');
 
-        btn.addEventListener('click', (e) => {
-            showWeather(q.value)
-        })
-
-        // Function
-        const showWeather = async (q) => {
-            const url = `http://api.weatherapi.com/v1/current.json?key=9a61cceb9d46444fa9d11106251005&q=${q}`
-            const response = await fetch(url)
-            const data = await response.json()
-
-            const info = {
-                "country": data.location.country,
-                "name": data.location.name,
-                "time": data.location.localtime,
-                "temp": data.current.temp_c,
-                "isDay": data.current.is_day,
-                "condition-icon": data.current.condition.icon,
-                "condition-text": data.current.condition.text,
-                "humidity": data.current.humidity,
-                "cloud": data.current.cloud
-
-            }
-           show.textContent = JSON.stringify(info, null, 2 )
+        // formatear fecha
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString() + ' ' + date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
         }
+
+        const showWeather = async (q) => {
+            try {
+                const url = `http://api.weatherapi.com/v1/current.json?key=9a61cceb9d46444fa9d11106251005&q=${q}`;
+                const response = await fetch(url);
+                const data = await response.json();
+
+                const info = {
+                    "country": data.location.country,
+                    "name": data.location.name,
+                    "time": data.location.localtime,
+                    "temp": data.current.temp_c,
+                    "isDay": data.current.is_day,
+                    "condition-text": data.current.condition.text,
+                    "humidity": data.current.humidity,
+                    "cloud": data.current.cloud
+                };
+                // Actualizar la interfaz
+                locationData.innerHTML = `${info.name}<br>${info.country}`;
+                dateData.textContent = formatDate(info.time);
+                temperatureData.textContent = `${info.temp}°`;
+                conditionData.textContent = `Condition: ${info['condition-text']}`;
+                humidityData.textContent = `Humidity: ${info.humidity}%`;
+                cloudData.textContent = `Cloud: ${info.cloud}%`;
+                
+                // Cambiar fondo día o noche
+                if (info.isDay) {
+                    weatherDisplay.style.backgroundImage = 'url(images/weather/bg-day.svg)';
+                    weatherDisplay.classList.remove('night-mode');
+                } else {
+                    weatherDisplay.style.backgroundImage = 'url(images/weather/bg-night.svg)';
+                    weatherDisplay.classList.add('night-mode');
+                }
+                
+            } catch (error) {
+                console.error("Error fetching weather data:", error);
+                alert("Could not fetch weather data. Please try again.");
+            }
+        };
+
+        // Verificar si hay datos
+        btn.addEventListener('click', () => {
+            if (q.value.trim()) {
+                showWeather(q.value);
+            } else {
+                alert("Please enter a location");
+            }
+        });
     </script>
 </body>
 </html>
