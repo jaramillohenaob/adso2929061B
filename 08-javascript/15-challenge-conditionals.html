@@ -125,10 +125,42 @@
             text-align: center;
         }
         
-        .temperature {
-            font-size: 72px;
+        .temperature-container {
+            position: relative; 
             text-align: center;
             margin: 40px 0;
+            overflow: hidden;
+        }
+
+        .temperature {
+            font-size: 72px;
+            position: relative; 
+            z-index: 10; 
+        }
+
+        .weather-icon-animation {
+            position: absolute;
+            top: 50%;
+            left: -100%;
+            transform: translateY(-50%);
+            width: auto;
+            height: 80px; 
+            white-space: nowrap; 
+            animation: moveRight 20s linear infinite;
+        }
+
+        .weather-icon-animation img {
+            height: 100%;
+            margin-right: 10px;
+        }
+
+        @keyframes moveRight {
+            0% {
+                transform: translateX(-100%) translateY(-50%);
+            }
+            100% {
+                transform: translateX(0%) translateY(-50%);
+            }
         }
         
         .condition {
@@ -168,7 +200,9 @@
                 <div class="weather-display">
                     <div class="location"></div>
                     <div class="date"></div>
-                    <div class="temperature"></div>
+                    <div class="temperature-container">
+                        <div class="temperature"></div>
+                    </div>
                     <div class="condition"></div>
                     <div class="details">
                         <div class="humidity"></div>
@@ -189,6 +223,7 @@
         const humidityData = document.querySelector('.humidity');
         const cloudData = document.querySelector('.cloud');
         const weatherDisplay = document.querySelector('.weather-display');
+
         // formatear fecha
         function formatDate(dateString) {
             const date = new Date(dateString);
@@ -212,6 +247,7 @@
                     "humidity": data.current.humidity,
                     "cloud": data.current.cloud
                 };
+
                 // Actualizar la interfaz
                 locationData.innerHTML = `${info.name}<br>${info.country}`;
                 dateData.textContent = formatDate(info.time);
@@ -219,7 +255,26 @@
                 conditionData.textContent = `Condition: ${info['condition-text']}`;
                 humidityData.textContent = `Humidity: ${info.humidity}%`;
                 cloudData.textContent = `Cloud: ${info.cloud}%`;
+
+                const tempContainer = document.querySelector('.temperature-container');
+                const animationContainer = document.createElement('div');
+                animationContainer.classList.add('weather-icon-animation');
                 
+                const icons = [info['condition-icon'], info['condition-icon'], info['condition-icon'], info['condition-icon'], info['condition-icon'], info['condition-icon'], info['condition-icon'] , info['condition-icon'] , info['condition-icon'] , info['condition-icon'] , info['condition-icon'] , info['condition-icon'] , info['condition-icon'] , info['condition-icon'] , info['condition-icon'] , info['condition-icon'] , info['condition-icon'] , info['condition-icon'] , info['condition-icon'] , info['condition-icon']] ;
+
+                icons.forEach(icon => {
+                    const img = document.createElement('img');
+                    img.src = `https:${icon}`;
+                    animationContainer.appendChild(img);
+                });
+
+                // Limpiar animación
+                const existingAnimation = tempContainer.querySelector('.weather-icon-animation');
+                if (existingAnimation) {
+                    tempContainer.removeChild(existingAnimation);
+                }
+                tempContainer.appendChild(animationContainer);
+
                 // Cambiar fondo día o noche
                 if (info.isDay) {
                     weatherDisplay.style.backgroundImage = 'url(images/weather/bg-day.svg)';
@@ -243,6 +298,17 @@
                 alert("Please enter a location");
             }
         });
+
+        // Enter key
+        q.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                if (q.value.trim()) {
+                    showWeather(q.value);
+                }
+            }
+        });
+        showWeather("Manizales");
     </script>
 </body>
 </html>
