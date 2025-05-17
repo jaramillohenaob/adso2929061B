@@ -294,6 +294,7 @@
         btn.addEventListener('click', () => {
             if (q.value.trim()) {
                 showWeather(q.value);
+                q.value= ''
             } else {
                 alert("Please enter a location");
             }
@@ -305,6 +306,7 @@
                 e.preventDefault();
                 if (q.value.trim()) {
                     showWeather(q.value);
+                    q.value= ''
                 }
             }
         });
