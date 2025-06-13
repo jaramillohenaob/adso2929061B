@@ -343,11 +343,18 @@
             
         if (isNaN(normalNumber) || normalNumber < 1 || normalNumber > 42) { 
             validInput = false
-        }
+        }     
             
         if (!validInput) {
             result.classList.add('error')
-            
+
+            num1.textContent = ''
+            num2.textContent = ''
+            num3.textContent = ''
+            num4.textContent = ''
+            num5.textContent = ''
+            goldenNum.textContent = ''
+
             setTimeout(() => {
                 result.style.opacity = '0'
                     
