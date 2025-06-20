@@ -7,11 +7,11 @@
     <link rel="stylesheet" href="../../css/styles.css">
      <style>
         @font-face {
-            font-family: 'FinkHeavy';
-            src: url(fonts/FinkHeavy.ttf);
+            font-family: 'Poppins';
+            src: url(fonts/Poppins.ttf);
         }
         div.app {
-            background: url(images/arrays/bg-app.png) no-repeat center;
+            background: url(images/arrays/bg-app.svg) no-repeat center;
             display: flex;
             flex-direction: column;
             gap: 0.8rem;
@@ -27,15 +27,19 @@
             grid-template-columns: repeat(4, 76px);
             justify-content: space-between;
             position: absolute;
-            top: 190px;
+            top: 186px;
             height: 170px;
-            width: 340px;
-        }
+            width: 350px;
+            left: 20px;
+                }
         div.app nav.villagers div.villager {
-            height: 76px;
+            height: 70px;
             opacity: 0.7;
-            width: 76px;
-            transition: opacity 0.2s ease-in;
+            width: 70px;
+            transition: opacity 0.2s ease-in-out;
+            background-size: contain !important;
+            background-repeat: no-repeat;
+            background-position: center;
         }
         div.app nav.villagers div.villager:hover:not(.actived) {
             opacity: 1;
@@ -46,35 +50,35 @@
         }
         div.app nav.villagers div.villager1,
         div.app figure.result div.villager1 {
-            background: url(images/arrays/vill01.png) no-repeat center;
+            background: url(images/arrays/vill01.svg) no-repeat center;
         }
         div.app nav.villagers div.villager2,
         div.app figure.result div.villager2 {
-            background: url(images/arrays/vill02.png) no-repeat center;
+            background: url(images/arrays/vill02.svg) no-repeat center;
         }
         div.app nav.villagers div.villager3,
         div.app figure.result div.villager3 {
-            background: url(images/arrays/vill03.png) no-repeat center;
+            background: url(images/arrays/vill03.svg) no-repeat center;
         }
         div.app nav.villagers div.villager4,
         div.app figure.result div.villager4 {
-            background: url(images/arrays/vill04.png) no-repeat center;
+            background: url(images/arrays/vill04.svg) no-repeat center;
         }
         div.app nav.villagers div.villager5,
         div.app figure.result div.villager5 {
-            background: url(images/arrays/vill05.png) no-repeat center;
+            background: url(images/arrays/vill05.svg) no-repeat center;
         }
         div.app nav.villagers div.villager6,
         div.app figure.result div.villager6 {
-            background: url(images/arrays/vill06.png) no-repeat center;
+            background: url(images/arrays/vill06.svg) no-repeat center;
         }
         div.app nav.villagers div.villager7,
         div.app figure.result div.villager7 {
-            background: url(images/arrays/vill07.png) no-repeat center;
+            background: url(images/arrays/vill07.svg) no-repeat center;
         }
         div.app nav.villagers div.villager8,
         div.app figure.result div.villager8 {
-            background: url(images/arrays/vill08.png) no-repeat center;
+            background: url(images/arrays/vill08.svg) no-repeat center;
         }
 
         div.app nav.options {
@@ -91,7 +95,7 @@
             -webkit-appearance: none;
             appearance: none;
             cursor: pointer;
-            color: #87643C;
+            color: #D8BFD8;
             font-weight: 600;
             border: none;
             text-align: center;
@@ -104,13 +108,13 @@
         div.app nav.options input[type=number] {
             font-size: 1rem;
             line-height: 0rem;
-            font-family: 'FinkHeavy';
+            font-family: 'Poppins';
             margin-top: 2px;
             cursor: text;
             &::placeholder {
-                color: #87643C;
+                color: #D8BFD8;
                 text-align: center;
-                font-family: 'FinkHeavy';
+                font-family: 'Poppins';
             }
         }
         div.app nav.options input[type=checkbox].position {
