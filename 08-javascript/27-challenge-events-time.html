@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>27 - Challenge Event Time</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+        div.game {
+            width: 380px;
+            height: 700px;
+            position: relative;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+
+        div.game-bg {
+            background: url(images/space-game/bg-game.svg) repeat-y center top;
+            width: 100%;
+            height: 200%;
+            position: absolute;
+            border-radius: 10px;
+        }
+        div.game-bg.start {
+           animation: scroll 10s linear infinite;
+        }
+        @keyframes scroll {
+            0% { transform: translateY(-50%); }
+            100% { transform: translateY(0); }
+        }
+
+        div.frame {
+            background: url(images/space-game/frame.svg) no-repeat center;
+            width: 380px;
+            height: 700px;
+            position: absolute;
+            border-radius: 10px;
+            top: 0;
+            left: 0;
+        }
+
+        div.screen {
+            margin: 0 auto;
+            top: 90px;
+            width: 290px;
+            height: 470px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        div.starship {
+            background: url(images/space-game/player-normal.svg) no-repeat center;
+            width: 50px;
+            height: 50px;
+            position: absolute;
+            bottom: 10px;
+        }
+        
+        div.starship.damaged {
+            background: url(images/space-game/player-damage.svg) no-repeat center;
+        }
+
+        div.enemy {
+            width: 50px;
+            height: 50px;
+            position: absolute;
+            bottom: 0;
+            background-size: cover;
+        }
+
+        div.game-info {
+            position: absolute;
+            color: #fff;
+            width: 100px;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 10px;
+        }
+
+        div.time {
+            align-items: center;
+            position: absolute;
+            justify-content: center;
+            top: 40px;
+            left: 190px;
+            transform: translateX(-50%);
+            text-align: center;
+            white-space: nowrap;
+        }
+        
+        div.score {
+            align-items: center;
+            position: absolute;
+            justify-content: center;
+            top: 60px;
+            left: 190px;
+            transform: translateX(-50%);
+            text-align: center;
+            white-space: nowrap;
+        }
+        div.lifes {
+            position: absolute;
+            left: 190px;
+            top: 575px;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 5px;
+        }
+        div.life {
+            background: url(images/space-game/life.svg) no-repeat center;
+            background-size: contain;
+            width: 45px;
+            height: 40px;
+        }
+        div.life.lost {
+            background: url(images/space-game/life-lost.svg) no-repeat center;
+            background-size: contain;
+        }
+        .start-screen {
+            background: url(images/space-game/space-logo.svg) no-repeat center;
+            width: 380px;
+            height: 700px;
+        }
+        .game-over-screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 380px;
+            height: 700px;
+            background: rgba(0,0,0,0.8);
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-family: 'Press Start 2P', cursive;
+            z-index: 10;
+        }
+
+        .game-over-screen h2 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: #f00;
+        }
+
+        .game-over-screen p {
+            font-size: 12px;
+            margin: 10px 0;
+            text-align: center;
+        }
+
+        .game-over-screen button {
+            background: #0066cc;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 10px;
+            margin-top: 20px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .game-over-screen button:hover {
+            background: #0088ff;
+        }
+        a.figma {
+            position: absolute;
+            background: url(images/space-game/btn-figma.svg) no-repeat center;
+            top: 660px;
+            left: 175px;
+            width: 35px;
+            height: 34px;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body class="javascript">
+    <nav>
+        <a href="index.html">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#ffffff" d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>
+        </a>
+    </nav>
+    <main>
+        <header>
+            <h1>27 - Challenge Event Time</h1>
+            <p>
+                Create time-based interactive challenges.
+            </p>
+        </header>
+        <div class="game">
+            <div class="start-screen"></div>
+            <div class="game-over-screen">
+                <h2>GAME OVER</h2>
+                <p class="final-score"></p>
+                <p class="final-time"></p>
+                <button onclick="restartGame()">RESTART</button>
+            </div>
+            <div class="game-bg"></div>
+            <div class="frame"></div>
+                <div class="game-info">
+                    <div class="time"></div>
+                    <div class="score"></div>
+                    <div class="lifes">
+                        <div class="life"></div>
+                        <div class="life"></div>
+                        <div class="life"></div>
+                    </div>
+                </div>
+            <div class="screen">
+                <div class="starship"></div>
+            </div>
+           <a href="https://www.figma.com/design/IcRHtRnFn1TlUNUYSxTKLN/Game-template?node-id=0-1&t=hapJjOwPjSDX3Jqo-1" target="_blank" class="figma"></a>
+        </div>
+        <audio src="images/space-game/play-song.ogg" id="game-audio" preload="auto"></audio>
+    </main>
+    <script>
+        // Elements 
+        const gameBg = document.querySelector('.game-bg')
+        const startScreen = document.querySelector('.start-screen')
+        const gameOverScreen = document.querySelector('.game-over-screen')
+        const starship = document.querySelector('.starship')
+        const screen = document.querySelector('.screen')
+        const time = document.querySelector('.time')
+        const score = document.querySelector('.score')
+        const lifes = document.querySelector('.lifes')
+        const gameAudio = document.getElementById('game-audio')
+
+        // Variables
+        let starshipPosition = {
+            x: (screen.clientWidth - starship.clientWidth) / 2
+        }
+
+        starship.style.left = `${starshipPosition.x}px`
+
+        const speed = 20
+        let enemies = []
+        let gameSpeed = 2
+        let lastEnemyTime = 0
+        let gameOver = false
+        let gameStarted = false
+        let scoreValue = 0
+        let lifesValue = 3
+        let timeValue = 0
+        let gameStartTime = Date.now()
+        let gameLoopId
+        let timeInterval
+        gameAudio.volume = 0.5
+
+        // Functions
+        function initGame() {
+            starship.style.left = `${starshipPosition.x}px`
+            updateUI()
+        }
+
+        function startGame() {
+            if (gameStarted) return
+            gameStarted = true
+            gameOver = false
+            scoreValue = 0
+            lifesValue = 3
+            timeValue = 0
+            enemies = []
+            gameSpeed = 2
+            lastEnemyTime = 0
+            gameStartTime = Date.now()
+            gameBg.classList.add('start')
+            gameAudio.currentTime = 0
+            gameAudio.play()
+
+
+            const existingEnemies = screen.querySelectorAll('.enemy')
+            existingEnemies.forEach(enemy => {
+                enemy.remove()
+            })
+
+            startScreen.style.display = 'none'
+            gameOverScreen.style.display = 'none'
+
+            starshipPosition.x = (screen.clientWidth - starship.clientWidth) / 2
+            starship.style.left = `${starshipPosition.x}px`
+
+            updateUI()
+            gameLoop()
+
+            timeInterval = setInterval(updateTime, 1000)
+        }
+
+        function updateUI() {
+            score.textContent = `Score: ${scoreValue}`
+            updateLifes()
+            time.textContent = `Time: ${timeValue}s`
+        }
+
+        function createEnemy() {
+            const enemy  = document.createElement('div')
+            enemy.classList.add('enemy')
+            enemy.style.background = `url(images/space-game/enemy0${Math.floor(Math.random() * 3) + 1}.svg) no-repeat center center`
+            enemy.style.left = `${Math.random() * (screen.clientWidth - 50)}px`
+            enemy.style.bottom = `${screen.clientHeight}px`
+            enemy.enemySpeed = 1 + Math.random() * gameSpeed
+            screen.appendChild(enemy)
+            enemies.push(enemy)
+        }
+
+        function updateEnemies() {
+            for (let i = enemies.length - 1; i >= 0; i--) {
+                const enemy = enemies[i]
+                const currentBottom = parseFloat(enemy.style.bottom) || screen.clientHeight
+                const newBottom = currentBottom - enemy.enemySpeed
+                enemy.style.bottom = `${newBottom}px`
+
+                if (newBottom < -50) {
+                    enemy.remove()
+                    enemies.splice(i, 1)
+                    scoreValue += 10
+                    score.textContent = `Score: ${scoreValue}`
+                } else if (isCollision(enemy, starship)) {
+                    enemy.remove()
+                    enemies.splice(i, 1)
+                    lifesValue--
+                    updateLifes()
+                    starship.classList.add('damaged')
+                    setTimeout(() => {
+                        starship.classList.remove('damaged')
+                    }, 500)
+
+                    if (lifesValue <= 0) {
+                        endGame()
+                    }
+                }
+            }
+        }
+
+        function updateLifes() {
+            const lifeElements = lifes.querySelectorAll('.life')
+            lifeElements.forEach((life, index) => {
+                if (index < lifesValue) {
+                    life.classList.remove('lost')
+                } else {
+                    life.classList.add('lost')
+                }
+            })
+        }
+
+        function updateTime() {
+            if (!gameStarted || gameOver) return
+            
+            const currentTime = Date.now()
+            timeValue = Math.floor((currentTime - gameStartTime) / 1000)
+            time.textContent = `Time: ${timeValue}s`
+        }
+
+        function isCollision(enemy, starship) {
+            const starshipRect = starship.getBoundingClientRect()
+            const enemyRect = enemy.getBoundingClientRect()
+            
+            return !(starshipRect.right < enemyRect.left || 
+                     starshipRect.left > enemyRect.right || 
+                     starshipRect.bottom < enemyRect.top || 
+                     starshipRect.top > enemyRect.bottom)
+        }
+
+        function endGame(){
+            gameOver = true
+            gameStarted = false
+            gameBg.classList.remove('start')
+            gameAudio.pause()
+
+            if (gameLoopId) {
+                cancelAnimationFrame(gameLoopId)
+            }
+            if (timeInterval) {
+                clearInterval(timeInterval)
+            }
+
+            gameOverScreen.style.display = 'flex'
+            gameOverScreen.querySelector('.final-score').textContent = `Final Score: ${scoreValue}`
+            gameOverScreen.querySelector('.final-time').textContent = `Final Time: ${timeValue}s`
+        }
+
+        function restartGame() {
+            gameOverScreen.style.display = 'none'
+            startGame()
+        }
+
+        function gameLoop() {
+            if (gameOver || !gameStarted) return
+
+            const currentTime = Date.now()
+            
+            if (currentTime - lastEnemyTime > 1000 + Math.random() * 1000) {
+                createEnemy()
+                lastEnemyTime = currentTime
+            }
+
+            updateEnemies()
+            gameLoopId = requestAnimationFrame(gameLoop)
+        }
+
+
+        // Event
+        window.addEventListener('keyup', (e) => {
+            if (e.code === 'Enter' && !gameStarted) {
+                e.preventDefault()
+                startGame()
+                return
+            }
+            
+            if (!gameStarted || gameOver) return
+            
+            if (e.code === 'ArrowLeft') {
+                e.preventDefault()
+                if (starshipPosition.x > 0) {
+                    starshipPosition.x -= speed
+                    starship.style.left = `${starshipPosition.x}px`
+                }
+            }
+            if (e.code === 'ArrowRight') {
+                e.preventDefault()
+                if (starshipPosition.x < screen.clientWidth - starship.clientWidth) {
+                    starshipPosition.x += speed
+                    starship.style.left = `${starshipPosition.x}px`
+                }
+            }
+        })
+
+        // Start game
+        initGame()
+        
+    </script>
+</body>
+</html>
