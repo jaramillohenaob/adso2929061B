@@ -23,6 +23,7 @@
             position: absolute;
             border-radius: 10px;
         }
+
         div.game-bg.start {
            animation: scroll 10s linear infinite;
         }
@@ -52,14 +53,29 @@
 
         div.starship {
             background: url(images/space-game/player-normal.svg) no-repeat center;
-            width: 50px;
-            height: 50px;
+            width: 64px;
+            height: 64px;
             position: absolute;
             bottom: 10px;
+            transition: left 0.09s ease-in;
         }
         
         div.starship.damaged {
             background: url(images/space-game/player-damage.svg) no-repeat center;
+        }
+
+        div.starship.left {
+            background: url(images/space-game/player-left.svg) no-repeat;
+            height: 64px;
+            width: 64px;
+            transition: left 0.09s ease-in;
+        }
+
+        div.starship.right {
+            background: url(images/space-game/player-right.svg) no-repeat;
+            height: 64px;
+            width: 64px;
+            transition: left 0.09s ease-in;
         }
 
         div.enemy {
@@ -165,6 +181,16 @@
         .game-over-screen button:hover {
             background: #0088ff;
         }
+
+        div.power-attack {
+            position: absolute;
+            bottom: 0;
+            width: 9px;
+            height: 27px;
+            background: url(images/space-game/power.svg) no-repeat center;
+            background-size: cover;
+        }
+
         a.figma {
             position: absolute;
             background: url(images/space-game/btn-figma.svg) no-repeat center;
@@ -215,6 +241,8 @@
            <a href="https://www.figma.com/design/IcRHtRnFn1TlUNUYSxTKLN/Game-template?node-id=0-1&t=hapJjOwPjSDX3Jqo-1" target="_blank" class="figma"></a>
         </div>
         <audio src="images/space-game/play-song.ogg" id="game-audio" preload="auto"></audio>
+        <audio src="images/space-game/shoot-song.wav" id="shoot-audio" preload="auto"></audio>
+        <audio src="images/space-game/hit-song.wav" id="hit-audio" preload="auto"></audio>
     </main>
     <script>
         // Elements 
@@ -227,6 +255,8 @@
         const score = document.querySelector('.score')
         const lifes = document.querySelector('.lifes')
         const gameAudio = document.getElementById('game-audio')
+        const shootAudio = document.getElementById('shoot-audio')
+        const hitAudio = document.getElementById('hit-audio')
 
         // Variables
         let starshipPosition = {
@@ -247,7 +277,11 @@
         let gameStartTime = Date.now()
         let gameLoopId
         let timeInterval
-        gameAudio.volume = 0.5
+        let canShoot = true
+        const shootCooldown = 2000
+        gameAudio.volume = 0.3
+        shootAudio.volume = 0.4
+        hitAudio.volume = 0.4
 
         // Functions
         function initGame() {
@@ -305,6 +339,54 @@
             enemies.push(enemy)
         }
 
+        function powerAttack() {
+            if (!gameStarted || gameOver || !canShoot) return
+
+            canShoot = false
+
+            const powerAttack = document.createElement('div')
+            powerAttack.classList.add('power-attack')
+            const initialLeft = starshipPosition.x + (starship.clientWidth / 2) - 8 
+            const initialBottom = starship.clientHeight + 10
+
+            powerAttack.style.left = `${initialLeft}px`
+            powerAttack.style.bottom = `${initialBottom}px`
+
+            screen.appendChild(powerAttack)
+
+            shootAudio.currentTime = 0
+            shootAudio.play()
+
+            const powerAttackInterval = setInterval(() => {
+                const currentBottom = parseFloat(powerAttack.style.bottom)
+                const newBottom = currentBottom + 10
+                powerAttack.style.bottom = `${newBottom}px`
+
+                enemies.forEach((enemy, index) => {
+                    if (isCollision(powerAttack, enemy)) {
+                        enemy.remove()
+                        hitAudio.currentTime = 0
+                        hitAudio.play()
+                        enemies.splice(index, 1)
+                        scoreValue += 20
+                        score.textContent = `Score: ${scoreValue}`
+                        clearInterval(powerAttackInterval)
+                        powerAttack.remove()
+                        return
+                    }
+                })
+
+                if (newBottom > sreen.clientHeight + 50) {
+                    clearInterval(powerAttackInterval)
+                    powerAttack.remove()
+                }
+            }, 50)
+
+            setTimeout(() => {
+                canShoot = true
+            }, shootCooldown)
+        }
+
         function updateEnemies() {
             for (let i = enemies.length - 1; i >= 0; i--) {
                 const enemy = enemies[i]
@@ -318,6 +400,8 @@
                     scoreValue += 10
                     score.textContent = `Score: ${scoreValue}`
                 } else if (isCollision(enemy, starship)) {
+                    hitAudio.currentTime = 0
+                    hitAudio.play()
                     enemy.remove()
                     enemies.splice(i, 1)
                     lifesValue--
@@ -413,6 +497,10 @@
             
             if (e.code === 'ArrowLeft') {
                 e.preventDefault()
+                starship.classList.add('left')
+                    setTimeout(() => {
+                        starship.classList.remove('left')
+                    }, 500)
                 if (starshipPosition.x > 0) {
                     starshipPosition.x -= speed
                     starship.style.left = `${starshipPosition.x}px`
@@ -420,10 +508,19 @@
             }
             if (e.code === 'ArrowRight') {
                 e.preventDefault()
+                starship.classList.add('right')
+                    setTimeout(() => {
+                        starship.classList.remove('right')
+                    }, 500)
                 if (starshipPosition.x < screen.clientWidth - starship.clientWidth) {
                     starshipPosition.x += speed
                     starship.style.left = `${starshipPosition.x}px`
                 }
+            }
+
+            if (e.code === 'Space') {
+                e.preventDefault()
+                powerAttack()
             }
         })
 
