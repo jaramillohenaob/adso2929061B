@@ -2,7 +2,6 @@
 
 try {
     $conx = new PDO("mysql:host=$host;dbname=$dbname", $user, $pass);
-    $conx->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); // recomendable para ver errores
 } catch (PDOException $e) {
     echo "Error: " . $e->getMessage();
 }
