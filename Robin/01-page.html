@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<style>
+    :root 
+    {
+        --color1:   #c0fdf8;
+        --color2:   #82fcf1;
+        --color3:   #027c71 ;
+        --color4:   #013e38 ;
+        --color5:   #012e2a ;
+    }
+    body {
+        font-family: 'Montserrat', sans-serif;
+        margin: 0;
+        padding-top: 50px;
+        background-color:  var(--color1);
+    }
+    nav {
+        background-color:  var(--color4);
+        color: white;
+        padding: 10px;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 1000;
+    }
+    a {
+        color:  var(--color3);
+        text-decoration: none;
+        margin-right: 15px;
+        font-weight: bold;
+        transition: color 0.3s ease;
+    }
+    a:hover {
+        color:  var(--color2);
+    }
+
+    .about, .services, .contact, .references {
+        width: 500px;           
+        height: 320px;         
+        display: flex;          
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+        background-color:  var(--color3);
+        color:  var(--color5);
+        margin: 20px auto;
+        border-radius: 8px;
+    }
+    h1, h2, h3 {
+        font-family: 'Montserrat', sans-serif;
+    }
+    h1 {
+        color:  var(--color5);
+        margin-bottom: 10px;
+        text-align: center;
+    }
+
+</style>
+<body>
+    <nav>
+        <a href="#about">About Us</a>
+        <a href="#services">Services</a>
+        <a href="#contact">Contact</a>
+        <a href="#references">References</a>
+    </nav>
+    <div class="about" id="about">
+        <h1>About Us</h1>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec est at libero facilisis tincidunt. Sed ac ligula non quam facilisis aliquet. Integer in felis vel enim commodo facilisis.</p>
+    </div>
+    <div class="services" id="services">
+        <h1>Our Services</h1>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi non, eum totam eligendi reprehenderit eaque eveniet error dolores eius saepe?</p>
+    </div>
+    <div class="contact" id="contact">
+        <h1>Contact Us</h1>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus vel magnam molestiae rem commodi ducimus ab quas eius, odio atque?</p>
+    </div>
+    <div class="references" id="references">
+        <h1>References</h1>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas, perspiciatis assumenda magnam consequatur nulla facere eligendi doloribus officiis vitae eaque.</p>
+    </div>
+</body>
+</html>
