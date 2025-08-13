@@ -8,6 +8,7 @@
 
          if(deletePet($id, $conx)) {
             $_SESSION['message'] = "La Mascota fue eliminada con exito!";
+            unlink('../images/uploads/' . $id . '.png');
              echo "<script>window.location.replace('dashboard.php')</script>";
          }
     }

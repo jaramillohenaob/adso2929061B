@@ -14,33 +14,26 @@
             <a href="dashboard.html" class="back"></a>
             <a href="index.html" class="close"></a>
         </header>
-        <figure class="photo-preview">
-            <img src="imgs/photo-lg-1.svg" alt="">
-        </figure>
-        <form action="" method="post">
-            <input type="text" name="name" placeholder="Nombre" value="Reigner">
-            <div class="select">
-                <select name="raza">
-                    <option value="">Seleccione Raza...</option>
-                    <option value="1">Corgi</option>
-                    <option value="2" selected>Bulldog</option>
-                </select>
+        <form action="edit.php" method="post">
+            <input type="hidden" name="id" value="<?=$pet['id']?>">
+            <div class="form-group">
+                <label for="name">Nombre</label>
+                <input type="text" name="name" id="name" value="<?=$pet['name']?>" required>
             </div>
-            <div class="select">
-                <select name="raza">
-                    <option value="">Seleccione Categoría...</option>
-                    <option value="1" selected>Perro</option>
-                    <option value="2">Gato</option>
-                </select>
+            <div class="form-group">
+                <label for="species">Especie</label>
+                <input type="text" name="species" id="species" value="<?=$pet['species']?>" required>
             </div>
-            <button type="button" class="upload">Subir Foto</button>
-            <div class="select">
-                <select name="raza">
-                    <option value="">Seleccione Genero...</option>
-                    <option value="1">Hembra</option>
-                    <option value="2" selected>Macho</option>
-                </select>
+            <div class="form-group
+">
+                <label for="breed">Raza</label>
+                <input type="text" name="breed" id="breed" value="<?=$pet['breed']?>" required>
             </div>
+            <div class="form-group">
+                <label for="photo">Foto</label>
+                <input type="file" name="photo" id="photo" accept="image/*">
+            </div>
+            
             <button class="update">Modificar</button>
         </form>
     </main>
