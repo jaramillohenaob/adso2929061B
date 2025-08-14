@@ -81,6 +81,9 @@
         try {
             $sql = "SELECT p.name AS name,
                            p.photo AS photo,
+                           p.specie_id AS specie_id,
+                           p.breed_id AS breed_id,
+                           p.sex_id AS sex_id,
                            s.name AS specie,
                            b.name AS breed,
                            x.name AS sex
@@ -90,6 +93,7 @@
                          sexes AS x
                     WHERE s.id = p.specie_id
                     AND b.id = p.breed_id
+                    AND x.id = p.sex_id
                     AND p.id = :id";
             $stmt = $conx->prepare($sql);
             $stmt->bindparam(":id", $id);
@@ -102,9 +106,21 @@
     // Delete Pet
     function deletePet($id, $conx) {
         try {
-            $sql = "DELETE
-                    FROM pets
-                    WHERE id = :id";
+
+            $sql = "SELECT photo FROM pets WHERE id = :id";
+            $stmt = $conx->prepare($sql);
+            $stmt->bindparam(":id", $id);
+            $stmt->execute();
+            $pet = $stmt->fetch(PDO::FETCH_ASSOC);
+            
+            if ($pet && $pet['photo']) {
+                $photoPath = '../uploads/' . $pet['photo'];
+                if (file_exists($photoPath)) {
+                    unlink($photoPath);
+                }
+            }
+            
+            $sql = "DELETE FROM pets WHERE id = :id";
             $stmt = $conx->prepare($sql);
             $stmt->bindparam(":id", $id);
             if($stmt->execute()) {
@@ -116,7 +132,6 @@
             echo "Error: " . $e->getMessage();
         }
     }
-
 
     // List Species
     function listSpecies($conx) {
@@ -152,6 +167,29 @@
             $stmt = $conx->prepare($sql);
             $stmt->execute();
             return $stmt->fetchAll();
+        } catch (PDOException $e) {
+            echo "Error: " . $e->getMessage();
+        }
+    }
+
+        //edit pet
+    function editPet($id, $name, $specie_id, $breed_id, $sex_id, $photo, $conx) {
+        try {
+            $sql = "UPDATE pets
+                    SET name = :name, specie_id = :specie_id, breed_id = :breed_id, sex_id = :sex_id, photo = :photo
+                    WHERE id = :id";
+            $stmt = $conx->prepare($sql);
+            $stmt->bindparam(":name", $name);
+            $stmt->bindparam(":specie_id", $specie_id);
+            $stmt->bindparam(":breed_id", $breed_id);
+            $stmt->bindparam(":sex_id", $sex_id);
+            $stmt->bindparam(":photo", $photo);
+            $stmt->bindparam(":id", $id);
+            if($stmt->execute()) {
+                return true;
+            } else {
+                return false;
+            }
         } catch (PDOException $e) {
             echo "Error: " . $e->getMessage();
         }
