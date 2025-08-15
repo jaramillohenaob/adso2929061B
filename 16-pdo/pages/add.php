@@ -66,8 +66,6 @@
                 if(!file_exists($_FILES['photo']['tmp_name'])) {
                     $errors++;
                 }
-                //var_dump($_POST);
-                //var_dump($_FILES);
 
                 if($errors == 0) {
                     $name      = $_POST['name'];
