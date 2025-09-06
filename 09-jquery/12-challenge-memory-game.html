@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>12 - Memory Game</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<style>
+    .memory-game {
+        width: 350px;
+        height: 700px;
+        background: url(images/cardGame/card-game.svg) no-repeat center;
+        background-size: contain;
+        margin: 0 auto;
+        border-radius: 10px;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+    }
+    
+    .screen {
+        width: 320px;
+        height: 520px;
+        margin-top: 110px;
+        background: url(images/cardGame/screen.svg) no-repeat center;
+        background-size: contain;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(4, 1fr);
+        gap: 8px;
+        padding: 15px;
+        align-items: center;
+        justify-items: center;
+        box-sizing: border-box;
+    }
+    
+    .card {
+        width: 85px;
+        height: 105px;
+        position: relative;
+        transition: transform 0.5s;
+        transform-style: preserve-3d;
+        cursor: pointer;
+    }
+
+    .card.active {
+        transform: rotateY(180deg);
+    }
+
+    .card div {
+        width: 100%;
+        height: 100%;
+        border-radius: 0.5rem;
+        position: absolute;
+        backface-visibility: hidden;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+
+    .card .face {
+        transform: rotateY(180deg);
+    }
+    
+    .card .face[data-card="card01"] {
+        background-image: url(images/cardGame/card01.svg);
+    }
+    
+    .card .face[data-card="card02"] {
+        background-image: url(images/cardGame/card02.svg);
+    }
+    
+    .card .face[data-card="card03"] {
+        background-image: url(images/cardGame/card03.svg);
+    }
+    
+    .card .face[data-card="card04"] {
+        background-image: url(images/cardGame/card04.svg);
+    }
+    
+    .card .face[data-card="card05"] {
+        background-image: url(images/cardGame/card05.svg);
+    }
+    
+    .card .face[data-card="card06"] {
+        background-image: url(images/cardGame/card06.svg);
+    }
+
+    .card .back {
+        background: url(images/cardGame/back-card.svg) center / cover no-repeat;
+    }
+    
+    .game-stats {
+        position: absolute;
+        top: 113px;
+        left: 0;
+        right: 0;
+        display: flex;
+        justify-content: space-between;
+        padding: 0 30px;
+        color: white;
+        font-size: 14px;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+    }
+    
+    .stat-item {
+        background: rgba(0, 0, 0, 0.3);
+        padding: 5px 10px;
+        border-radius: 5px;
+        backdrop-filter: blur(5px);
+    }
+    
+    .win-message {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: url(images/cardGame/screen-win.svg) no-repeat center;
+        color: white;
+        padding: 30px 50px;
+        border-radius: 20px;
+        font-size: 24px;
+        font-weight: bold;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        display: none;
+        z-index: 1000;
+        text-align: center;
+    }
+    
+    .win-message h2 {
+        margin: 0 0 15px 0;
+        font-size: 32px;
+    }
+    
+    .win-message p {
+        margin: 10px 0;
+        font-size: 18px;
+    }
+    
+    .win-message button {
+        margin-top: 12px;
+        padding: 10px 30px;
+        background: white;
+        color: #667eea;
+        border: none;
+        border-radius: 10px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: transform 0.2s;
+    }
+    
+    .win-message button:hover {
+        transform: scale(1.05);
+    }
+</style>
+<body class="jquery">
+    <nav>
+        <a href="index.html">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#ffffff" d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>
+        </a>
+    </nav>
+    <main>
+        <header>
+            <h1>12 - Memory Game</h1>
+            <p>
+                Memory game with jQuery
+            </p>
+        </header>
+        <section>
+            <div class="memory-game">
+                <div class="game-stats">
+                    <div class="stat-item" id="stats">Intentos: 0</div>
+                    <div class="stat-item" id="timer">Tiempo: 00:00</div>
+                </div>
+                <div class="screen" id="game">
+                </div>
+            </div>
+            <div class="win-message" id="winMessage">
+                <h2>¡Felicidades!</h2>
+                <p>Completaste el juego en:</p>
+                <p><strong><span id="finalAttempts"></span> intentos</strong></p>
+                <p><strong><span id="finalTime"></span></strong></p>
+                <button id="resetBtn">Jugar de nuevo</button>
+            </div>
+        </section>
+    </main>
+    <script src="js/jquery-3.7.1.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            // Elements
+            const totalCards = 12;
+            const availableCards = ['card01', 'card02', 'card03', 'card04', 'card05', 'card06'];
+            let cards = [];
+            let selectedCards = [];
+            let valuesUsed = [];
+            let currentMove = 0;
+            let currentAttempts = 0;
+            let matchedPairs = 0;
+            let startTime = null;
+            let timerInterval = null;
+            
+            // Template Card
+            const cardTemplate = '<div class="card"><div class="back"></div><div class="face"></div></div>';
+            
+            // Functions
+            function formatTime(seconds) {
+                const mins = Math.floor(seconds / 60);
+                const secs = seconds % 60;
+                return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+            }
+            
+            function updateTimer() {
+                if (startTime) {
+                    const elapsed = Math.floor((Date.now() - startTime) / 1000);
+                    $('#timer').html(`Tiempo: ${formatTime(elapsed)}`);
+                }
+            }
+            
+            function startTimer() {
+                if (!startTime) {
+                    startTime = Date.now();
+                    timerInterval = setInterval(updateTimer, 1000);
+                }
+            }
+            
+            function stopTimer() {
+                if (timerInterval) {
+                    clearInterval(timerInterval);
+                    timerInterval = null;
+                }
+            }
+            
+            function activate() {
+                const $card = $(this);
+                
+                startTimer();
+                
+                if (currentMove < 2) {
+                    if ((!selectedCards[0] || selectedCards[0][0] !== this) && !$card.hasClass('active')) {
+                        $card.addClass('active');
+                        selectedCards.push($card);
+                        
+                        if (++currentMove == 2) {
+                            currentAttempts++;
+                            $('#stats').html(`Intentos: ${currentAttempts}`);
+            
+                            const card1Value = selectedCards[0].find('.face').attr('data-card');
+                            const card2Value = selectedCards[1].find('.face').attr('data-card');
+                            
+                            if (card1Value === card2Value) {
+                                matchedPairs++;
+                                selectedCards = [];
+                                currentMove = 0;
+                                
+                                if (matchedPairs === totalCards / 2) {
+                                    stopTimer();
+                                    const finalTime = Math.floor((Date.now() - startTime) / 1000);
+                                    setTimeout(() => {
+                                        $('#finalAttempts').text(currentAttempts);
+                                        $('#finalTime').text(`Tiempo: ${formatTime(finalTime)}`);
+                                        $('#winMessage').fadeIn();
+                                    }, 500);
+                                }
+                            } else {
+                                setTimeout(() => {
+                                    selectedCards[0].removeClass('active');
+                                    selectedCards[1].removeClass('active');
+                                    selectedCards = [];
+                                    currentMove = 0;
+                                }, 600);
+                            }
+                        }
+                    }
+                }
+            }
+            
+            function randomValue() {
+                let rnd = Math.floor(Math.random() * (totalCards * 0.5));
+                let values = valuesUsed.filter(value => value === rnd);
+                
+                if (values.length < 2) {
+                    valuesUsed.push(rnd);
+                } else {
+                    randomValue();
+                }
+            }
+            
+            function getFaceValue(value) {
+                if (value < availableCards.length) {
+                    return availableCards[value];
+                }
+                return availableCards[0];
+            }
+            
+            function shuffleArray(array) {
+                for (let i = array.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [array[i], array[j]] = [array[j], array[i]];
+                }
+                return array;
+            }
+        
+            function initGame() {
+
+                stopTimer();
+                
+                cards = [];
+                selectedCards = [];
+                valuesUsed = [];
+                currentMove = 0;
+                currentAttempts = 0;
+                matchedPairs = 0;
+                startTime = null;
+                
+                $('#game').empty();
+                $('#stats').html('Intentos: 0');
+                $('#timer').html('Tiempo: 00:00');
+                $('#winMessage').hide();
+                
+                for (let i = 0; i < totalCards; i++) {
+                    randomValue();
+                }
+                
+                valuesUsed = shuffleArray(valuesUsed);
+                
+                for (let i = 0; i < totalCards; i++) {
+                    const $card = $(cardTemplate);
+                    cards.push($card);
+                    $('#game').append($card);
+                    
+                    const cardValue = getFaceValue(valuesUsed[i]);
+                    
+                    $card.find('.face').attr('data-card', cardValue);
+                    
+                    $card.on('click', activate);
+                }
+            }
+            
+            $('#resetBtn').on('click', function() {
+                initGame();
+            });
+            
+            initGame();
+        });
+    </script>
+</body>
+</html>
