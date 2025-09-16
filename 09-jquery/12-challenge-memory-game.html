@@ -192,86 +192,106 @@
     <script>
         $(document).ready(function(){
             // Elements
-            const totalCards = 12;
-            const availableCards = ['card01', 'card02', 'card03', 'card04', 'card05', 'card06'];
-            let cards = [];
-            let selectedCards = [];
-            let valuesUsed = [];
-            let currentMove = 0;
-            let currentAttempts = 0;
-            let matchedPairs = 0;
-            let startTime = null;
-            let timerInterval = null;
+            const totalCards = 12
+            const availableCards = ['card01', 'card02', 'card03', 'card04', 'card05', 'card06']
+            let cards = []
+            let selectedCards = []
+            let valuesUsed = []
+            let currentMove = 0
+            let currentAttempts = 0
+            let matchedPairs = 0
+            let startTime = null
+            let timerInterval = null
+            let gameStarted = false
+
+            // Elements Sound
+            const pickSound = new Audio('sounds/pick-card.mp3')
+            pickSound.volume = 0.2   
+            pickSound.playbackRate = 1.4
+            const bgSound = new Audio('sounds/sound-bg.wav')
+            bgSound.loop = true
+            bgSound.volume = 0.1
+            const winSound = new Audio('sounds/victory.wav')
+            winSound.volume = 0.2
+
+            // Template
+            const cardTemplate = '<div class="card"><div class="back"></div><div class="face"></div></div>'
             
-            // Template Card
-            const cardTemplate = '<div class="card"><div class="back"></div><div class="face"></div></div>';
-            
+
             // Functions
             function formatTime(seconds) {
-                const mins = Math.floor(seconds / 60);
-                const secs = seconds % 60;
-                return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+                const mins = Math.floor(seconds / 60)
+                const secs = seconds % 60
+                return mins.toString().padStart(2, '0') + ':' + secs.toString().padStart(2, '0')
             }
             
             function updateTimer() {
                 if (startTime) {
-                    const elapsed = Math.floor((Date.now() - startTime) / 1000);
-                    $('#timer').html(`Tiempo: ${formatTime(elapsed)}`);
+                    const elapsed = Math.floor((Date.now() - startTime) / 1000)
+                    $('#timer').html('Tiempo: ' + formatTime(elapsed))
                 }
             }
             
             function startTimer() {
                 if (!startTime) {
-                    startTime = Date.now();
-                    timerInterval = setInterval(updateTimer, 1000);
+                    startTime = Date.now()
+                    timerInterval = setInterval(updateTimer, 1000)
                 }
             }
             
             function stopTimer() {
                 if (timerInterval) {
-                    clearInterval(timerInterval);
-                    timerInterval = null;
+                    clearInterval(timerInterval)
+                    timerInterval = null
                 }
             }
             
             function activate() {
-                const $card = $(this);
+                const $card = $(this)
+                pickSound.currentTime = 0
+                pickSound.play()
                 
-                startTimer();
+                if (!gameStarted) {
+                    return
+                }
+                
+                startTimer()
                 
                 if (currentMove < 2) {
                     if ((!selectedCards[0] || selectedCards[0][0] !== this) && !$card.hasClass('active')) {
-                        $card.addClass('active');
-                        selectedCards.push($card);
+                        $card.addClass('active')
+                        selectedCards.push($card)
                         
                         if (++currentMove == 2) {
-                            currentAttempts++;
-                            $('#stats').html(`Intentos: ${currentAttempts}`);
+                            currentAttempts++
+                            $('#stats').html('Intentos: ' + currentAttempts)
             
-                            const card1Value = selectedCards[0].find('.face').attr('data-card');
-                            const card2Value = selectedCards[1].find('.face').attr('data-card');
+                            const card1Value = selectedCards[0].find('.face').attr('data-card')
+                            const card2Value = selectedCards[1].find('.face').attr('data-card')
                             
                             if (card1Value === card2Value) {
-                                matchedPairs++;
-                                selectedCards = [];
-                                currentMove = 0;
+                                matchedPairs++
+                                selectedCards = []
+                                currentMove = 0
                                 
                                 if (matchedPairs === totalCards / 2) {
-                                    stopTimer();
-                                    const finalTime = Math.floor((Date.now() - startTime) / 1000);
-                                    setTimeout(() => {
-                                        $('#finalAttempts').text(currentAttempts);
-                                        $('#finalTime').text(`Tiempo: ${formatTime(finalTime)}`);
-                                        $('#winMessage').fadeIn();
-                                    }, 500);
+                                    stopTimer()
+                                    const finalTime = Math.floor((Date.now() - startTime) / 1000)
+                                    setTimeout(function() {
+                                        $('#finalAttempts').text(currentAttempts)
+                                        $('#finalTime').text('Tiempo: ' + formatTime(finalTime))
+                                        $('#winMessage').fadeIn()
+                                        winSound.play()
+                                        bgSound.pause()
+                                    }, 500)
                                 }
                             } else {
-                                setTimeout(() => {
-                                    selectedCards[0].removeClass('active');
-                                    selectedCards[1].removeClass('active');
-                                    selectedCards = [];
-                                    currentMove = 0;
-                                }, 600);
+                                setTimeout(function() {
+                                    selectedCards[0].removeClass('active')
+                                    selectedCards[1].removeClass('active')
+                                    selectedCards = []
+                                    currentMove = 0
+                                }, 600)
                             }
                         }
                     }
@@ -279,73 +299,88 @@
             }
             
             function randomValue() {
-                let rnd = Math.floor(Math.random() * (totalCards * 0.5));
-                let values = valuesUsed.filter(value => value === rnd);
+                var rnd = Math.floor(Math.random() * (totalCards * 0.5))
+                var values = $.grep(valuesUsed, function(value) {
+                    return value === rnd
+                })
                 
                 if (values.length < 2) {
-                    valuesUsed.push(rnd);
+                    valuesUsed.push(rnd)
                 } else {
-                    randomValue();
+                    randomValue()
                 }
             }
             
             function getFaceValue(value) {
                 if (value < availableCards.length) {
-                    return availableCards[value];
+                    return availableCards[value]
                 }
-                return availableCards[0];
+                return availableCards[0]
             }
             
             function shuffleArray(array) {
-                for (let i = array.length - 1; i > 0; i--) {
-                    const j = Math.floor(Math.random() * (i + 1));
-                    [array[i], array[j]] = [array[j], array[i]];
+                for (var i = array.length - 1; i > 0; i--) {
+                    var j = Math.floor(Math.random() * (i + 1))
+                    var temp = array[i]
+                    array[i] = array[j]
+                    array[j] = temp
                 }
-                return array;
+                return array
             }
         
             function initGame() {
+                stopTimer()
+                
+                cards = []
+                selectedCards = []
+                valuesUsed = []
+                currentMove = 0
+                currentAttempts = 0
+                matchedPairs = 0
+                startTime = null
+                gameStarted = false
+                pickSound.currentTime = 0
+                pickSound.play()
+                bgSound.play()
+                
+                $('#game').empty()
+                $('#stats').html('Intentos: 0')
+                $('#timer').html('Tiempo: 00:00')
+                $('#winMessage').hide()
+                
+                for (var i = 0; i < totalCards; i++) {
+                    randomValue()
+                }
+                
+                valuesUsed = shuffleArray(valuesUsed)
 
-                stopTimer();
-                
-                cards = [];
-                selectedCards = [];
-                valuesUsed = [];
-                currentMove = 0;
-                currentAttempts = 0;
-                matchedPairs = 0;
-                startTime = null;
-                
-                $('#game').empty();
-                $('#stats').html('Intentos: 0');
-                $('#timer').html('Tiempo: 00:00');
-                $('#winMessage').hide();
-                
-                for (let i = 0; i < totalCards; i++) {
-                    randomValue();
+                for (var i = 0; i < totalCards; i++) {
+                    var $card = $(cardTemplate)
+                    cards.push($card)
+                    $('#game').append($card)
+                    
+                    var cardValue = getFaceValue(valuesUsed[i])
+                    $card.find('.face').attr('data-card', cardValue)
+                    $card.on('click', activate)
                 }
                 
-                valuesUsed = shuffleArray(valuesUsed);
-                
-                for (let i = 0; i < totalCards; i++) {
-                    const $card = $(cardTemplate);
-                    cards.push($card);
-                    $('#game').append($card);
+                setTimeout(function() {
+                    $('.card').addClass('active')
                     
-                    const cardValue = getFaceValue(valuesUsed[i]);
-                    
-                    $card.find('.face').attr('data-card', cardValue);
-                    
-                    $card.on('click', activate);
-                }
+                    setTimeout(function() {
+                        $('.card').removeClass('active')
+                        gameStarted = true
+                    }, 2000)
+                }, 500)
             }
             
+            // Event listener
             $('#resetBtn').on('click', function() {
-                initGame();
-            });
+                initGame()
+            })
             
-            initGame();
-        });
+            initGame()
+        })
     </script>
 </body>
 </html>
