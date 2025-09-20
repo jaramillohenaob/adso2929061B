@@ -45,9 +45,27 @@
     </main>
     <script src="js/jquery-3.7.1.min.js"></script>
     <script>
-        $(document).ready(function(){
-            
-        })
+$(document).ready(function() {
+			$('.references').hide();
+			$('.loader').hide();
+			// Events
+			$('.brands').change(function(event) {
+				$brn = $(this).val();
+				if ($brn.length > 0) {
+					$('.loader').show();
+					$('.references').hide();
+					// GET
+					$.get('php/references.php', { brn: $brn }, function(data) {
+						setTimeout(function() {
+							$('.loader').hide();
+							$('.references').fadeIn(1000).html(data);
+						},1000);
+					});
+				} else {
+					$('.references').hide();
+				}
+			});
+        });
     </script>
 </body>
 </html>

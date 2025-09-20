@@ -53,9 +53,31 @@
     </main>
     <script src="js/jquery-3.7.1.min.js"></script>
     <script>
-        $(document).ready(function(){
-            
-        })
+$(document).ready(function() {
+            // Events
+			$('.btn-load').click(function(event) {
+				// Ajax
+				$.ajax({
+					url: 'json/games.json',
+					dataType: 'json',
+				})
+				.done(function(data) {
+					$('.games').html('');
+					$.each(data, function(index, val) {
+						 $('.games').append('<li>'+val['name']+' - \
+						                   ('+val['year']+')</li>');
+					});
+					console.log("success");
+				})
+				.fail(function() {
+					console.log("error");
+				})
+				.always(function() {
+					console.log("complete");
+				});
+				
+			});
+        });
     </script>
 </body>
 </html>

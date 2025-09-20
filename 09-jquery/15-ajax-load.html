@@ -47,9 +47,15 @@
     </main>
     <script src="js/jquery-3.7.1.min.js"></script>
     <script>
-        $(document).ready(function(){
-            
-        })
+$(document).ready(function() {
+            // Events
+            $('.btn-load').click(function(event) {
+				$('.text').load('text/lorem.txt').hide().fadeIn(1200);
+			});
+			$('.btn-load-lp').click(function(event) {
+				$('.text').load('text/lorem.txt .lp').hide().fadeIn(1200);
+			});
+        });
     </script>
 </body>
 </html>
