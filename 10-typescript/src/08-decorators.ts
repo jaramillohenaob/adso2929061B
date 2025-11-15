@@ -1,25 +1,23 @@
-// 08 - Decorators: añadir comportamiento extra a clases (concepto)
-
-function LogCreation(constructor: Function) {
-    console.log(`Class ${constructor.name} has been created.`);
+function Log(constructor: Function) {
+    console.log(`Se creó la clase: ${constructor.name}`);
 }
 
-@LogCreation
+@Log
 class Book {
-    title: string = "The Silent Library";
-    author: string = "A. Writer";
+    title = "Libro simple";
+    author = "Autor desconocido";
 
-    describe(): string {
-        return `${this.title} by ${this.author}`;
+    describe() {
+        return `${this.title} por ${this.author}`;
     }
 }
 
 const book = new Book();
 
 // Display in browser
-const output = document.getElementById('output');
-if (output) {
-    output.innerHTML = `
+const output08 = document.getElementById('output08');
+if (output08) {
+    output08.innerHTML = `
         <li>${book.describe()}</li>
     `;
 }

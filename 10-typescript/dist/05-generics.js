@@ -1,18 +1,24 @@
 "use strict";
-// Generics: crear funciones reutilizables con tipos genéricos
-function showItem(item) {
-    return `Item: ${item}`;
+// Generics inventory for any type
+class inventory {
+    constructor() {
+        this.items = [];
+    }
+    addItem(item) {
+        this.items.push(item);
+    }
+    getItems() {
+        return this.items;
+    }
 }
-function combine(first, second) {
-    return `Combined: ${first} and ${second}`;
-}
-const msg1 = showItem(99);
-const msg2 = combine("Success", true);
+const charmInventory = new inventory();
+charmInventory.addItem('Mothwing Cloak');
+charmInventory.addItem('Crystal Heart');
 // Display in browser
-const output = document.getElementById('output');
-if (output) {
-    output.innerHTML = `
-        <li>${msg1}</li>
-        <li>${msg2}</li>
+const output05 = document.getElementById('output05');
+if (output05) {
+    output05.innerHTML = `
+        <li><strong>Charms collected:</strong></li>
+        <ul>${charmInventory.getItems().map(c => `<li>${c}</li>`).join('')}</ul>
     `;
 }

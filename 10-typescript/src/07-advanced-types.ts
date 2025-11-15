@@ -1,21 +1,20 @@
 // 07 - Advanced Types: uso de unión e intersección de tipos
 
-type Product = { name: string; price: number };
-type Stock = { quantity: number };
+type BookInfo = { title: string; author: string };
+type Inventory = { copies: number };
+type LibraryItem = BookInfo & Inventory;
+type Condition = "New" | "Used";
 
-type StoreItem = Product & Stock;
-type Status = "Available" | "Sold Out";
-
-const item: StoreItem = { name: "Headphones", price: 150, quantity: 12 };
-const availability: Status = "Available";
+const item: LibraryItem = { title: "1984", author: "George Orwell", copies: 5 };
+const availability: Condition = "New";
 
 // Display in browser
-const output = document.getElementById('output');
-if (output) {
-    output.innerHTML = `
-        <li><strong>Product:</strong> ${item.name}</li>
-        <li><strong>Price:</strong> $${item.price}</li>
-        <li><strong>Quantity:</strong> ${item.quantity}</li>
-        <li><strong>Status:</strong> ${availability}</li>
+const output07 = document.getElementById('output07');
+if (output07) {
+    output07.innerHTML = `
+        <li><strong>Title:</strong> ${item.title}</li>
+        <li><strong>Author:</strong> ${item.author}</li>
+        <li><strong>Copies:</strong> ${item.copies}</li>
+        <li><strong>Condition:</strong> ${availability}</li>
     `;
 }

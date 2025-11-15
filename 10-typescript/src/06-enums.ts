@@ -1,15 +1,19 @@
-// 06 - Enums: agrupar constantes con valores definidos
-enum Weather {
-    Sunny = "Sunny",
-    Rainy = "Rainy",
-    Cloudy = "Cloudy",
-    Windy = "Windy"
+enum DayOfWeek {
+    Monday,
+    Tuesday,
+    Wednesday,
+    Thursday,
+    Friday,
+    Saturday,
+    Sunday
 }
-const todayWeather: Weather = Weather.Sunny;
+const today = DayOfWeek.Wednesday;
+
 // Display in browser
-const output = document.getElementById('output');
-if (output) {
-    output.innerHTML = `
-        <li><strong>Today's weather:</strong> ${todayWeather}</li>
+const output06 = document.getElementById('output06');
+if (output06) {
+    output06.innerHTML = `
+        <li><strong>Day:</strong> ${DayOfWeek[today]}</li>
+        <li><strong>Value:</strong> ${today}</li>
     `;
 }

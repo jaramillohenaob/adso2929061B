@@ -1,7 +1,7 @@
 {
-  "name": "typescript-silksong",
+  "name": "typescript",
   "version": "1.0.0",
-  "description": "TypeScript learning project with Hollow Knight Silksong theme",
+  "description": "TypeScript learning project",
   "scripts": {
     "build": "tsc",
     "watch": "tsc --watch",

@@ -1,31 +1,30 @@
 "use strict";
-// 08 - Decorators: añadir comportamiento extra a clases (concepto)
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-function LogCreation(constructor) {
-    console.log(`Class ${constructor.name} has been created.`);
+function Log(constructor) {
+    console.log(`Se creó la clase: ${constructor.name}`);
 }
 let Book = class Book {
     constructor() {
-        this.title = "The Silent Library";
-        this.author = "A. Writer";
+        this.title = "Libro simple";
+        this.author = "Autor desconocido";
     }
     describe() {
-        return `${this.title} by ${this.author}`;
+        return `${this.title} por ${this.author}`;
     }
 };
 Book = __decorate([
-    LogCreation
+    Log
 ], Book);
 const book = new Book();
 // Display in browser
-const output = document.getElementById('output');
-if (output) {
-    output.innerHTML = `
+const output08 = document.getElementById('output08');
+if (output08) {
+    output08.innerHTML = `
         <li>${book.describe()}</li>
     `;
 }
