@@ -1,6 +1,6 @@
 <?php
 
-    $tittle = "08 - Overwrite Construct";
+    $title = "08 - Overwrite Construct";
     $descripcion = "Redefining the constructor method in a child class.";
 
 include 'template/header.php';
@@ -25,6 +25,13 @@ include 'template/header.php';
             echo "<ul><li> Name: {$this->name} <br>
                            Platform: {$this->platform} <br>
                            Year: {$this->year} </li></ul>";
+        }
+        public function getInfoVideoGame() {
+            return [
+                'name' => $this->name,
+                'platform' => $this->platform,
+                'year' => $this->year
+            ];
         }
     }
 

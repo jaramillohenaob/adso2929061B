@@ -195,11 +195,10 @@ body {
                             tbody {
                                 td {
                                     border: 1px solid #0006;
-                                    background-color: #fff6;
-                                    padding: 0.4rem;
-                                    &:last-child {                                        font-family: 'Poppins-600';
+                                    background-color: #0002;
+                                    padding: 0.8rem 0.4rem;
+                                    font-family: 'Poppins-600';
                                     text-align: center;
-                                }
                             }
                         }
                     }
