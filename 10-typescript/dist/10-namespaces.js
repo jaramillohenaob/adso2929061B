@@ -1,25 +1,24 @@
 "use strict";
-// 10 - Namespaces: organizar código dentro de un contenedor lógico
-var Space;
-(function (Space) {
-    class Planet {
-        constructor(name, size) {
+var Garden;
+(function (Garden) {
+    class Flower {
+        constructor(name, color) {
             this.name = name;
-            this.size = size;
+            this.color = color;
         }
     }
-    Space.Planet = Planet;
-    function describe(planet) {
-        return `${planet.name} is ${planet.size} km in diameter.`;
+    Garden.Flower = Flower;
+    function describe(flower) {
+        return `${flower.name} is ${flower.color}.`;
     }
-    Space.describe = describe;
-})(Space || (Space = {}));
-const mars = new Space.Planet("Mars", 6779);
-const info = Space.describe(mars);
+    Garden.describe = describe;
+})(Garden || (Garden = {}));
+
+const rose = new Garden.Flower("Rose", "red");
+const info = Garden.describe(rose);
+
 // Display in browser
-const output = document.getElementById('output');
+const output = document.getElementById('output10');
 if (output) {
-    output.innerHTML = `
-        <li>${info}</li>
-    `;
+    output.innerHTML = `<li>${info}</li>`;
 }

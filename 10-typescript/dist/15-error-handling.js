@@ -1,20 +1,35 @@
 "use strict";
-// 15 - Error Handling: manejo de errores con try/catch
-function calculateDivision(a, b) {
+function safeDivide(a, b) {
     if (b === 0)
-        throw new Error("Division by zero is not allowed");
+        throw new Error("No se puede dividir por cero");
     return a / b;
 }
-let message;
+
+function parseNumber(text) {
+    const n = Number(text);
+    if (Number.isNaN(n))
+        throw new Error(`'${text}' no es un número válido`);
+    return n;
+}
+
+const messages = [];
+
 try {
-    const result = calculateDivision(10, 2);
-    message = `Result: ${result}`;
+    const result1 = safeDivide(10, 2);
+    messages.push(`División: 10 / 2 = ${result1}`);
+} catch (error) {
+    messages.push(`Error división: ${error instanceof Error ? error.message : String(error)}`);
 }
-catch (error) {
-    message = `Error: ${error.message}`;
+
+try {
+    const result2 = parseNumber("42a"); 
+    messages.push(`Parseo: "42a" => ${result2}`);
+} catch (error) {
+    messages.push(`Error parseo: ${error instanceof Error ? error.message : String(error)}`);
 }
+
 // Display in browser
-const output = document.getElementById('output');
+const output = document.getElementById('output15');
 if (output) {
-    output.innerHTML = `<li>${message}</li>`;
+    output.innerHTML = messages.map(m => `<li>${m}</li>`).join("");
 }
