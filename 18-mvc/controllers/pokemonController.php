@@ -36,6 +36,11 @@ class PokemonController {
         $this->load->view("edit.php", $pokemon);
     }
 
+    public function show($id) {
+        $pokemon = $this->model->showPokemons($id);
+        $this->load->view("show.php", $pokemon);
+    }
+
     public function update($id) {
         $this->model->updatePokemon(
             $id,
