@@ -8,7 +8,8 @@
             $this->load  = new Load;
             $this->model = new Model;
 
-            $this->load->view('welcome.php', 'Model View Controller');
+            $pokemons = $this->model->listPokemon();
+            $this->load->view('welcome.php', $pokemons);
 
         }
     }

@@ -7,9 +7,9 @@ class Student {
 const student = new Student("Laura", 95);
 
 // Display in browser
-const output = document.getElementById('output');
-if (output) {
-    output.innerHTML = `
+const output09 = document.getElementById('output09');
+if (output09) {
+    output09.innerHTML = `
         <li><strong>Student:</strong> ${student.name}</li>
         <li><strong>Grade:</strong> ${student.grade}</li>
     `;

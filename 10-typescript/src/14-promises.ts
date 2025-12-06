@@ -11,14 +11,14 @@ function loadUser(): Promise<string> {
 
 loadUser()
     .then(response => {
-        const output = document.getElementById('output');
-        if (output) {
-            output.innerHTML = `<li>${response}</li>`;
+        const output14 = document.getElementById('output14');
+        if (output14) {
+            output14.innerHTML = `<li>${response}</li>`;
         }
     })
     .catch(error => {
-        const output = document.getElementById('output');
-        if (output) {
-            output.innerHTML = `<li style="color:red;">${error}</li>`;
+        const output14 = document.getElementById('output14');
+        if (output14) {
+            output14.innerHTML = `<li style="color:red;">${error}</li>`;
         }
     });

@@ -14,7 +14,7 @@ if (isNumber(data)) {
 }
 
 // Display in browser
-const output = document.getElementById('output');
-if (output) {
-    output.innerHTML = `<li>${result}</li>`;
+const output11 = document.getElementById('output11');
+if (output11) {
+    output11.innerHTML = `<li>${result}</li>`;
 }

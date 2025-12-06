@@ -31,9 +31,9 @@ applyMixins(Animal, [CanFly, CanSwim]);
 const animal = new Animal();
 
 // Display in browser
-const output = document.getElementById('output');
-if (output) {
-    output.innerHTML = `
+const output16 = document.getElementById('output16');
+if (output16) {
+    output16.innerHTML = `
         <li><strong>Animal:</strong> ${animal.name}</li>
         <li>${animal.fly()}</li>
         <li>${animal.swim()}</li>
