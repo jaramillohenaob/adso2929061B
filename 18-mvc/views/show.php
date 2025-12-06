@@ -21,10 +21,10 @@
                             <p><strong>Type:</strong> 
                                 <span class="badge badge-outline"><?= htmlspecialchars($data['type']) ?></span>
                             </p>
-                            <p><strong>Strength:</strong> <?= htmlspecialchars($data['strength']) ?></p>
+                            <p><strong>Strenght:</strong> <?= htmlspecialchars($data['strenght']) ?></p>
+                            <p><strong>Stamina:</strong> <?= htmlspecialchars($data['stamina']) ?></p>
                             <p><strong>Speed:</strong> <?= htmlspecialchars($data['speed']) ?></p>
                             <p><strong>Accuracy:</strong> <?= htmlspecialchars($data['accuracy']) ?></p>
-                            <p><strong>Trainer ID:</strong> <?= htmlspecialchars($data['trainer_id']) ?></p>
                         </div>
                         
                         <div class="card-actions justify-end mt-6">

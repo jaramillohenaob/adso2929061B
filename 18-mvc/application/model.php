@@ -12,6 +12,11 @@ class Model extends Database {
         return $stmt->fetchAll();
     }
 
+    public function listTrainer() {
+        $stmt = $this->db->query("SELECT * FROM trainers");
+        return $stmt->fetchAll();
+    }
+
     public function showPokemons($id) {
         $stmt = $this->db->query("SELECT * FROM pokemons WHERE id=" . intval($id));
         return $stmt->fetch();
@@ -27,7 +32,7 @@ class Model extends Database {
         return $stmt->execute([intval($id)]);
     }
 
-    public function updatePokemon($id, $name, $type, $strength, $speed, $accuracy, $trainer_id) {
+    public function updatePokemon($id, $name, $type, $strength, $speed, $accuracy, $trainer_id, $pokemon) {
     $stmt = $this->db->prepare("
         UPDATE pokemons SET name=?, type=?, strength=?, speed=?, accuracy=?, trainer_id=? 
         WHERE id=?

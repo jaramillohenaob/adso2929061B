@@ -1,4 +1,4 @@
-<form action="/pokemon/store" method="POST">
+<form action="" method="POST">
     Name: <input type="text" name="name"><br>
     Type: <input type="text" name="type"><br>
     Strength: <input type="number" name="strength"><br>
