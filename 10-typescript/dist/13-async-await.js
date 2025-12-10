@@ -1,34 +1,28 @@
 "use strict";
-
-function delay(ms, value) {
-    return new Promise(resolve => setTimeout(() => resolve(value), ms));
-}
-
-async function fetchRedesigned() {
-    return await delay(1500, {
-        msg: "Datos cargados con éxito",
-        time: new Date().toLocaleTimeString()
+// 13 - Async/Await: manejo de tareas asíncronas
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+function fetchMessage() {
+    return __awaiter(this, void 0, void 0, function* () {
+        return new Promise(resolve => {
+            setTimeout(() => resolve("Data loaded successfully after 2s"), 2000);
+        });
     });
 }
-
-async function fetchSimple() {
-    const num = await delay(500, Math.floor(Math.random() * 100) + 1);
-    return `Número aleatorio = ${num}`;
+function displayMessage() {
+    return __awaiter(this, void 0, void 0, function* () {
+        const msg = yield fetchMessage();
+        const output13 = document.getElementById('output13');
+        if (output13) {
+            output13.innerHTML = `<li>${msg}</li>`;
+        }
+    });
 }
-
-async function displayMessage() {
-    const output = document.getElementById('output13');
-    if (!output) return;
-
-    const data = await fetchRedesigned();
-    const li1 = document.createElement('li');
-    li1.textContent = `${data.msg} (hora: ${data.time})`;
-    output.appendChild(li1);
-
-    const simple = await fetchSimple();
-    const li2 = document.createElement('li');
-    li2.textContent = simple;
-    output.appendChild(li2);
-}
-
 displayMessage();

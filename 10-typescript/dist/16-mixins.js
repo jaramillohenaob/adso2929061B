@@ -1,33 +1,35 @@
 "use strict";
-class CanEat {
-    eat() { return "Eating..."; }
+// 16 - Mixins: combinar funcionalidades en una clase
+class CanFly {
+    fly() {
+        return "Flying high!";
+    }
 }
-class CanSleep {
-    sleep() { return "Sleeping zzz..."; }
+class CanSwim {
+    swim() {
+        return "Swimming fast!";
+    }
 }
-class Pet {
-    constructor(name = "Buddy") {
-        this.name = name;
+class Animal {
+    constructor() {
+        this.name = "Dolphin";
     }
 }
 function applyMixins(derivedCtor, baseCtors) {
     baseCtors.forEach(baseCtor => {
         Object.getOwnPropertyNames(baseCtor.prototype).forEach(name => {
-            if (name !== "constructor") {
-                derivedCtor.prototype[name] = baseCtor.prototype[name];
-            }
+            derivedCtor.prototype[name] = baseCtor.prototype[name];
         });
     });
 }
-applyMixins(Pet, [CanEat, CanSleep]);
-
-const pet = new Pet("Gato");
+applyMixins(Animal, [CanFly, CanSwim]);
+const animal = new Animal();
 // Display in browser
-const output = document.getElementById('output16');
-if (output) {
-    output.innerHTML = `
-        <li><strong>Pet:</strong> ${pet.name}</li>
-        <li>${pet.eat()}</li>
-        <li>${pet.sleep()}</li>
+const output16 = document.getElementById('output16');
+if (output16) {
+    output16.innerHTML = `
+        <li><strong>Animal:</strong> ${animal.name}</li>
+        <li>${animal.fly()}</li>
+        <li>${animal.swim()}</li>
     `;
 }

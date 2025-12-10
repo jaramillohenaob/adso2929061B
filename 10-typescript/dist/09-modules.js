@@ -1,23 +1,17 @@
 "use strict";
-// 09 - Modules: ejemplo conceptual de un módulo simple
+// 09 - Modules: ejemplo conceptual (sin imports reales)
 class Student {
     constructor(name, grade) {
         this.name = name;
         this.grade = grade;
     }
-    improve(by = 5) {
-        this.grade = Math.min(100, this.grade + by);
-    }
 }
-const student = new Student("Carlos", 88);
-student.improve(7);
+const student = new Student("Laura", 95);
 // Display in browser
-const output = document.getElementById('output09');
-if (output) {
-    output.innerHTML = `
-        <ul>
-            <li><strong>Nombre:</strong> ${student.name}</li>
-            <li><strong>Nota:</strong> ${student.grade}</li>
-        </ul>
+const output09 = document.getElementById('output09');
+if (output09) {
+    output09.innerHTML = `
+        <li><strong>Student:</strong> ${student.name}</li>
+        <li><strong>Grade:</strong> ${student.grade}</li>
     `;
 }

@@ -1,31 +1,113 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>17-challenge</title>
     <link rel="stylesheet" href="../css/styles.css">
     <style>
-        
+        .battle-container {
+            width: 500px;
+            margin: 20px auto;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .battle-scene {
+            width: 500px;
+            height: 300px;
+            background-image: url('images/bg-challenge.svg');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-end;
+            padding-bottom: 20px;
+            position: relative;
+        }
+
+        .character-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 1;
+        }
+
+        .hp-text {
+            color: white;
+            font-size: 1.2em;
+            margin-bottom: 5px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+        }
+
+        .controls {
+            background-color: #2b3e3b;
+            padding: 20px;
+            text-align: center;
+            min-height: 80px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #fightBtn {
+            background-color: #dcdcdc;
+            border: none;
+            padding: 10px 50px;
+            font-size: 1.1em;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            color: #333;
+            transition: transform 0.1s, background-color 0.2s;
+        }
+
+        #fightBtn:hover {
+            background-color: #ffffff;
+            transform: scale(1.05);
+        }
+
+        #fightBtn:active {
+            transform: scale(0.95);
+        }
+
+        #fightBtn:disabled {
+            background-color: #888;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        #log {
+            color: #eee;
+            margin-top: 10px;
+            font-size: 0.9em;
+        }
     </style>
+
 </head>
+
 <body class="ts">
-    <nav>
-        <a href="index.html">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#ffffff" d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>
-        </a>
-    </nav>
+    <nav><a href="index.html"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                < !-- !Font Awesome Free 6.5.2 by @fontawesome - https: //fontawesome.com License -
+                    https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                    <path fill="#ffffff"
+                        d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z" />
+            </svg>
+        </a></nav>
     <main>
         <header>
-            <h1> 17 - Challenge </h1>
-            <p>
-                Build a complete project using TypeScript features.
-            </p>
+            <h1>17 - Challenge </h1>
+            <p>Build a complete project using TypeScript features. </p>
         </header>
-        <section>
+        <div>
             <div id="output17"></div>
-        </section>
+        </div>
     </main>
     <script src="dist/17-challenge.js"></script>
 </body>
+
 </html>
