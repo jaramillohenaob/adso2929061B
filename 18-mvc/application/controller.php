@@ -13,25 +13,22 @@
         }
 
         private function handleRequest() {
-            $request_uri = $_SERVER['REQUEST_URI'];
-            $parsed_url  = parse_url($request_uri);
-            $path        = trim($parsed_url['path'] ?? '', '/'); 
-
-            if ($path && !isset($_GET['method'])) {
-                $segments = explode('/', $path);
-                $method   = $segments[0] ?? 'index';
-                $id       = $segments[1] ?? null;
-            } else {
-                $method = $_GET['method'] ?? 'index';
-                $id     = $_GET['id'] ?? null;
-            }
+            // Get method and id from GET parameters
+            $method = $_GET['method'] ?? 'index';
+            $id     = $_GET['id'] ?? null;
 
             switch($method) {
             case 'create':
                 $this->create();
                 break;
+            case 'store':
+                $this->store();
+                break;
             case 'show':
                 $this->show($id);
+                break;
+            case 'edit':
+                $this->edit($id);
                 break;
             case 'update':
                 $this->update($id);
@@ -44,12 +41,12 @@
             }
         }
         
-        private function index() {
+        public function index() {
             $pokemons = $this->model->listPokemon();
             $this->load->view('welcome.php', $pokemons);
         }
 
-        private function store() {
+        public function store() {
             $name = trim($_POST['name'] ?? '');
             $type = trim($_POST['type'] ?? '');
             $strenght = trim($_POST['strenght'] ?? '');
@@ -61,7 +58,7 @@
             if (!empty($name) && !empty($type) && !empty($trainer_id)) {
                 $this->model->createPokemon($name, $type, $strenght, $stamina, $speed, $accuracy, $trainer_id);
             }
-            header('location: /');
+            header('location: index.php');
             exit();
         }
 
@@ -70,9 +67,16 @@
             $this->load->view("create.php", $trainers);
         }
 
-        private function show($id) {
+        public function show($id) {
             $pokemon = $this->model->showPokemons($id);
             $this->load->view("show.php", $pokemon);
+        }
+
+        public function edit($id) {
+            $pokemon = $this->model->showPokemons($id);
+            $trainers = $this->model->listTrainer();
+            $pokemon['trainers'] = $trainers;
+            $this->load->view("edit.php", $pokemon);
         }
 
         public function update($id) {
@@ -86,11 +90,14 @@
                 $_POST['accuracy'],
                 $_POST['trainer_id']
             );
-            $this->load->view("edit.php", ['pokemon' => $id]);
+            header('location: index.php');
+            exit();
         }
 
         public function delete($id) {
             $this->model->deletePokemon($id);
+            header('location: index.php');
+            exit();
         }
         
     }

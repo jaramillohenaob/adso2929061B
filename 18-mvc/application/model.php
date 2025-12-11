@@ -22,9 +22,9 @@ class Model extends Database {
         return $stmt->fetch();
     }
 
-    public function createPokemon($name, $type, $strength, $speed, $accuracy, $trainer_id) {
-        $stmt = $this->db->prepare("INSERT INTO pokemons (name, type, strength, speed, accuracy, trainer_id) VALUES (?, ?, ?, ?, ?, ?)");
-        return $stmt->execute([$name, $type, $strength, $speed, $accuracy, $trainer_id]);
+    public function createPokemon($name, $type, $strenght, $stamina, $speed, $accuracy, $trainer_id) {
+        $stmt = $this->db->prepare("INSERT INTO pokemons (name, type, strenght, stamina, speed, accuracy, trainer_id) VALUES (?, ?, ?, ?, ?, ?, ?)");
+        return $stmt->execute([$name, $type, $strenght, $stamina, $speed, $accuracy, $trainer_id]);
     }
 
     public function deletePokemon($id) {
@@ -32,11 +32,11 @@ class Model extends Database {
         return $stmt->execute([intval($id)]);
     }
 
-    public function updatePokemon($id, $name, $type, $strength, $speed, $accuracy, $trainer_id, $pokemon) {
+    public function updatePokemon($id, $name, $type, $strenght, $stamina, $speed, $accuracy, $trainer_id) {
     $stmt = $this->db->prepare("
-        UPDATE pokemons SET name=?, type=?, strength=?, speed=?, accuracy=?, trainer_id=? 
+        UPDATE pokemons SET name=?, type=?, strenght=?, stamina=?, speed=?, accuracy=?, trainer_id=? 
         WHERE id=?
     ");
-    return $stmt->execute([$name, $type, $strength, $speed, $accuracy, $trainer_id, $id]);
+    return $stmt->execute([$name, $type, $strenght, $stamina, $speed, $accuracy, $trainer_id, $id]);
 }
 }
