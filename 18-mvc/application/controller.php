@@ -13,9 +13,8 @@
         }
 
         private function handleRequest() {
-            // Get method and id from GET parameters
-            $method = $_GET['method'] ?? 'index';
-            $id     = $_GET['id'] ?? null;
+            $method = $_GET['method'] ?? $_POST['method'] ?? 'index';
+            $id     = $_GET['id'] ?? $_POST['id'] ?? null;
 
             switch($method) {
             case 'create':
@@ -58,7 +57,7 @@
             if (!empty($name) && !empty($type) && !empty($trainer_id)) {
                 $this->model->createPokemon($name, $type, $strenght, $stamina, $speed, $accuracy, $trainer_id);
             }
-            header('location: index.php');
+            header('location: ./');
             exit();
         }
 
@@ -90,13 +89,13 @@
                 $_POST['accuracy'],
                 $_POST['trainer_id']
             );
-            header('location: index.php');
+            header('location: ./');
             exit();
         }
 
         public function delete($id) {
             $this->model->deletePokemon($id);
-            header('location: index.php');
+            header('location: ./');
             exit();
         }
         

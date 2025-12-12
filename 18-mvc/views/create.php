@@ -19,7 +19,7 @@
             <!-- Form Card -->
             <div class="card bg-base-100 shadow-xl">
                 <div class="card-body">
-                    <form action="index.php?method=store" method="POST" id="createForm">
+                    <form action="./?method=store" method="POST" id="createForm">
                         <!-- Basic Info -->
                         <div class="form-control mb-4">
                             <label class="label">
@@ -63,49 +63,40 @@
                         <!-- Stats Section -->
                         <div class="divider text-lg font-bold">Pokemon Stats</div>
 
-                        <!-- Strenght -->
                         <div class="form-control mb-4">
                             <label class="label">
                                 <span class="label-text font-semibold">Strenght</span>
                                 <span class="label-text-alt text-lg font-bold" id="strenghtValue">50</span>
                             </label>
                             <input type="range" name="strenght" min="0" max="100" value="50" class="range range-primary" id="strenghtRange" />
-                            <progress class="progress progress-primary w-full mt-2" value="50" max="100" id="strenghtProgress"></progress>
                         </div>
 
-                        <!-- Stamina -->
                         <div class="form-control mb-4">
                             <label class="label">
                                 <span class="label-text font-semibold">Stamina</span>
                                 <span class="label-text-alt text-lg font-bold" id="staminaValue">50</span>
                             </label>
                             <input type="range" name="stamina" min="0" max="100" value="50" class="range range-secondary" id="staminaRange" />
-                            <progress class="progress progress-secondary w-full mt-2" value="50" max="100" id="staminaProgress"></progress>
                         </div>
 
-                        <!-- Speed -->
                         <div class="form-control mb-4">
                             <label class="label">
                                 <span class="label-text font-semibold">Speed</span>
                                 <span class="label-text-alt text-lg font-bold" id="speedValue">50</span>
                             </label>
                             <input type="range" name="speed" min="0" max="100" value="50" class="range range-accent" id="speedRange" />
-                            <progress class="progress progress-accent w-full mt-2" value="50" max="100" id="speedProgress"></progress>
                         </div>
 
-                        <!-- Accuracy -->
                         <div class="form-control mb-6">
                             <label class="label">
                                 <span class="label-text font-semibold">Accuracy</span>
                                 <span class="label-text-alt text-lg font-bold" id="accuracyValue">50</span>
                             </label>
                             <input type="range" name="accuracy" min="0" max="100" value="50" class="range range-warning" id="accuracyRange" />
-                            <progress class="progress progress-warning w-full mt-2" value="50" max="100" id="accuracyProgress"></progress>
                         </div>
 
-                        <!-- Actions -->
                         <div class="card-actions justify-end gap-2">
-                            <a href="index.php" class="btn btn-ghost">Cancel</a>
+                            <a href="./" class="btn btn-ghost">Cancel</a>
                             <button type="submit" class="btn btn-primary">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="size-5" fill="currentColor" viewBox="0 0 256 256">
                                     <path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"></path>
@@ -120,14 +111,11 @@
     </div>
 
     <script>
-        // Update progress bars and values when range inputs change
         function updateStat(statName) {
             const range = document.getElementById(statName + 'Range');
-            const progress = document.getElementById(statName + 'Progress');
             const value = document.getElementById(statName + 'Value');
             
             range.addEventListener('input', function() {
-                progress.value = this.value;
                 value.textContent = this.value;
             });
         }
