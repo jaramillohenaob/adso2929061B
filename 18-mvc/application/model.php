@@ -18,9 +18,17 @@ class Model extends Database {
     }
 
     public function showPokemons($id) {
-        $stmt = $this->db->query("SELECT * FROM pokemons WHERE id=" . intval($id));
+        $id = intval($id);
+
+        $sql = "SELECT p.*, t.name AS trainer_name
+                FROM pokemons p
+                LEFT JOIN trainers t ON p.trainer_id = t.id
+                WHERE p.id = $id";
+
+        $stmt = $this->db->query($sql);
         return $stmt->fetch();
     }
+
 
     public function createPokemon($name, $type, $strenght, $stamina, $speed, $accuracy, $trainer_id) {
         $stmt = $this->db->prepare("INSERT INTO pokemons (name, type, strenght, stamina, speed, accuracy, trainer_id) VALUES (?, ?, ?, ?, ?, ?, ?)");

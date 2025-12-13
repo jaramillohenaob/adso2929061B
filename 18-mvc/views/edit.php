@@ -70,7 +70,7 @@
                                 <span class="label-text font-semibold">Strenght</span>
                                 <span class="label-text-alt text-lg font-bold" id="strenghtValue"><?= $data['strenght'] ?? 50 ?></span>
                             </label>
-                            <input type="range" name="strenght" min="0" max="100" value="<?= $data['strenght'] ?? 50 ?>" class="range range-primary" id="strenghtRange" />
+                            <input type="range" name="strenght" min="0" max="255" value="<?= $data['strenght'] ?? 50 ?>" class="range range-primary" id="strenghtRange" />
                         </div>
 
                         <div class="form-control mb-4">
@@ -78,7 +78,7 @@
                                 <span class="label-text font-semibold">Stamina</span>
                                 <span class="label-text-alt text-lg font-bold" id="staminaValue"><?= $data['stamina'] ?? 50 ?></span>
                             </label>
-                            <input type="range" name="stamina" min="0" max="100" value="<?= $data['stamina'] ?? 50 ?>" class="range range-secondary" id="staminaRange" />
+                            <input type="range" name="stamina" min="0" max="255" value="<?= $data['stamina'] ?? 50 ?>" class="range range-secondary" id="staminaRange" />
                         </div>
 
                         <div class="form-control mb-4">
@@ -86,7 +86,7 @@
                                 <span class="label-text font-semibold">Speed</span>
                                 <span class="label-text-alt text-lg font-bold" id="speedValue"><?= $data['speed'] ?? 50 ?></span>
                             </label>
-                            <input type="range" name="speed" min="0" max="100" value="<?= $data['speed'] ?? 50 ?>" class="range range-accent" id="speedRange" />
+                            <input type="range" name="speed" min="0" max="255" value="<?= $data['speed'] ?? 50 ?>" class="range range-accent" id="speedRange" />
                         </div>
 
                         <div class="form-control mb-6">
@@ -94,7 +94,7 @@
                                 <span class="label-text font-semibold">Accuracy</span>
                                 <span class="label-text-alt text-lg font-bold" id="accuracyValue"><?= $data['accuracy'] ?? 50 ?></span>
                             </label>
-                            <input type="range" name="accuracy" min="0" max="100" value="<?= $data['accuracy'] ?? 50 ?>" class="range range-warning" id="accuracyRange" />
+                            <input type="range" name="accuracy" min="0" max="255" value="<?= $data['accuracy'] ?? 50 ?>" class="range range-warning" id="accuracyRange" />
                         </div>
 
                         <!-- Actions -->
@@ -104,7 +104,7 @@
                                 <svg xmlns="http://www.w3.org/2000/svg" class="size-5" fill="currentColor" viewBox="0 0 256 256">
                                     <path d="M227.31,73.37,182.63,28.68a16,16,0,0,0-22.63,0L36.69,152A15.86,15.86,0,0,0,32,163.31V208a16,16,0,0,0,16,16H92.69A15.86,15.86,0,0,0,104,219.31L227.31,96a16,16,0,0,0,0-22.63ZM92.69,208H48V163.31l88-88L180.69,120ZM192,108.68,147.31,64l24-24L216,84.68Z"></path>
                                 </svg>
-                                Update Pokemon
+                                Update
                             </button>
                         </div>
                     </form>

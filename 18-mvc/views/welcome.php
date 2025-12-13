@@ -44,7 +44,7 @@
             <?php elseif($pokemon['type'] === 'Electric'):?>
             <span class="badge badge-outline badge-warning">Electric</span>
             <?php elseif($pokemon['type'] === 'Normal'):?>
-            <span class="badge badge-outline badge-neutral">Normal</span>
+            <span class="badge badge-outline badge-active">Normal</span>
             <?php elseif($pokemon['type'] === 'Poison'):?>
             <span class="badge badge-outline badge-primary">Poison</span>
             <?php elseif($pokemon['type'] === 'Ghost'):?>
@@ -52,24 +52,14 @@
             <?php elseif($pokemon['type'] === 'Dragon'):?>
             <span class="badge badge-outline badge-secondary">Dragon</span>
             <?php elseif($pokemon['type'] === 'Rock'):?>
-            <span class="badge badge-outline badge-neutral">Rock</span>
+            <span class="badge badge-outline badge-active">Rock</span>
             <?php endif?>
         </td>
         <td>
-          <button
-            class="btn btn-xs btn-neutral"
-            onclick="openPokemonModal(this)"
-            data-name="<?= htmlspecialchars($pokemon['name']) ?>"
-            data-type="<?= htmlspecialchars($pokemon['type']) ?>"
-            data-strength="<?= htmlspecialchars($pokemon['strenght']) ?>"
-            data-stamina="<?= htmlspecialchars($pokemon['stamina']) ?>"
-            data-speed="<?= htmlspecialchars($pokemon['speed']) ?>"
-            data-accuracy="<?= htmlspecialchars($pokemon['accuracy']) ?>"
-            data-trainer="<?= htmlspecialchars($pokemon['trainer_id']) ?>"
-          >
+          <a href="./?method=show&id=<?= $pokemon['id'] ?>" class="btn btn-xs btn-info">
             <svg xmlns="http://www.w3.org/2000/svg" class="size-4" fill="Currentcolor" viewBox="0 0 256 256"><path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"></path></svg>
-          </button>
-          <a href="./?method=edit&id=<?= $pokemon['id'] ?>" class="btn btn-xs btn-neutral">
+          </a>
+          <a href="./?method=edit&id=<?= $pokemon['id'] ?>" class="btn btn-xs btn-warning">
             <svg xmlns="http://www.w3.org/2000/svg" class="size-4" fill="Currentcolor" viewBox="0 0 256 256"><path d="M227.31,73.37,182.63,28.68a16,16,0,0,0-22.63,0L36.69,152A15.86,15.86,0,0,0,32,163.31V208a16,16,0,0,0,16,16H92.69A15.86,15.86,0,0,0,104,219.31L227.31,96a16,16,0,0,0,0-22.63ZM92.69,208H48V163.31l88-88L180.69,120ZM192,108.68,147.31,64l24-24L216,84.68Z"></path></svg>
           </a>
           <form action="./" method="POST" style="display:inline;" onsubmit="return confirm('¿Estás seguro de que quieres eliminar a <?= htmlspecialchars($pokemon['name']) ?>?');">
@@ -93,30 +83,5 @@
     </div>
   </div>
 </div>
-
-
-<?php include 'views/show.php'; ?>
-
-<script>
-function openPokemonModal(button) {
-    const name = button.getAttribute('data-name');
-    const type = button.getAttribute('data-type');
-    const strength = button.getAttribute('data-strength');
-    const stamina = button.getAttribute('data-stamina');
-    const speed = button.getAttribute('data-speed');
-    const accuracy = button.getAttribute('data-accuracy');
-    const trainer = button.getAttribute('data-trainer');
-
-    document.getElementById('modal-name').textContent = name;
-    document.getElementById('modal-type').textContent = type;
-    document.getElementById('modal-strength').textContent = strength;
-    document.getElementById('modal-stamina').textContent = stamina;
-    document.getElementById('modal-speed').textContent = speed;
-    document.getElementById('modal-accuracy').textContent = accuracy;
-    document.getElementById('modal-trainer').textContent = trainer;
-
-    document.getElementById('pokemon_modal').checked = true;
-}
-</script>
 </body>
 </html>

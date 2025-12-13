@@ -13,7 +13,6 @@
             <!-- Header -->
             <div class="text-center mb-8">
                 <h1 class="text-4xl font-bold text-primary mb-2">Create New Pokemon</h1>
-                <p class="text-base-content/70">Fill in the details to create a new Pokemon</p>
             </div>
 
             <!-- Form Card -->
@@ -66,33 +65,33 @@
                         <div class="form-control mb-4">
                             <label class="label">
                                 <span class="label-text font-semibold">Strenght</span>
-                                <span class="label-text-alt text-lg font-bold" id="strenghtValue">50</span>
+                                <span class="label-text-alt text-lg font-bold" id="strenghtValue">0</span>
                             </label>
-                            <input type="range" name="strenght" min="0" max="100" value="50" class="range range-primary" id="strenghtRange" />
+                            <input type="range" name="strenght" min="0" max="255" value="0" class="range range-primary" id="strenghtRange" />
                         </div>
 
                         <div class="form-control mb-4">
                             <label class="label">
                                 <span class="label-text font-semibold">Stamina</span>
-                                <span class="label-text-alt text-lg font-bold" id="staminaValue">50</span>
+                                <span class="label-text-alt text-lg font-bold" id="staminaValue">0</span>
                             </label>
-                            <input type="range" name="stamina" min="0" max="100" value="50" class="range range-secondary" id="staminaRange" />
+                            <input type="range" name="stamina" min="0" max="255" value="0" class="range range-secondary" id="staminaRange" />
                         </div>
 
                         <div class="form-control mb-4">
                             <label class="label">
                                 <span class="label-text font-semibold">Speed</span>
-                                <span class="label-text-alt text-lg font-bold" id="speedValue">50</span>
+                                <span class="label-text-alt text-lg font-bold" id="speedValue">0</span>
                             </label>
-                            <input type="range" name="speed" min="0" max="100" value="50" class="range range-accent" id="speedRange" />
+                            <input type="range" name="speed" min="0" max="255" value="0" class="range range-accent" id="speedRange" />
                         </div>
 
                         <div class="form-control mb-6">
                             <label class="label">
                                 <span class="label-text font-semibold">Accuracy</span>
-                                <span class="label-text-alt text-lg font-bold" id="accuracyValue">50</span>
+                                <span class="label-text-alt text-lg font-bold" id="accuracyValue">0</span>
                             </label>
-                            <input type="range" name="accuracy" min="0" max="100" value="50" class="range range-warning" id="accuracyRange" />
+                            <input type="range" name="accuracy" min="0" max="255" value="0" class="range range-warning" id="accuracyRange" />
                         </div>
 
                         <div class="card-actions justify-end gap-2">
@@ -101,7 +100,7 @@
                                 <svg xmlns="http://www.w3.org/2000/svg" class="size-5" fill="currentColor" viewBox="0 0 256 256">
                                     <path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"></path>
                                 </svg>
-                                Create Pokemon
+                                Create
                             </button>
                         </div>
                     </form>
