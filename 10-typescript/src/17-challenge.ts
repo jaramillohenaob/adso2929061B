@@ -69,8 +69,8 @@ function battle() {
     if (!char1.isAlive() || !char2.isAlive()) return;
 
     // Random damage 
-    const damageToChar1 = Math.floor(Math.random() * 11) + 5; // 5-15
-    const damageToChar2 = Math.floor(Math.random() * 11) + 5;
+    const damageToChar1: number = Math.floor(Math.random() * 11) + 5;
+    const damageToChar2: number = Math.floor(Math.random() * 11) + 5;
 
     char1.takeDamage(damageToChar1);
     char2.takeDamage(damageToChar2);
@@ -78,20 +78,21 @@ function battle() {
     render();
 
     const log = document.getElementById('log');
-    if (log) {
-        let message = ``;
-        if (!char1.isAlive() && !char2.isAlive()) {
-            message = `<span style="color: #ff88ff;">It's a draw!</span>`;
-        } else if (!char1.isAlive()) {
-            message = `<span style="color: #ff8888;">${char1.name} is defeated!</span>`;
-        } else if (!char2.isAlive()) {
-            message = `<span style="color: #88ff88;">${char2.name} is defeated!</span>`;
-        } else {
-            message = `${char1.name}: -${damageToChar1} | ${char2.name}: -${damageToChar2}`;
-        }
+    if (!log) return;
 
-        log.innerHTML = message;
+    let message: string;
+
+    if (!char1.isAlive() && !char2.isAlive()) {
+        message = `<span style="color: #ff88ff;">It's a draw!</span>`;
+    } else if (!char1.isAlive()) {
+        message = `<span style="color: #ff8888;">${char1.name} is defeated!</span>`;
+    } else if (!char2.isAlive()) {
+        message = `<span style="color: #88ff88;">${char2.name} is defeated!</span>`;
+    } else {
+        message = `${char1.name}: -${damageToChar1} | ${char2.name}: -${damageToChar2}`;
     }
+
+    log.innerHTML = message;
 }
 
 // Initial render
