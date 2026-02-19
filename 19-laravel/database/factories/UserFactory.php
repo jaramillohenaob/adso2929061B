@@ -5,6 +5,8 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Http;
+
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
@@ -23,17 +25,25 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
-        return [
-            'document' => fake()->unique()->numerify('75######'),
-            'fullname' => fake()->firstName(). ' '.fake()->lastName(),
-            'gender' => fake()->randomElement(['Female', 'Male']),
-            'birthdate' => fake()->date(),
-            'phone' => fake()->unique()->numerify('310#######'),
-            'email' => fake()->unique()->safeEmail(),
-            'email_verified_at' => now(),
-            'password' => bcrypt('12345'),
-            'remember_token' => Str::random(10),
-        ];
+        // $gender = fake()->randomElement(['male', 'female']);
+        // $document = fake()->unique()->numerify('75######');
+
+        //     $image = Http::get('https://thispersondoesnotexist.com/')->body();
+        //     $fileName = $document . '.png';
+        //     file_put_contents(public_path('images/' . $fileName), $image);
+
+        // return [
+        //     'document' => $document,
+        //     'fullname' => fake()->firstName($gender). ' '.fake()->lastName(),
+        //     'gender' => ucfirst($gender),
+        //     'birthdate' => fake()->dateTimeBetween('1976-01-01', '2006-12-31'),
+        //     'phone' => fake()->unique()->numerify('310#######'),
+        //     'email' => fake()->unique()->safeEmail(),
+        //     'email_verified_at' => now(),
+        //     'password' => bcrypt('12345'),
+        //     'remember_token' => Str::random(10),
+        //     'photo' => $fileName
+        // ];
     }
 
     /**
