@@ -27,4 +27,9 @@ class Pet extends Model
         'adopted'
     ];
 
+    //Relationships
+    // Pet has one adoption
+    public function adoption(){
+        return $this->hasOne(Adoption::class);
+    }
 }
