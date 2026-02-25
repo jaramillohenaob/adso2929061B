@@ -28,8 +28,8 @@ class DatabaseSeeder extends Seeder
 
         ]);
         // Factory
-        // User::factory(50)->create();
-        Pet::factory(50)->create();
+        User::factory(10)->create();
+        Pet::factory(10)->create();
 
     }
 }

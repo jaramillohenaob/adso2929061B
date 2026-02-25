@@ -25,25 +25,25 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
-        // $gender = fake()->randomElement(['male', 'female']);
-        // $document = fake()->unique()->numerify('75######');
+        $gender = fake()->randomElement(['male', 'female']);
+        $document = fake()->unique()->numerify('75######');
 
-        //     $image = Http::get('https://thispersondoesnotexist.com/')->body();
-        //     $fileName = $document . '.png';
-        //     file_put_contents(public_path('images/' . $fileName), $image);
+            $image = Http::get('https://thispersondoesnotexist.com/')->body();
+            $fileName = $document . '.png';
+            file_put_contents(public_path('images/' . $fileName), $image);
 
-        // return [
-        //     'document' => $document,
-        //     'fullname' => fake()->firstName($gender). ' '.fake()->lastName(),
-        //     'gender' => ucfirst($gender),
-        //     'birthdate' => fake()->dateTimeBetween('1976-01-01', '2006-12-31'),
-        //     'phone' => fake()->unique()->numerify('310#######'),
-        //     'email' => fake()->unique()->safeEmail(),
-        //     'email_verified_at' => now(),
-        //     'password' => bcrypt('12345'),
-        //     'remember_token' => Str::random(10),
-        //     'photo' => $fileName
-        // ];
+        return [
+            'document' => $document,
+            'fullname' => fake()->firstName($gender). ' '.fake()->lastName(),
+            'gender' => ucfirst($gender),
+            'birthdate' => fake()->dateTimeBetween('1976-01-01', '2006-12-31'),
+            'phone' => fake()->unique()->numerify('310#######'),
+            'email' => fake()->unique()->safeEmail(),
+            'email_verified_at' => now(),
+            'password' => bcrypt('12345'),
+            'remember_token' => Str::random(10),
+            'photo' => $fileName
+        ];
     }
 
     /**
