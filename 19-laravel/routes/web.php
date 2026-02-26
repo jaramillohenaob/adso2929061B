@@ -69,3 +69,8 @@ Route::get('getall/pets', function() {
     $pets = App\Models\Pet::all();
     return view('getallpets')->with('pets', $pets);
 });
+
+Route::get('showpet/{id}', function() {
+    $pet = App\Models\Pet::find(request()->id);
+    return view('showpet')->with('pet', $pet);
+});
