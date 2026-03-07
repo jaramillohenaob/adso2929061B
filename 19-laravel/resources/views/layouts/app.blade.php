@@ -8,7 +8,7 @@
     <title>Document</title>
     <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
 </head>
-<body class="bg-[linear-gradient(to_top,#000c,#0000),url(images/bg-welcome.png)] bg-center bg-no-repeat bg-cover bg-black text-white min-h-dvh flex flex-col gap-2 justify-center items-center">
+<body class="bg-[linear-gradient(to_top,#000c,#0000),url('{{ asset('images/bg-welcome.png') }}')] bg-center bg-no-repeat bg-cover bg-black text-white min-h-dvh flex flex-col gap-2 justify-center items-center">
     <main>
         @yield('content')
     </main>
