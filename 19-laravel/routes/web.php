@@ -94,13 +94,19 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-// Resources
+// Middleware Auth
 Route::middleware('auth')->group( function () {
+    // Resources
     Route::resources([
         'users'    => UserController::class,
         'pets'     => PetController::class,
         'adoption' => AdoptionController::class
     ]);
+    // Exports PDF
+    Route::get('export/users/pdf', [UserController::class, 'pdf']);
+
+    // Exports Excel
+    Route::get('export/users/excel', [UserController::class, 'excel']);
 });
 
 require __DIR__.'/auth.php';
