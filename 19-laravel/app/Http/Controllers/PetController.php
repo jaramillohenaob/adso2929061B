@@ -12,7 +12,9 @@ class PetController extends Controller
      */
     public function index()
     {
-        //
+        $pets = Pet::all();
+        $pets = Pet::orderBy('id', 'desc')->paginate(12);
+        return view('pets.index')->with('pets', $pets);
     }
 
     /**
