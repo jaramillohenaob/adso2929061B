@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Pet;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
+use App\Exports\PetsExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class PetController extends Controller
 {
@@ -156,6 +158,13 @@ class PetController extends Controller
         return $pdf->download('allpets.pdf');
     }
 
+    /**
+     * Generate a Excel file
+     */
+    public function excel() {
+        $pets = Pet::all();
+        return Excel::download(new PetsExport, 'allpets.xlsx');
+    }
 
     /**
      * Search pets

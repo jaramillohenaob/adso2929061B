@@ -27,6 +27,15 @@ class Pet extends Model
         'adopted'
     ];
 
+    // Search by Scope
+    public function scopenames($pets, $q) {
+        if (trim($q)) {
+            $pets->where('name', 'LIKE', "%$q%")
+                  ->orWhere('breed', 'LIKE', "%$q%")
+                  ->orWhere('kind', 'LIKE', "%$q%");
+        }
+    }
+
     //Relationships
     // Pet has one adoption
     public function adoption(){

@@ -113,6 +113,15 @@ Route::middleware('auth')->group( function () {
 
     // Search Users
     Route::post('search/users', [UserController::class, 'search']);
+
+    // Exports PDF Pets
+    Route::get('export/pets/pdf', [PetController::class, 'pdf']);
+
+    // Exports Excel Pets
+    Route::get('export/pets/excel', [PetController::class, 'excel']);
+
+    // Search Pets
+    Route::post('search/pets', [PetController::class, 'search']);
 });
 
 
