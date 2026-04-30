@@ -99,10 +99,10 @@ Route::middleware('auth')->group( function () {
     // Resources with Admin Access
     Route::middleware('admin')->group( function () {
         Route::resources([
-            'users'    => UserController::class,
-            'pets'     => PetController::class,
-            'adoption' => AdoptionController::class
+            'users'     => UserController::class,
+            'pets'      => PetController::class,
         ]);
+        Route::resource('adoptions', AdoptionController::class)->except(['edit', 'update', 'destroy']);
     });
     // Exports PDF
     Route::get('export/users/pdf', [UserController::class, 'pdf']);
@@ -124,6 +124,15 @@ Route::middleware('auth')->group( function () {
 
     // Search Pets
     Route::post('search/pets', [PetController::class, 'search']);
+
+    // Exports PDF Adoptions
+    Route::get('export/adoptions/pdf', [AdoptionController::class, 'pdf']);
+
+    // Exports Excel Adoptions
+    Route::get('export/adoptions/excel', [AdoptionController::class, 'excel']);
+
+    // Search Adoptions
+    Route::post('search/adoptions', [AdoptionController::class, 'search']);
 });
 
 
