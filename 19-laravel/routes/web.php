@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PetController;
 use App\Http\Controllers\AdoptionController;
+use App\Http\Controllers\CustomerController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -135,6 +136,23 @@ Route::middleware('auth')->group( function () {
     Route::post('search/adoptions', [AdoptionController::class, 'search']);
 });
 
+// Search
+
+Route::post('search/users', [UserController::class, 'search']);
+Route::post('search/pets', [PetController::class, 'search']);
+Route::post('search/adoptions', [AdoptionController::class, 'search']);
+
+// Customer
+Route::get('myprofile/', [CustomerController::class, 'myprofile']);
+Route::put('myprofile/{id}', [CustomerController::class, 'updateprofile']);
+
+Route::get('myadoptions/', [CustomerController::class, 'myadoptions']);
+Route::get('myadoption/{id}', [CustomerController::class, 'showmyadoption']);
+
+Route::get('makeadoption/', [CustomerController::class, 'listpets']);
+Route::post('search/adoptionpets', [CustomerController::class, 'search']);
+Route::get('confirmadoption/{id}', [CustomerController::class, 'showpet']);
+Route::post('makeadoption/{id}', [CustomerController::class, 'makeadoption']);
 
 
 require __DIR__.'/auth.php';
