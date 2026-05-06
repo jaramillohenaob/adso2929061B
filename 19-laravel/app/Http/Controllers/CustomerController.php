@@ -58,8 +58,8 @@ class CustomerController extends Controller
         return view('customer.myadoptions')->with('adoptions', $adoptions);
     }
 
-    public function showmyadoption(Request $request) {
-        $adoption = Adoption::find($request->id);
+    public function showmyadoption($id) {
+        $adoption = Adoption::findOrFail($id);
         return view('customer.showmyadoption')->with('adopt', $adoption);
     }
 }
