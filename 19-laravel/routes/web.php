@@ -150,7 +150,7 @@ Route::middleware('auth')->group(function () {
     Route::get('myadoptions/', [CustomerController::class, 'myadoptions']);
     Route::get('myadoption/{id}', [CustomerController::class, 'showmyadoption']);
 
-    Route::get('makeadoption/', [CustomerController::class, 'listpets']);
+    Route::get('listpets/', [CustomerController::class, 'listpets']);
     Route::post('search/adoptionpets', [CustomerController::class, 'search']);
     Route::get('confirmadoption/{id}', [CustomerController::class, 'showpet']);
     Route::post('makeadoption/{id}', [CustomerController::class, 'makeadoption']);

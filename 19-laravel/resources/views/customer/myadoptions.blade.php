@@ -31,26 +31,6 @@
             </li>
         </ul>
         </div>
-
-        @if (count($adoptions) > 0)
-        {{-- Search --}}
-        <label class="input text-white bg-[#0009] w-44 md:w-84 outline outline-white mb-10">
-            <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                <g
-                stroke-linejoin="round"
-                stroke-linecap="round"
-                stroke-width="2.5"
-                fill="none"
-                stroke="currentColor"
-                >
-                <circle cx="11" cy="11" r="8"></circle>
-                <path d="m21 21-4.3-4.3"></path>
-                </g>
-            </svg>
-            <input type="search" placeholder="Search..." name="qsearch" id="qsearch" />
-        </label>
-    </div>
-    @endif
     <div class="datalist flex flex-col gap-4 items-center justify-center">
         @forelse ($adoptions as $adopt)
             <div class="avatar-group mt-2 -space-x-6">

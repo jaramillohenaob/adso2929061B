@@ -178,4 +178,9 @@ class UserController extends Controller
         $users = User::names($request->q)->orderBy('id','desc')->paginate(12);
         return view('users.search')->with('users', $users);
     }
+
+    public function listpets() {
+        $pets = Pet::where('status', 0)->orderBy('id', 'desc')->paginate(12);
+        return view('customer.list')->with('pets', $pets);
+    }
 }
