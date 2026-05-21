@@ -40,9 +40,10 @@ class AuthController extends Controller
 }
 
     public function logout(Request $request) {
-                $token = $request->header('Authorization');
-                $user = User::where('remember_token', $token)->first();
-                if ($user) {
+        $token = $request->header('Authorization');
+        $token = str_replace('Bearer ', '', $token);
+        $user = User::where('remember_token', $token)->first();
+        if ($user) {
                     $user->update(['remember_token' => null]);
                     return response()->json([
                         'message' => '✅ Logout successful'
