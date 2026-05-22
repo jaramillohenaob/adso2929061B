@@ -27,7 +27,7 @@ class PetController extends Controller
             ], 200);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return response()->json([
-                'message' => '❌ Invalid ID'
+                'message' => '❌ Pet with ID ' .$id. ' not found'
             ], 404);
         }
     }
@@ -37,7 +37,6 @@ class PetController extends Controller
         try {
             $request->validate([
                 'name' => 'required|max:50',
-                'image' => 'required|max:50',
                 'kind' => 'required|max:50',
                 'weight' => 'required|max:50',
                 'age' => 'required|max:50',
@@ -49,7 +48,7 @@ class PetController extends Controller
             ]);
             $pet = Pet::create($request->all());
             return response()->json([
-                'message' => '✅ Pet created successfully',
+                'message' => '✅ Pet ' .$pet->name. ' created successfully with ID: ' .$pet->id,
                 'pet' => $pet 
             ], 200);
         } catch (\Illuminate\Validation\ValidationException $e) {
@@ -66,7 +65,7 @@ class PetController extends Controller
             $pet = Pet::findOrFail($id);
             $pet->update($request->all());
             return response()->json([
-                'message' => '✅ Pet updated successfully',
+                'message' => '✅ Pet ' .$pet->name. ' updated successfully',
                 'pet' => $pet 
             ], 200);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
@@ -82,7 +81,7 @@ class PetController extends Controller
             $pet = Pet::findOrFail($id);
             $pet->delete();
             return response()->json([
-                'message' => '✅ Pet deleted successfully'
+                'message' => '✅ Pet ' .$pet->name. ' deleted successfully'
             ], 200);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return response()->json([
