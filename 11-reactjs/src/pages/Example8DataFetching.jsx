@@ -1,12 +1,13 @@
 import Btnback from '../components/BtnBack';
 
-function Example3Props() {
+function Example8DataFetching() {
     return (
         <div className="container">
             <Btnback />
-            <h2>Example3Props</h2>
+            <h2>Example8DataFetching</h2>
         </div>
     );
-}      
+}
 
-export default Example3Props;
+
+export default Example8DataFetching;

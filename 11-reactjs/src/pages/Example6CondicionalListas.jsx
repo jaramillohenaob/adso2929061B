@@ -1,7 +1,10 @@
+import Btnback from '../components/BtnBack';
+
 function Example6CondicionalLists() {
     return (
         <div className="container">
-            <h1>Example6CondicionalLists</h1>
+            <Btnback />
+            <h2>Example6CondicionalLists</h2>
         </div>
     );
 }    

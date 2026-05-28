@@ -1,7 +1,10 @@
+import Btnback from '../components/BtnBack';
+
 function Example4StateHooks() {
     return (
         <div className="container">
-            <h1>Example4StateHooks</h1>
+            <Btnback />
+            <h2>Example4StateHooks</h2>
         </div>
     );
 }    

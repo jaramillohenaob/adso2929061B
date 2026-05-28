@@ -1,12 +1,12 @@
 import Btnback from '../components/BtnBack';
 
-function Example3Props() {
+function Example7Routing() {
     return (
         <div className="container">
             <Btnback />
-            <h2>Example3Props</h2>
+            <h2>Example7Routing</h2>
         </div>
     );
-}      
+}     
 
-export default Example3Props;
+export default Example7Routing;
