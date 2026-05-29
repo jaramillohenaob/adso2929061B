@@ -17,3 +17,95 @@ h1 {
   color: #fff;
   padding: 1rem;
 }
+
+.pokemon-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.pokemon-feed-card {
+  width: 360px;
+  margin: 25px auto 0;
+  padding: 20px;
+  text-align: center;
+  color: #143656;
+  background-color: white;
+  border: 2px solid black;
+  border-radius: 8px;
+}
+
+.pokemon-feed-card select {
+  width: 180px;
+  margin-top: 10px;
+  padding: 8px;
+  border: 2px solid black;
+  border-radius: 5px;
+}
+
+.pokemon-area {
+  position: relative;
+  height: 250px;
+  margin: 20px 0;
+}
+
+.pokemon-area img {
+  width: 230px;
+  height: 230px;
+  object-fit: contain;
+}
+
+.pokemon-jump {
+  animation: jump 0.5s;
+}
+
+.plus-one {
+  position: absolute;
+  top: 5px;
+  right: 80px;
+  color: #198754;
+  font-size: 28px;
+  font-weight: bold;
+  animation: plusOne 0.5s;
+}
+
+.pokemon-feed-card button {
+  margin: 5px;
+  padding: 8px 12px;
+  color: white;
+  background-color: #143656;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.pokemon-feed-card button:hover {
+  background-color: #29b1de;
+}
+
+@keyframes jump {
+  0% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-25px);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes plusOne {
+  0% {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(-10px);
+  }
+}
