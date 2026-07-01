@@ -36,25 +36,37 @@ class PetController extends Controller
     {
         try {
             $request->validate([
-                'name' => 'required|max:50',
-                'kind' => 'required|max:50',
-                'weight' => 'required|max:50',
-                'age' => 'required|max:50',
-                'breed' => 'required|max:50',
-                'location' => 'required|max:50',
+                'name'        => 'required|max:50',
+                'kind'        => 'required|max:50',
+                'weight'      => 'required|max:50',
+                'age'         => 'required|max:50',
+                'breed'       => 'required|max:50',
+                'location'    => 'required|max:50',
                 'description' => 'required|max:50',
-                'active' => 'required|max:50',
-                'adopted' => 'required|max:50',
+                'active'      => 'required',
+                'adopted'     => 'required',
+                'image'       => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:5120',
             ]);
-            $pet = Pet::create($request->all());
+
+            $data = $request->except('image');
+
+            if ($request->hasFile('image')) {
+                $file     = $request->file('image');
+                $filename = uniqid('pet_', true) . '.' . $file->getClientOriginalExtension();
+                $file->storeAs('images', $filename, 'public');
+                $data['image'] = asset('storage/images/' . $filename);
+            }
+
+            $pet = Pet::create($data);
             return response()->json([
-                'message' => '✅ Pet ' .$pet->name. ' created successfully with ID: ' .$pet->id,
-                'pet' => $pet 
+                'message' => '✅ Pet ' . $pet->name . ' created successfully with ID: ' . $pet->id,
+                'pet'     => $pet,
             ], 200);
+
         } catch (\Illuminate\Validation\ValidationException $e) {
             return response()->json([
                 'message' => '❌ Invalid data',
-                'errors' => $e->errors()
+                'errors'  => $e->errors(),
             ], 400);
         }
     }
@@ -62,15 +74,25 @@ class PetController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            $pet = Pet::findOrFail($id);
-            $pet->update($request->all());
+            $pet  = Pet::findOrFail($id);
+            $data = $request->except('image');
+
+            if ($request->hasFile('image')) {
+                $file     = $request->file('image');
+                $filename = uniqid('pet_', true) . '.' . $file->getClientOriginalExtension();
+                $file->storeAs('images', $filename, 'public');
+                $data['image'] = asset('storage/images/' . $filename);
+            }
+
+            $pet->update($data);
             return response()->json([
-                'message' => '✅ Pet ' .$pet->name. ' updated successfully',
-                'pet' => $pet 
+                'message' => '✅ Pet ' . $pet->name . ' updated successfully',
+                'pet'     => $pet,
             ], 200);
+
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return response()->json([
-                'message' => '❌ Invalid ID'
+                'message' => '❌ Invalid ID',
             ], 404);
         }
     }
@@ -81,11 +103,11 @@ class PetController extends Controller
             $pet = Pet::findOrFail($id);
             $pet->delete();
             return response()->json([
-                'message' => '✅ Pet ' .$pet->name. ' deleted successfully'
+                'message' => '✅ Pet ' . $pet->name . ' deleted successfully',
             ], 200);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return response()->json([
-                'message' => '❌ Invalid ID'
+                'message' => '❌ Invalid ID',
             ], 404);
         }
     }

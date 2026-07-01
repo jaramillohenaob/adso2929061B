@@ -28,6 +28,7 @@ const mapPetFromApi = (pet = {}) => ({
 
 const mapPetToApi = (form = {}) => ({
   name: form.nombre ?? form.name ?? "",
+  image: form.foto ?? form.image ?? "",
   kind: form.tipo ?? form.kind ?? "",
   weight: form.peso ?? form.weight ?? "",
   age: form.edad ?? form.age ?? "",
@@ -40,12 +41,13 @@ const mapPetToApi = (form = {}) => ({
 
 const apiFetch = async (path, options = {}) => {
   const token = getToken();
+  const isFormData = options.body instanceof FormData;
   const res = await fetch(`${API_URL}${path}`, {
     ...options,
     headers: {
-      "Content-Type": "application/json",
       Accept: "application/json",
       ...(token ? { Authorization: `Bearer ${token}` } : {}),
+      ...(isFormData ? {} : { "Content-Type": "application/json" }),
       ...(options.headers || {}),
     },
   });
@@ -722,7 +724,7 @@ function Dashboard({ onLogout }) {
       if (!result.isConfirmed) return;
       try {
         // Llama al endpoint de logout si existe; ignora error si no
-        await apiFetch("/logout", { method: "POST" }).catch(() => {});
+        await apiFetch("/logout", { method: "POST" }).catch(() => { });
       } finally {
         localStorage.removeItem("token");
         onLogout();
@@ -847,11 +849,11 @@ function LegacyCreatePet() {
     <div className="flex flex-col h-full" style={{ background: "#C9CDB1" }}>
       <Header title="Create Pet" onBack={() => navigate("/challenge/dashboard")} />
       <div className="flex-1 overflow-y-auto px-4 py-4">
-        <FormField label="Nombre"    name="nombre"    value={form.nombre}    onChange={handleChange} />
-        <FormField label="Tipo"      name="tipo"      value={form.tipo}      onChange={handleChange} />
-        <FormField label="Peso"      name="peso"      value={form.peso}      onChange={handleChange} type="number" />
-        <FormField label="Edad"      name="edad"      value={form.edad}      onChange={handleChange} type="number" />
-        <FormField label="Raza"      name="raza"      value={form.raza}      onChange={handleChange} />
+        <FormField label="Nombre" name="nombre" value={form.nombre} onChange={handleChange} />
+        <FormField label="Tipo" name="tipo" value={form.tipo} onChange={handleChange} />
+        <FormField label="Peso" name="peso" value={form.peso} onChange={handleChange} type="number" />
+        <FormField label="Edad" name="edad" value={form.edad} onChange={handleChange} type="number" />
+        <FormField label="Raza" name="raza" value={form.raza} onChange={handleChange} />
         <FormField label="Ubicación" name="ubicacion" value={form.ubicacion} onChange={handleChange} />
       </div>
       <div className="flex gap-3 px-4 py-3" style={{ background: "#C9CDB1", borderTop: "1px solid rgba(73,77,49,0.2)" }}>
@@ -920,10 +922,10 @@ function LegacyShowPet() {
         <div className="rounded-xl p-4" style={{ background: "#939B63" }}>
           <ReadField label="Nombre" value={pet.nombre ?? pet.name} />
           <div className="grid grid-cols-2 gap-3">
-            <ReadField label="Tipo"  value={pet.tipo  ?? pet.kind}  />
-            <ReadField label="Peso"  value={pet.peso  ?? pet.weight} />
-            <ReadField label="Edad"  value={pet.edad  ?? pet.age}   />
-            <ReadField label="Raza"  value={pet.raza  ?? pet.breed} />
+            <ReadField label="Tipo" value={pet.tipo ?? pet.kind} />
+            <ReadField label="Peso" value={pet.peso ?? pet.weight} />
+            <ReadField label="Edad" value={pet.edad ?? pet.age} />
+            <ReadField label="Raza" value={pet.raza ?? pet.breed} />
           </div>
           <ReadField label="Ubicación" value={pet.ubicacion ?? pet.location} />
         </div>
@@ -947,11 +949,11 @@ function LegacyUpdatePet() {
       .then((data) => {
         const p = mapPetFromApi(data.pet ?? data.data ?? data);
         setForm({
-          nombre:    p.nombre,
-          tipo:      p.tipo,
-          peso:      p.peso,
-          edad:      p.edad,
-          raza:      p.raza,
+          nombre: p.nombre,
+          tipo: p.tipo,
+          peso: p.peso,
+          edad: p.edad,
+          raza: p.raza,
           ubicacion: p.ubicacion,
         });
       })
@@ -999,11 +1001,11 @@ function LegacyUpdatePet() {
     <div className="flex flex-col h-full" style={{ background: "#C9CDB1" }}>
       <Header title="Update Pet" onBack={() => navigate("/challenge/dashboard")} />
       <div className="flex-1 overflow-y-auto px-4 py-4">
-        <FormField label="Nombre"    name="nombre"    value={form.nombre}    onChange={handleChange} />
-        <FormField label="Tipo"      name="tipo"      value={form.tipo}      onChange={handleChange} />
-        <FormField label="Peso"      name="peso"      value={form.peso}      onChange={handleChange} type="number" />
-        <FormField label="Edad"      name="edad"      value={form.edad}      onChange={handleChange} type="number" />
-        <FormField label="Raza"      name="raza"      value={form.raza}      onChange={handleChange} />
+        <FormField label="Nombre" name="nombre" value={form.nombre} onChange={handleChange} />
+        <FormField label="Tipo" name="tipo" value={form.tipo} onChange={handleChange} />
+        <FormField label="Peso" name="peso" value={form.peso} onChange={handleChange} type="number" />
+        <FormField label="Edad" name="edad" value={form.edad} onChange={handleChange} type="number" />
+        <FormField label="Raza" name="raza" value={form.raza} onChange={handleChange} />
         <FormField label="Ubicación" name="ubicacion" value={form.ubicacion} onChange={handleChange} />
       </div>
       <div className="flex gap-3 px-4 py-3" style={{ background: "#C9CDB1", borderTop: "1px solid rgba(73,77,49,0.2)" }}>
@@ -1034,11 +1036,20 @@ LegacyUpdatePet.displayName = "LegacyUpdatePet";
 
 function CreatePet() {
   const navigate = useNavigate();
-  const [form, setForm] = useState({ nombre: "", tipo: "", peso: "", edad: "", raza: "", ubicacion: "" });
-  const [loading, setLoading] = useState(false);
+  const [form, setForm] = useState({ nombre: "", foto: "", tipo: "", peso: "", edad: "", raza: "", ubicacion: "" });
+  const [imageFile, setImageFile] = useState(null);
+  const [preview, setPreview]   = useState(null);
+  const [loading, setLoading]   = useState(false);
 
   const handleChange = (e) =>
     setForm((f) => ({ ...f, [e.target.name]: e.target.value }));
+
+  const handleFile = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    setImageFile(file);
+    setPreview(URL.createObjectURL(file));
+  };
 
   const handleCreate = async () => {
     if (!form.nombre.trim() || !form.tipo.trim()) {
@@ -1047,7 +1058,12 @@ function CreatePet() {
     }
     setLoading(true);
     try {
-      await apiFetch("/pets/store", { method: "POST", body: JSON.stringify(mapPetToApi(form)) });
+      const fd = new FormData();
+      const mapped = mapPetToApi(form);
+      Object.entries(mapped).forEach(([k, v]) => fd.append(k, v));
+      if (imageFile) fd.append("image", imageFile);
+
+      await apiFetch("/pets/store", { method: "POST", body: fd });
       Swal.fire({ icon: "success", title: "Mascota creada", timer: 1500, showConfirmButton: false })
         .then(() => navigate("/challenge/dashboard"));
     } catch (err) {
@@ -1060,8 +1076,20 @@ function CreatePet() {
   return (
     <div style={petUi.screen}>
       <PetTopBar title="Create Pet" onBack={() => navigate("/challenge/dashboard")} />
-      <main style={{ padding: "26px 24px 0" }}>
-        <section style={{ ...petUi.panel, padding: "22px 10px 17px" }}>
+      <main style={{ padding: "16px 24px 0", overflowY: "auto", maxHeight: "calc(640px - 44px)" }}>
+        <section style={{ ...petUi.panel, padding: "16px 10px 17px" }}>
+          {/* Preview foto */}
+          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", marginBottom: 10 }}>
+            <div style={{ width: 90, height: 82, borderRadius: 8, background: "#494D31", overflow: "hidden", marginBottom: 6, display: "flex", alignItems: "center", justifyContent: "center" }}>
+              {preview
+                ? <img src={preview} alt="preview" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                : <span style={{ fontSize: 28 }}>🐾</span>}
+            </div>
+            <label style={{ cursor: "pointer", fontSize: 12, color: "#C9CDB1", background: "#494D31", padding: "4px 12px", borderRadius: 6 }}>
+              Elegir foto
+              <input type="file" accept="image/*" onChange={handleFile} style={{ display: "none" }} />
+            </label>
+          </div>
           <PetInput label="Nombre" name="nombre" value={form.nombre} onChange={handleChange} />
           <PetInput label="Tipo" name="tipo" value={form.tipo} onChange={handleChange} />
           <PetInput label="Peso" name="peso" value={form.peso} onChange={handleChange} type="number" />
@@ -1069,7 +1097,7 @@ function CreatePet() {
           <PetInput label="Raza" name="raza" value={form.raza} onChange={handleChange} />
           <PetInput label="Ubicación" name="ubicacion" value={form.ubicacion} onChange={handleChange} />
         </section>
-        <div style={{ display: "flex", justifyContent: "center", gap: 17, marginTop: 19 }}>
+        <div style={{ display: "flex", justifyContent: "center", gap: 17, marginTop: 19, paddingBottom: 16 }}>
           <PetActionButton variant="outline" onClick={() => navigate("/challenge/dashboard")}>
             Cancelar
           </PetActionButton>
@@ -1090,7 +1118,7 @@ function ShowPet() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    apiFetch(`/pets/${id}`)
+    apiFetch(`/pets/show/${id}`)
       .then((data) => setPet(data.data ?? data))
       .catch((err) =>
         Swal.fire({ icon: "error", title: "Error", text: err.message, confirmButtonColor: "#494D31" })
@@ -1114,7 +1142,7 @@ function ShowPet() {
   return (
     <div style={petUi.screen}>
       <PetTopBar title="Show Pet" onBack={() => navigate("/challenge/dashboard")} />
-      <main style={{ padding: "26px 17px 0" }}>
+      <main style={{ padding: "26px 17px 0", overflowY: "auto", maxHeight: "calc(640px - 44px)" }}>
         <section style={{ ...petUi.panel, minHeight: 444, padding: "10px 8px 16px" }}>
           <div style={{ display: "flex", justifyContent: "center", marginBottom: 12 }}>
             <div style={{ width: 134, height: 124, borderRadius: 8, background: "#494D31", padding: 9, boxSizing: "border-box" }}>
@@ -1144,20 +1172,23 @@ function UpdatePet() {
   const navigate = useNavigate();
   const location = useLocation();
   const id = location.pathname.split("/").pop();
-  const [form, setForm] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [saving, setSaving] = useState(false);
+  const [form, setForm]         = useState(null);
+  const [imageFile, setImageFile] = useState(null);
+  const [preview, setPreview]   = useState(null);
+  const [loading, setLoading]   = useState(true);
+  const [saving, setSaving]     = useState(false);
 
   useEffect(() => {
     apiFetch(`/pets/show/${id}`)
       .then((data) => {
         const p = mapPetFromApi(data.pet ?? data.data ?? data);
+        setPreview(p.foto || null);
         setForm({
-          nombre: p.nombre,
-          tipo: p.tipo,
-          peso: p.peso,
-          edad: p.edad,
-          raza: p.raza,
+          nombre:    p.nombre,
+          tipo:      p.tipo,
+          peso:      p.peso,
+          edad:      p.edad,
+          raza:      p.raza,
           ubicacion: p.ubicacion,
         });
       })
@@ -1170,6 +1201,13 @@ function UpdatePet() {
   const handleChange = (e) =>
     setForm((f) => ({ ...f, [e.target.name]: e.target.value }));
 
+  const handleFile = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    setImageFile(file);
+    setPreview(URL.createObjectURL(file));
+  };
+
   const handleUpdate = async () => {
     if (!form.nombre?.trim() || !form.tipo?.trim()) {
       Swal.fire({ icon: "warning", title: "Campos requeridos", text: "Nombre y tipo son obligatorios.", confirmButtonColor: "#494D31" });
@@ -1177,7 +1215,14 @@ function UpdatePet() {
     }
     setSaving(true);
     try {
-      await apiFetch(`/pets/edit/${id}`, { method: "PUT", body: JSON.stringify(mapPetToApi(form)) });
+      const fd = new FormData();
+      const mapped = mapPetToApi(form);
+      // Para PUT con FormData, Laravel necesita _method spoofing
+      fd.append("_method", "PUT");
+      Object.entries(mapped).forEach(([k, v]) => { if (k !== "image") fd.append(k, v); });
+      if (imageFile) fd.append("image", imageFile);
+
+      await apiFetch(`/pets/edit/${id}`, { method: "POST", body: fd });
       Swal.fire({ icon: "success", title: "Mascota actualizada", timer: 1500, showConfirmButton: false })
         .then(() => navigate("/challenge/dashboard"));
     } catch (err) {
@@ -1201,8 +1246,20 @@ function UpdatePet() {
   return (
     <div style={petUi.screen}>
       <PetTopBar title="Update Pet" onBack={() => navigate("/challenge/dashboard")} />
-      <main style={{ padding: "26px 24px 0" }}>
-        <section style={{ ...petUi.panel, padding: "22px 10px 17px" }}>
+      <main style={{ padding: "16px 24px 0", overflowY: "auto", maxHeight: "calc(640px - 44px)" }}>
+        <section style={{ ...petUi.panel, padding: "16px 10px 17px" }}>
+          {/* Preview foto */}
+          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", marginBottom: 10 }}>
+            <div style={{ width: 90, height: 82, borderRadius: 8, background: "#494D31", overflow: "hidden", marginBottom: 6, display: "flex", alignItems: "center", justifyContent: "center" }}>
+              {preview
+                ? <img src={preview} alt="preview" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                : <span style={{ fontSize: 28 }}>🐾</span>}
+            </div>
+            <label style={{ cursor: "pointer", fontSize: 12, color: "#C9CDB1", background: "#494D31", padding: "4px 12px", borderRadius: 6 }}>
+              Cambiar foto
+              <input type="file" accept="image/*" onChange={handleFile} style={{ display: "none" }} />
+            </label>
+          </div>
           <PetInput label="Nombre" name="nombre" value={form.nombre} onChange={handleChange} />
           <PetInput label="Tipo" name="tipo" value={form.tipo} onChange={handleChange} />
           <PetInput label="Peso" name="peso" value={form.peso} onChange={handleChange} type="number" />
@@ -1210,7 +1267,7 @@ function UpdatePet() {
           <PetInput label="Raza" name="raza" value={form.raza} onChange={handleChange} />
           <PetInput label="Ubicación" name="ubicacion" value={form.ubicacion} onChange={handleChange} />
         </section>
-        <div style={{ display: "flex", justifyContent: "center", gap: 17, marginTop: 19 }}>
+        <div style={{ display: "flex", justifyContent: "center", gap: 17, marginTop: 19, paddingBottom: 16 }}>
           <PetActionButton variant="outline" onClick={() => navigate("/challenge/dashboard")}>
             Cancelar
           </PetActionButton>
@@ -1227,7 +1284,7 @@ function Challenge() {
   // Arranca ya logueado si hay token guardado
   const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("token"));
 
-  const handleLogin  = () => setIsLoggedIn(true);
+  const handleLogin = () => setIsLoggedIn(true);
   const handleLogout = () => setIsLoggedIn(false);
 
   return (
