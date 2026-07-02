@@ -20,7 +20,7 @@ const mapPetFromApi = (pet = {}) => ({
   edad: pet.edad ?? pet.age ?? "",
   raza: pet.raza ?? pet.breed ?? "",
   ubicacion: pet.ubicacion ?? pet.location ?? "",
-  foto: pet.foto ?? pet.image ?? "",
+  foto: pet.foto ?? pet.image ?? pet.photo ?? "",
   descripcion: pet.descripcion ?? pet.description ?? "",
   activo: pet.activo ?? pet.active ?? 1,
   adoptado: pet.adoptado ?? pet.adopted ?? 0,
@@ -28,7 +28,6 @@ const mapPetFromApi = (pet = {}) => ({
 
 const mapPetToApi = (form = {}) => ({
   name: form.nombre ?? form.name ?? "",
-  image: form.foto ?? form.image ?? "",
   kind: form.tipo ?? form.kind ?? "",
   weight: form.peso ?? form.weight ?? "",
   age: form.edad ?? form.age ?? "",
@@ -46,21 +45,39 @@ const apiFetch = async (path, options = {}) => {
     ...options,
     headers: {
       Accept: "application/json",
-      ...(token ? { Authorization: `Bearer ${token}` } : {}),
       ...(isFormData ? {} : { "Content-Type": "application/json" }),
+      ...(token ? { Authorization: `Bearer ${token}` } : {}),
       ...(options.headers || {}),
     },
   });
 
   if (!res.ok) {
     const error = await res.json().catch(() => ({ message: "Error en el servidor" }));
-    throw new Error(error.message || `Error ${res.status}`);
+    throw new Error(error.message || error?.data?.message || `Error ${res.status}`);
   }
 
   // 204 No Content (DELETE) no trae body
   if (res.status === 204) return null;
   return res.json();
 };
+
+const getApiMessage = (result) => result?.message || result?.data?.message || "";
+
+const showApiSuccess = (result, fallback = "Operación exitosa") =>
+  Swal.fire({
+    icon: "success",
+    title: getApiMessage(result) || fallback,
+    timer: 1500,
+    showConfirmButton: false,
+    confirmButtonColor: "#494D31",
+  });
+
+const showApiError = (error, fallback = "Error") =>
+  Swal.fire({
+    icon: "error",
+    title: error?.message || fallback,
+    confirmButtonColor: "#494D31",
+  });
 
 /* ─── ICONOS SVG ─────────────────────────────────────────────────────────── */
 const PawIcon = ({ size = 32, color = "currentColor" }) => (
@@ -189,8 +206,12 @@ function Spinner() {
 
 const petUi = {
   screen: {
-    width: 360,
-    height: 640,
+    display: "flex",
+    flexDirection: "column",
+    width: "min(92vw, 420px)",
+    height: "min(94vh, 760px)",
+    maxWidth: 420,
+    maxHeight: 760,
     overflow: "hidden",
     background: "#C9CDB1",
     color: "#494D31",
@@ -210,8 +231,8 @@ const petUi = {
     margin: 0,
     color: "#C9CDB1",
     textAlign: "right",
-    fontSize: 29,
-    fontWeight: 400,
+    fontSize: 46,
+    fontWeight: 600,
     lineHeight: 1,
   },
   panel: {
@@ -250,19 +271,18 @@ function PetTopBar({ title, onBack }) {
         onClick={onBack}
         aria-label="Volver"
         style={{
-          width: 30,
-          height: 30,
+          width: 40,
+          height: 40,
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          border: "2px solid #C9CDB1",
           borderRadius: "50%",
-          background: "transparent",
+          background: "rgba(201,205,177,0.18)",
           padding: 0,
           cursor: "pointer",
         }}
       >
-        <BackIcon size={21} color="#C9CDB1" />
+        <BackIcon size={24} color="#C9CDB1" />
       </button>
       <h1 style={petUi.title}>{title}</h1>
     </header>
@@ -280,6 +300,51 @@ function PetInput({ label, name, value, onChange, type = "text" }) {
         onChange={onChange}
         style={petUi.field}
       />
+    </div>
+  );
+}
+
+function PhotoInput({ preview, onFileChange }) {
+  return (
+    <div style={{ marginBottom: 14 }}>
+      <label style={{ ...petUi.label, marginBottom: 10 }}>Foto</label>
+      <div style={{ position: "relative" }}>
+        <input
+          id="pet-photo-input"
+          type="file"
+          accept="image/*"
+          onChange={onFileChange}
+          style={{ position: "absolute", inset: 0, opacity: 0, cursor: "pointer", zIndex: 2 }}
+        />
+        <div
+          style={{
+            minHeight: 150,
+            borderRadius: 24,
+            border: "2px dashed #494D31",
+            background: "#7a8250",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            color: "#C9CDB1",
+            textAlign: "center",
+            padding: 16,
+            overflow: "hidden",
+          }}
+        >
+          {preview ? (
+            <img
+              src={preview}
+              alt="Preview"
+              style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: 20 }}
+            />
+          ) : (
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 10 }}>
+              <PlusIcon size={40} color="#C9CDB1" />
+              <span style={{ fontSize: 14, fontWeight: 600 }}>Agregar foto</span>
+            </div>
+          )}
+        </div>
+      </div>
     </div>
   );
 }
@@ -382,7 +447,7 @@ function LoginView({ onLogin }) {
             src="/bg-login.svg"
             alt=""
             aria-hidden="true"
-            className="mx-auto h-full w-full scale-125 object-contain opacity-75"
+            className="mx-auto h-full w-full object-contain opacity-75"
           />
         </div>
 
@@ -469,31 +534,33 @@ function LoginPixel({ onLogin }) {
 
   const inputStyle = {
     width: "100%",
-    height: 34,
+    height: 40,
     border: 0,
-    borderRadius: 8,
+    borderRadius: 10,
     outline: "none",
     background: "#494D31",
     color: "#C9CDB1",
-    fontSize: 16,
-    padding: "0 12px",
+    fontSize: 17,
+    padding: "0 14px",
   };
 
   const labelStyle = {
     display: "block",
-    marginBottom: 5,
+    marginBottom: 6,
     color: "#C9CDB1",
-    fontSize: 20,
+    fontSize: 22,
     fontWeight: 300,
-    lineHeight: 1,
+    lineHeight: 1.1,
   };
 
   return (
     <div
       style={{
         position: "relative",
-        width: 360,
-        height: 640,
+        width: "min(92vw, 420px)",
+        height: "min(94vh, 760px)",
+        maxWidth: 420,
+        maxHeight: 760,
         overflow: "hidden",
         background: "#C9CDB1",
         color: "#494D31",
@@ -628,14 +695,14 @@ function LoginPixel({ onLogin }) {
               type="submit"
               disabled={loading}
               style={{
-                minWidth: 136,
-                height: 42,
+                minWidth: 150,
+                height: 46,
                 border: 0,
-                borderRadius: 10,
+                borderRadius: 12,
                 background: "#494D31",
                 color: "#C9CDB1",
                 cursor: loading ? "not-allowed" : "pointer",
-                fontSize: 20,
+                fontSize: 22,
                 fontWeight: 500,
                 lineHeight: 1,
                 opacity: loading ? 0.6 : 1,
@@ -702,11 +769,11 @@ function Dashboard({ onLogout }) {
     }).then(async (result) => {
       if (!result.isConfirmed) return;
       try {
-        await apiFetch(`/pets/delete/${pet.id}`, { method: "DELETE" });
+        const data = await apiFetch(`/pets/delete/${pet.id}`, { method: "DELETE" });
         setPets((prev) => prev.filter((p) => p.id !== pet.id));
-        Swal.fire({ icon: "success", title: "Mascota eliminada", timer: 1500, showConfirmButton: false });
+        showApiSuccess(data, "Mascota eliminada");
       } catch (err) {
-        Swal.fire({ icon: "error", title: "Error al eliminar", text: err.message, confirmButtonColor: "#494D31" });
+        showApiError(err, "Error al eliminar");
       }
     });
   };
@@ -724,7 +791,7 @@ function Dashboard({ onLogout }) {
       if (!result.isConfirmed) return;
       try {
         // Llama al endpoint de logout si existe; ignora error si no
-        await apiFetch("/logout", { method: "POST" }).catch(() => { });
+        await apiFetch("/logout", { method: "POST" }).catch(() => {});
       } finally {
         localStorage.removeItem("token");
         onLogout();
@@ -760,7 +827,7 @@ function Dashboard({ onLogout }) {
           style={{ background: "#494D31", color: "#C9CDB1" }}
         >
           <PlusIcon size={20} color="#C9CDB1" />
-          + Pet
+          Pet
         </button>
       </div>
 
@@ -832,14 +899,13 @@ function LegacyCreatePet() {
     }
     setLoading(true);
     try {
-      await apiFetch("/pets/store", {
+      const data = await apiFetch("/pets/store", {
         method: "POST",
         body: JSON.stringify(mapPetToApi(form)),
       });
-      Swal.fire({ icon: "success", title: "¡Mascota creada!", timer: 1500, showConfirmButton: false })
-        .then(() => navigate("/challenge/dashboard"));
+      showApiSuccess(data, "Mascota creada").then(() => navigate("/challenge/dashboard"));
     } catch (err) {
-      Swal.fire({ icon: "error", title: "Error al crear", text: err.message, confirmButtonColor: "#494D31" });
+      showApiError(err, "Error al crear");
     } finally {
       setLoading(false);
     }
@@ -849,11 +915,11 @@ function LegacyCreatePet() {
     <div className="flex flex-col h-full" style={{ background: "#C9CDB1" }}>
       <Header title="Create Pet" onBack={() => navigate("/challenge/dashboard")} />
       <div className="flex-1 overflow-y-auto px-4 py-4">
-        <FormField label="Nombre" name="nombre" value={form.nombre} onChange={handleChange} />
-        <FormField label="Tipo" name="tipo" value={form.tipo} onChange={handleChange} />
-        <FormField label="Peso" name="peso" value={form.peso} onChange={handleChange} type="number" />
-        <FormField label="Edad" name="edad" value={form.edad} onChange={handleChange} type="number" />
-        <FormField label="Raza" name="raza" value={form.raza} onChange={handleChange} />
+        <FormField label="Nombre"    name="nombre"    value={form.nombre}    onChange={handleChange} />
+        <FormField label="Tipo"      name="tipo"      value={form.tipo}      onChange={handleChange} />
+        <FormField label="Peso"      name="peso"      value={form.peso}      onChange={handleChange} type="number" />
+        <FormField label="Edad"      name="edad"      value={form.edad}      onChange={handleChange} type="number" />
+        <FormField label="Raza"      name="raza"      value={form.raza}      onChange={handleChange} />
         <FormField label="Ubicación" name="ubicacion" value={form.ubicacion} onChange={handleChange} />
       </div>
       <div className="flex gap-3 px-4 py-3" style={{ background: "#C9CDB1", borderTop: "1px solid rgba(73,77,49,0.2)" }}>
@@ -922,10 +988,10 @@ function LegacyShowPet() {
         <div className="rounded-xl p-4" style={{ background: "#939B63" }}>
           <ReadField label="Nombre" value={pet.nombre ?? pet.name} />
           <div className="grid grid-cols-2 gap-3">
-            <ReadField label="Tipo" value={pet.tipo ?? pet.kind} />
-            <ReadField label="Peso" value={pet.peso ?? pet.weight} />
-            <ReadField label="Edad" value={pet.edad ?? pet.age} />
-            <ReadField label="Raza" value={pet.raza ?? pet.breed} />
+            <ReadField label="Tipo"  value={pet.tipo  ?? pet.kind}  />
+            <ReadField label="Peso"  value={pet.peso  ?? pet.weight} />
+            <ReadField label="Edad"  value={pet.edad  ?? pet.age}   />
+            <ReadField label="Raza"  value={pet.raza  ?? pet.breed} />
           </div>
           <ReadField label="Ubicación" value={pet.ubicacion ?? pet.location} />
         </div>
@@ -949,17 +1015,15 @@ function LegacyUpdatePet() {
       .then((data) => {
         const p = mapPetFromApi(data.pet ?? data.data ?? data);
         setForm({
-          nombre: p.nombre,
-          tipo: p.tipo,
-          peso: p.peso,
-          edad: p.edad,
-          raza: p.raza,
+          nombre:    p.nombre,
+          tipo:      p.tipo,
+          peso:      p.peso,
+          edad:      p.edad,
+          raza:      p.raza,
           ubicacion: p.ubicacion,
         });
       })
-      .catch((err) =>
-        Swal.fire({ icon: "error", title: "Error", text: err.message, confirmButtonColor: "#494D31" })
-      )
+      .catch((err) => showApiError(err))
       .finally(() => setLoading(false));
   }, [id]);
 
@@ -973,14 +1037,13 @@ function LegacyUpdatePet() {
     }
     setSaving(true);
     try {
-      await apiFetch(`/pets/edit/${id}`, {
+      const data = await apiFetch(`/pets/edit/${id}`, {
         method: "PUT",
         body: JSON.stringify(mapPetToApi(form)),
       });
-      Swal.fire({ icon: "success", title: "¡Mascota actualizada!", timer: 1500, showConfirmButton: false })
-        .then(() => navigate("/challenge/dashboard"));
+      showApiSuccess(data, "Mascota actualizada").then(() => navigate("/challenge/dashboard"));
     } catch (err) {
-      Swal.fire({ icon: "error", title: "Error al actualizar", text: err.message, confirmButtonColor: "#494D31" });
+      showApiError(err, "Error al actualizar");
     } finally {
       setSaving(false);
     }
@@ -1001,11 +1064,11 @@ function LegacyUpdatePet() {
     <div className="flex flex-col h-full" style={{ background: "#C9CDB1" }}>
       <Header title="Update Pet" onBack={() => navigate("/challenge/dashboard")} />
       <div className="flex-1 overflow-y-auto px-4 py-4">
-        <FormField label="Nombre" name="nombre" value={form.nombre} onChange={handleChange} />
-        <FormField label="Tipo" name="tipo" value={form.tipo} onChange={handleChange} />
-        <FormField label="Peso" name="peso" value={form.peso} onChange={handleChange} type="number" />
-        <FormField label="Edad" name="edad" value={form.edad} onChange={handleChange} type="number" />
-        <FormField label="Raza" name="raza" value={form.raza} onChange={handleChange} />
+        <FormField label="Nombre"    name="nombre"    value={form.nombre}    onChange={handleChange} />
+        <FormField label="Tipo"      name="tipo"      value={form.tipo}      onChange={handleChange} />
+        <FormField label="Peso"      name="peso"      value={form.peso}      onChange={handleChange} type="number" />
+        <FormField label="Edad"      name="edad"      value={form.edad}      onChange={handleChange} type="number" />
+        <FormField label="Raza"      name="raza"      value={form.raza}      onChange={handleChange} />
         <FormField label="Ubicación" name="ubicacion" value={form.ubicacion} onChange={handleChange} />
       </div>
       <div className="flex gap-3 px-4 py-3" style={{ background: "#C9CDB1", borderTop: "1px solid rgba(73,77,49,0.2)" }}>
@@ -1036,20 +1099,25 @@ LegacyUpdatePet.displayName = "LegacyUpdatePet";
 
 function CreatePet() {
   const navigate = useNavigate();
-  const [form, setForm] = useState({ nombre: "", foto: "", tipo: "", peso: "", edad: "", raza: "", ubicacion: "" });
-  const [imageFile, setImageFile] = useState(null);
-  const [preview, setPreview]   = useState(null);
-  const [loading, setLoading]   = useState(false);
+  const [form, setForm] = useState({ nombre: "", tipo: "", peso: "", edad: "", raza: "", ubicacion: "" });
+  const [photoFile, setPhotoFile] = useState(null);
+  const [photoPreview, setPhotoPreview] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) =>
     setForm((f) => ({ ...f, [e.target.name]: e.target.value }));
 
-  const handleFile = (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-    setImageFile(file);
-    setPreview(URL.createObjectURL(file));
+  const handlePhotoChange = (e) => {
+    const file = e.target.files?.[0] ?? null;
+    setPhotoFile(file);
+    setPhotoPreview(file ? URL.createObjectURL(file) : "");
   };
+
+  useEffect(() => {
+    return () => {
+      if (photoPreview) URL.revokeObjectURL(photoPreview);
+    };
+  }, [photoPreview]);
 
   const handleCreate = async () => {
     if (!form.nombre.trim() || !form.tipo.trim()) {
@@ -1058,16 +1126,16 @@ function CreatePet() {
     }
     setLoading(true);
     try {
-      const fd = new FormData();
-      const mapped = mapPetToApi(form);
-      Object.entries(mapped).forEach(([k, v]) => fd.append(k, v));
-      if (imageFile) fd.append("image", imageFile);
-
-      await apiFetch("/pets/store", { method: "POST", body: fd });
-      Swal.fire({ icon: "success", title: "Mascota creada", timer: 1500, showConfirmButton: false })
-        .then(() => navigate("/challenge/dashboard"));
+      const body = new FormData();
+      const payload = mapPetToApi(form);
+      Object.keys(payload).forEach((key) => body.append(key, payload[key]));
+      if (photoFile) {
+        body.append("image", photoFile);
+      }
+      const data = await apiFetch("/pets/store", { method: "POST", body });
+      showApiSuccess(data, "Mascota creada").then(() => navigate("/challenge/dashboard"));
     } catch (err) {
-      Swal.fire({ icon: "error", title: "Error al crear", text: err.message, confirmButtonColor: "#494D31" });
+      showApiError(err, "Error al crear");
     } finally {
       setLoading(false);
     }
@@ -1076,20 +1144,9 @@ function CreatePet() {
   return (
     <div style={petUi.screen}>
       <PetTopBar title="Create Pet" onBack={() => navigate("/challenge/dashboard")} />
-      <main style={{ padding: "16px 24px 0", overflowY: "auto", maxHeight: "calc(640px - 44px)" }}>
-        <section style={{ ...petUi.panel, padding: "16px 10px 17px" }}>
-          {/* Preview foto */}
-          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", marginBottom: 10 }}>
-            <div style={{ width: 90, height: 82, borderRadius: 8, background: "#494D31", overflow: "hidden", marginBottom: 6, display: "flex", alignItems: "center", justifyContent: "center" }}>
-              {preview
-                ? <img src={preview} alt="preview" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
-                : <span style={{ fontSize: 28 }}>🐾</span>}
-            </div>
-            <label style={{ cursor: "pointer", fontSize: 12, color: "#C9CDB1", background: "#494D31", padding: "4px 12px", borderRadius: 6 }}>
-              Elegir foto
-              <input type="file" accept="image/*" onChange={handleFile} style={{ display: "none" }} />
-            </label>
-          </div>
+      <main style={{ flex: 1, padding: "26px 24px 28px", overflowY: "auto" }}>
+        <section style={{ ...petUi.panel, padding: "22px 10px 17px" }}>
+          <PhotoInput preview={photoPreview} onFileChange={handlePhotoChange} />
           <PetInput label="Nombre" name="nombre" value={form.nombre} onChange={handleChange} />
           <PetInput label="Tipo" name="tipo" value={form.tipo} onChange={handleChange} />
           <PetInput label="Peso" name="peso" value={form.peso} onChange={handleChange} type="number" />
@@ -1097,7 +1154,7 @@ function CreatePet() {
           <PetInput label="Raza" name="raza" value={form.raza} onChange={handleChange} />
           <PetInput label="Ubicación" name="ubicacion" value={form.ubicacion} onChange={handleChange} />
         </section>
-        <div style={{ display: "flex", justifyContent: "center", gap: 17, marginTop: 19, paddingBottom: 16 }}>
+        <div style={{ display: "flex", justifyContent: "center", gap: 17, marginTop: 19 }}>
           <PetActionButton variant="outline" onClick={() => navigate("/challenge/dashboard")}>
             Cancelar
           </PetActionButton>
@@ -1119,7 +1176,7 @@ function ShowPet() {
 
   useEffect(() => {
     apiFetch(`/pets/show/${id}`)
-      .then((data) => setPet(data.data ?? data))
+      .then((data) => setPet(mapPetFromApi(data.pet ?? data.data ?? data)))
       .catch((err) =>
         Swal.fire({ icon: "error", title: "Error", text: err.message, confirmButtonColor: "#494D31" })
       )
@@ -1142,7 +1199,7 @@ function ShowPet() {
   return (
     <div style={petUi.screen}>
       <PetTopBar title="Show Pet" onBack={() => navigate("/challenge/dashboard")} />
-      <main style={{ padding: "26px 17px 0", overflowY: "auto", maxHeight: "calc(640px - 44px)" }}>
+      <main style={{ flex: 1, padding: "26px 17px 0", overflowY: "auto" }}>
         <section style={{ ...petUi.panel, minHeight: 444, padding: "10px 8px 16px" }}>
           <div style={{ display: "flex", justifyContent: "center", marginBottom: 12 }}>
             <div style={{ width: 134, height: 124, borderRadius: 8, background: "#494D31", padding: 9, boxSizing: "border-box" }}>
@@ -1172,41 +1229,44 @@ function UpdatePet() {
   const navigate = useNavigate();
   const location = useLocation();
   const id = location.pathname.split("/").pop();
-  const [form, setForm]         = useState(null);
-  const [imageFile, setImageFile] = useState(null);
-  const [preview, setPreview]   = useState(null);
-  const [loading, setLoading]   = useState(true);
-  const [saving, setSaving]     = useState(false);
+  const [form, setForm] = useState(null);
+  const [photoFile, setPhotoFile] = useState(null);
+  const [photoPreview, setPhotoPreview] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
 
   useEffect(() => {
     apiFetch(`/pets/show/${id}`)
       .then((data) => {
         const p = mapPetFromApi(data.pet ?? data.data ?? data);
-        setPreview(p.foto || null);
         setForm({
-          nombre:    p.nombre,
-          tipo:      p.tipo,
-          peso:      p.peso,
-          edad:      p.edad,
-          raza:      p.raza,
+          nombre: p.nombre,
+          tipo: p.tipo,
+          peso: p.peso,
+          edad: p.edad,
+          raza: p.raza,
           ubicacion: p.ubicacion,
         });
+        setPhotoPreview(p.foto || p.image || "");
       })
-      .catch((err) =>
-        Swal.fire({ icon: "error", title: "Error", text: err.message, confirmButtonColor: "#494D31" })
-      )
+      .catch((err) => showApiError(err))
       .finally(() => setLoading(false));
   }, [id]);
 
   const handleChange = (e) =>
     setForm((f) => ({ ...f, [e.target.name]: e.target.value }));
 
-  const handleFile = (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-    setImageFile(file);
-    setPreview(URL.createObjectURL(file));
+  const handlePhotoChange = (e) => {
+    const file = e.target.files?.[0] ?? null;
+    setPhotoFile(file);
+    setPhotoPreview(file ? URL.createObjectURL(file) : photoPreview);
   };
+
+  useEffect(() => {
+    return () => {
+      if (photoPreview && photoFile) URL.revokeObjectURL(photoPreview);
+    };
+  }, [photoPreview, photoFile]);
 
   const handleUpdate = async () => {
     if (!form.nombre?.trim() || !form.tipo?.trim()) {
@@ -1215,18 +1275,16 @@ function UpdatePet() {
     }
     setSaving(true);
     try {
-      const fd = new FormData();
-      const mapped = mapPetToApi(form);
-      // Para PUT con FormData, Laravel necesita _method spoofing
-      fd.append("_method", "PUT");
-      Object.entries(mapped).forEach(([k, v]) => { if (k !== "image") fd.append(k, v); });
-      if (imageFile) fd.append("image", imageFile);
-
-      await apiFetch(`/pets/edit/${id}`, { method: "POST", body: fd });
-      Swal.fire({ icon: "success", title: "Mascota actualizada", timer: 1500, showConfirmButton: false })
-        .then(() => navigate("/challenge/dashboard"));
+      const body = new FormData();
+      const payload = mapPetToApi(form);
+      Object.keys(payload).forEach((key) => body.append(key, payload[key]));
+      if (photoFile) {
+        body.append("image", photoFile);
+      }
+      const data = await apiFetch(`/pets/edit/${id}`, { method: "PUT", body });
+      showApiSuccess(data, "Mascota actualizada").then(() => navigate("/challenge/dashboard"));
     } catch (err) {
-      Swal.fire({ icon: "error", title: "Error al actualizar", text: err.message, confirmButtonColor: "#494D31" });
+      showApiError(err, "Error al actualizar");
     } finally {
       setSaving(false);
     }
@@ -1246,20 +1304,9 @@ function UpdatePet() {
   return (
     <div style={petUi.screen}>
       <PetTopBar title="Update Pet" onBack={() => navigate("/challenge/dashboard")} />
-      <main style={{ padding: "16px 24px 0", overflowY: "auto", maxHeight: "calc(640px - 44px)" }}>
-        <section style={{ ...petUi.panel, padding: "16px 10px 17px" }}>
-          {/* Preview foto */}
-          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", marginBottom: 10 }}>
-            <div style={{ width: 90, height: 82, borderRadius: 8, background: "#494D31", overflow: "hidden", marginBottom: 6, display: "flex", alignItems: "center", justifyContent: "center" }}>
-              {preview
-                ? <img src={preview} alt="preview" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
-                : <span style={{ fontSize: 28 }}>🐾</span>}
-            </div>
-            <label style={{ cursor: "pointer", fontSize: 12, color: "#C9CDB1", background: "#494D31", padding: "4px 12px", borderRadius: 6 }}>
-              Cambiar foto
-              <input type="file" accept="image/*" onChange={handleFile} style={{ display: "none" }} />
-            </label>
-          </div>
+      <main style={{ flex: 1, padding: "26px 24px 28px", overflowY: "auto" }}>
+        <section style={{ ...petUi.panel, padding: "22px 10px 17px" }}>
+          <PhotoInput preview={photoPreview} onFileChange={handlePhotoChange} />
           <PetInput label="Nombre" name="nombre" value={form.nombre} onChange={handleChange} />
           <PetInput label="Tipo" name="tipo" value={form.tipo} onChange={handleChange} />
           <PetInput label="Peso" name="peso" value={form.peso} onChange={handleChange} type="number" />
@@ -1267,8 +1314,8 @@ function UpdatePet() {
           <PetInput label="Raza" name="raza" value={form.raza} onChange={handleChange} />
           <PetInput label="Ubicación" name="ubicacion" value={form.ubicacion} onChange={handleChange} />
         </section>
-        <div style={{ display: "flex", justifyContent: "center", gap: 17, marginTop: 19, paddingBottom: 16 }}>
-          <PetActionButton variant="outline" onClick={() => navigate("/challenge/dashboard")}>
+        <div style={{ display: "flex", justifyContent: "center", gap: 17, marginTop: 19 }}>
+          <PetActionButton variant="outline" onClick={() => navigate("/challenge/dashboard") }>
             Cancelar
           </PetActionButton>
           <PetActionButton disabled={saving} onClick={handleUpdate}>
@@ -1284,7 +1331,7 @@ function Challenge() {
   // Arranca ya logueado si hay token guardado
   const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("token"));
 
-  const handleLogin = () => setIsLoggedIn(true);
+  const handleLogin  = () => setIsLoggedIn(true);
   const handleLogout = () => setIsLoggedIn(false);
 
   return (
@@ -1297,7 +1344,7 @@ function Challenge() {
         background: "#1a1a1a",
       }}
     >
-      <div style={{ position: "relative", width: 360, height: 640, overflow: "hidden" }}>
+      <div style={{ position: "relative", width: "min(92vw, 420px)", height: "min(94vh, 760px)", maxWidth: 420, maxHeight: 760, overflow: "hidden" }}>
         {!isLoggedIn ? (
           <LoginPixel onLogin={handleLogin} />
         ) : (

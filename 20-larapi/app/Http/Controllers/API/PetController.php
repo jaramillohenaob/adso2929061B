@@ -38,22 +38,28 @@ class PetController extends Controller
             $request->validate([
                 'name'        => 'required|max:50',
                 'kind'        => 'required|max:50',
-                'weight'      => 'required|max:50',
-                'age'         => 'required|max:50',
-                'breed'       => 'required|max:50',
-                'location'    => 'required|max:50',
-                'description' => 'required|max:50',
-                'active'      => 'required',
-                'adopted'     => 'required',
+                'weight'      => 'nullable|max:50',
+                'age'         => 'nullable|max:50',
+                'breed'       => 'nullable|max:50',
+                'location'    => 'nullable|max:50',
+                'description' => 'nullable|max:255',
+                'active'      => 'nullable|boolean',
+                'adopted'     => 'nullable|boolean',
                 'image'       => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:5120',
             ]);
 
             $data = $request->except('image');
 
             if ($request->hasFile('image')) {
-                $file     = $request->file('image');
-                $filename = uniqid('pet_', true) . '.' . $file->getClientOriginalExtension();
-                $file->storeAs('images', $filename, 'public');
+                $file      = $request->file('image');
+                $filename  = uniqid('pet_', true) . '.' . $file->getClientOriginalExtension();
+                $directory = storage_path('app/public/images');
+
+                if (!file_exists($directory)) {
+                    mkdir($directory, 0755, true);
+                }
+
+                $file->move($directory, $filename);
                 $data['image'] = asset('storage/images/' . $filename);
             }
 
@@ -78,10 +84,16 @@ class PetController extends Controller
             $data = $request->except('image');
 
             if ($request->hasFile('image')) {
-                $file     = $request->file('image');
-                $filename = uniqid('pet_', true) . '.' . $file->getClientOriginalExtension();
-                $file->storeAs('images', $filename, 'public');
-                $data['image'] = asset('storage/images/' . $filename);
+                $file      = $request->file('image');
+                $filename  = uniqid('pet_', true) . '.' . $file->getClientOriginalExtension();
+                $directory = public_path('images');
+
+                if (!file_exists($directory)) {
+                    mkdir($directory, 0755, true);
+                }
+
+                $file->move($directory, $filename);
+                $data['image'] = asset('images/' . $filename);
             }
 
             $pet->update($data);
